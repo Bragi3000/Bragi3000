@@ -1,4 +1,6 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# configuration files
+/src/config/*
+!/src/config/*.example.*
 
 # dependencies
 /node_modules
