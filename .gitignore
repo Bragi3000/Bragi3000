@@ -1,6 +1,6 @@
 # configuration files
-/src/config/*
-!/src/config/*.example.*
+/src/Config/*
+!/src/Config/*.example.*
 
 # dependencies
 /node_modules
