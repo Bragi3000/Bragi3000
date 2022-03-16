@@ -18,7 +18,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint ."
   },
   "eslintConfig": {
     "extends": [
@@ -26,6 +27,12 @@
       "react-app/jest"
     ],
     "rules": {
+      "linebreak-style": ["warn", "unix"],
+      "indent": ["warn", 2],
+      "no-trailing-spaces": "warn",
+      "eol-last": ["warn", "always"],
+      "import/no-duplicates": "error",
+      "import/no-namespace": "error",
       "import/no-relative-parent-imports": "warn"
     }
   },
