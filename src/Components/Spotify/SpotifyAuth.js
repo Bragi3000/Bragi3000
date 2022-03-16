@@ -1,4 +1,4 @@
-import spotifyConfig from "../../Config/spotify.example";
+import spotifyConfig from "../../Config/spotify";
 
 
 const SpotifyAuth = function () {
