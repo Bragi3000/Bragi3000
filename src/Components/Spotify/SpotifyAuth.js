@@ -2,9 +2,16 @@ import spotifyConfig from "../../Config/spotify";
 
 
 const SpotifyAuth = function () {
+  const urlParams = new URLSearchParams({
+    client_id: spotifyConfig.clientId,
+    redirect_uri: spotifyConfig.redirectUri,
+    scope: spotifyConfig.scopes.join(" "),
+    response_type: "token",
+    show_dialog: "true"
+  });
+
   return (
-    <a className={""}
-       href={`${spotifyConfig.authEndpoint}?client_id=${spotifyConfig.clientId}&redirect_uri=${spotifyConfig.redirectUri}&scope=${spotifyConfig.scopes.join("%20")}&response_type=token&show_dialog=true`}>
+    <a href={`${spotifyConfig.authEndpoint}?${urlParams.toString()}`}>
       Login to Spotify
     </a>
   )

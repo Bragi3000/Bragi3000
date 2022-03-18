@@ -15,7 +15,6 @@ const spotifyConfig = {
     "playlist-modify-private",
     "ugc-image-upload",
   ],
-  clientSecret: "???",
 }
 
 export default spotifyConfig;

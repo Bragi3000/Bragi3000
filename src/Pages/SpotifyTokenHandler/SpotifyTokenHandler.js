@@ -1,4 +1,5 @@
-import {tokenExtractor} from "Components/index";
+import {tokenExtractor} from "Utils/index";
+import {getPlaybackState} from "API calls/index";
 
 const SpotifyTokenHandler = function () {
   const token = tokenExtractor();
