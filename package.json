@@ -6,10 +6,14 @@
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
+    "firebase": "^9.6.9",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-redux": "^7.2.6",
+    "react-redux-firebase": "^3.11.0",
     "react-router-dom": "^6.2.2",
-    "react-scripts": "5.0.0"
+    "react-scripts": "5.0.0",
+    "redux": "^4.1.2"
   },
   "devDependencies": {
     "eslint-plugin-import": "^2.25.4"
@@ -27,10 +31,19 @@
       "react-app/jest"
     ],
     "rules": {
-      "linebreak-style": ["warn", "unix"],
-      "indent": ["warn", 2],
+      "linebreak-style": [
+        "warn",
+        "unix"
+      ],
+      "indent": [
+        "warn",
+        2
+      ],
       "no-trailing-spaces": "warn",
-      "eol-last": ["warn", "always"],
+      "eol-last": [
+        "warn",
+        "always"
+      ],
       "import/no-duplicates": "error",
       "import/no-namespace": "error",
       "import/no-relative-parent-imports": "warn"
