@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
+import "firebase/compat/database";
 import { Provider } from 'react-redux';
 import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
 
-import { App, LandingPage } from 'Pages';
+import { App, LandingPage, LoginPage } from 'Pages';
 import firebaseConfig from 'Config/firebase';
 import store from 'Store/store';
 
@@ -23,6 +24,7 @@ ReactDOM.render(
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/app" element={<App />} />
+            <Route path="/login" element={<LoginPage />} />
           </Routes>
         </BrowserRouter>
       </ReactReduxFirebaseProvider>
@@ -30,7 +32,3 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
-
-
-
-window.firebase = firebase;
