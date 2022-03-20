@@ -7,7 +7,7 @@ import "firebase/compat/database";
 import { Provider } from 'react-redux';
 import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
 
-import { App, LandingPage, LoginPage } from 'Pages';
+import { App, LandingPage, LoginPage, SignupPage } from 'Pages';
 import firebaseConfig from 'Config/firebase';
 import store from 'Store/store';
 
@@ -25,6 +25,7 @@ ReactDOM.render(
             <Route path="/" element={<LandingPage />} />
             <Route path="/app" element={<App />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignupPage />} />
           </Routes>
         </BrowserRouter>
       </ReactReduxFirebaseProvider>
