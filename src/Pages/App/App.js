@@ -1,11 +1,8 @@
 import LogoutButton from "Components/LogoutButton/LogoutButton";
 import { Navigate } from "react-router";
 import useAuthentication from "Services/firebase/useAuthentication";
-import useTitle from "Utils/useTitle";
 
 const App = function () {
-  useTitle("Bragi 3000");
-
   const { authReady, loggedIn, user } = useAuthentication();
 
   if (!authReady)
