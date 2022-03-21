@@ -10,6 +10,7 @@ import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
 import { App, LandingPage, LoginPage, SignupPage } from 'Pages';
 import firebaseConfig from 'Config/firebase';
 import store from 'Store/store';
+import SpotifyTokenHandler from 'Pages/SpotifyTokenHandler/SpotifyTokenHandler';
 
 firebase.initializeApp(firebaseConfig);
 
@@ -26,6 +27,7 @@ ReactDOM.render(
             <Route path="/app" element={<App />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
+            <Route path="/auth" element={<SpotifyTokenHandler />} />
           </Routes>
         </BrowserRouter>
       </ReactReduxFirebaseProvider>
