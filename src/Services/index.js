@@ -1,3 +1,3 @@
-import { getPlaybackState, addSongToQueue, pauseSong, playSong } from "Spotify/spotifyAPI";
+import { getPlaybackState, addSongToQueue, pauseSong, playSong, searchSong } from "./Spotify/spotifyAPI";
 
-export { getPlaybackState, addSongToQueue, pauseSong, playSong };
+export { getPlaybackState, addSongToQueue, pauseSong, playSong, searchSong };
