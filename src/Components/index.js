@@ -1,3 +1,3 @@
 import SpotifyAuth from "./Spotify/SpotifyAuth";
 
-export {SpotifyAuth};
+export { SpotifyAuth };

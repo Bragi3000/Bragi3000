@@ -1,3 +1,3 @@
 import tokenExtractor from "./Spotify/TokenExtractor";
 
-export {tokenExtractor};
+export { tokenExtractor };

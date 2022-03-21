@@ -1,4 +1,4 @@
-import spotifyConfig from "../../Config/spotify";
+import spotifyConfig from "Config/spotify";
 
 // https://developer.spotify.com/documentation/web-api/reference/#/operations/start-a-users-playback
 function treatHTTPResponse(response) {
