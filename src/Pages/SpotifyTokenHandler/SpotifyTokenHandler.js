@@ -1,12 +1,12 @@
 import {tokenExtractor} from "Utils/index";
-// import {getPlaybackState, addSongToQueue, searchSong, pauseSong, playSong} from "Services/index";
+// import { getPlaybackState, addSongToQueue, searchSong, pauseSong, playSong } from "Services/index";
 
 const SpotifyTokenHandler = function () {
   const token = tokenExtractor();
   console.log(token.access_token);
   // getPlaybackState(token.access_token);
+  // pauseSong(token.access_token);
   // playSong(token.access_token);
-  // searchSong(token.access_token, "Love");
 
   return (
     <div>

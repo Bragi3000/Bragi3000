@@ -8,21 +8,24 @@ const spotifyApi = new SpotifyWebApi({
   redirectUri: spotifyConfig.redirectUri,
 });
 
-// https://developer.spotify.com/documentation/web-api/reference/#/operations/start-a-users-playback
 
-function promiseDataHandler(data){
+function promiseDataHandler(data) {
   console.log(data);
   return data.body;
 }
 
 function promiseErrorHandler(err) {
   console.log(err);
+  throw new Error(`API problem: ${err}`);
 }
 
-// response of this method will contain current song and link to image
+// responses can be checked at https://developer.spotify.com/documentation/web-api/reference/#/
+
+
+// https://developer.spotify.com/documentation/web-api/reference/#/operations/start-a-users-playback
 function getPlaybackState(token) {
   spotifyApi.setAccessToken(token);
-  spotifyApi.getMyCurrentPlaybackState()
+  return spotifyApi.getMyCurrentPlaybackState()
     .then(function (data) {
       if (data.body && data.body.is_playing) {
         // console.log("User is currently playing something!");
@@ -30,26 +33,26 @@ function getPlaybackState(token) {
         return data.body;
       }
     })
-    .catch(promiseErrorHandler)
+    .catch(promiseErrorHandler);
 }
 
 function addSongToQueue(token, songUri) {
   spotifyApi.setAccessToken(token);
-  spotifyApi.addToQueue(songUri)
+  return spotifyApi.addToQueue(songUri)
     .then(promiseDataHandler)
     .catch(promiseErrorHandler);
 }
 
 function pauseSong(token) {
   spotifyApi.setAccessToken(token);
-  spotifyApi.pause()
+  return spotifyApi.pause()
     .then(promiseDataHandler)
     .catch(promiseErrorHandler);
 }
 
 function playSong(token) {
   spotifyApi.setAccessToken(token);
-  spotifyApi.play()
+  return spotifyApi.play()
     .then(promiseDataHandler)
     .catch(promiseErrorHandler);
 }
@@ -57,9 +60,9 @@ function playSong(token) {
 // method can be changed to include offset for infinite scroll, could also make method to search artist etc...
 function searchSong(token, songName) {
   spotifyApi.setAccessToken(token);
-  spotifyApi.searchTracks(songName)
+  return spotifyApi.searchTracks(songName)
     .then(promiseDataHandler)
     .catch(promiseErrorHandler);
 }
 
-export {getPlaybackState, addSongToQueue, playSong, pauseSong, searchSong};
+export { getPlaybackState, addSongToQueue, playSong, pauseSong, searchSong };
