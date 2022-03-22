@@ -1,7 +1,7 @@
 import tokenExtractor from "Utils/Spotify/TokenExtractor";
 // import { getPlaybackState, addSongToQueue, searchSong, pauseSong, playSong } from "Services/Spotify/spotifyAPI";
 
-const SpotifyTokenHandler = function () {
+const SpotifyCallbackPage = function () {
   const token = tokenExtractor();
   console.log(token.access_token);
   // getPlaybackState(token.access_token);
@@ -17,4 +17,4 @@ const SpotifyTokenHandler = function () {
   )
 }
 
-export default SpotifyTokenHandler;
+export default SpotifyCallbackPage;
