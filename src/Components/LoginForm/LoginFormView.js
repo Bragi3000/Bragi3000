@@ -1,7 +1,6 @@
+import { useRef } from "react";
 import { Link } from "react-router-dom";
 import style from "./LoginForm.module.css";
-
-const { useRef } = require("react")
 
 const LoginFormView = function ({ onLogin, error }) {
   const email = useRef();

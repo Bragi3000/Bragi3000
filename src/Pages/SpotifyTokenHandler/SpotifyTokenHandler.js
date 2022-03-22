@@ -1,4 +1,4 @@
-import { tokenExtractor } from "Utils/index";
+import tokenExtractor from "Utils/Spotify/TokenExtractor";
 // import { getPlaybackState, addSongToQueue, searchSong, pauseSong, playSong } from "Services/Spotify/spotifyAPI";
 
 const SpotifyTokenHandler = function () {

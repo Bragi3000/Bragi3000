@@ -1,16 +1,19 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import React from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/database";
-import { Provider } from 'react-redux';
-import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
+import { Provider } from "react-redux";
+import { ReactReduxFirebaseProvider } from "react-redux-firebase";
 
-import { App, LandingPage, LoginPage, SignupPage } from 'Pages';
-import firebaseConfig from 'Config/firebase';
-import store from 'Store/store';
-import SpotifyTokenHandler from 'Pages/SpotifyTokenHandler/SpotifyTokenHandler';
+import firebaseConfig from "Config/firebase";
+import store from "Store/store";
+import SpotifyTokenHandler from "Pages/SpotifyTokenHandler/SpotifyTokenHandler";
+import LandingPage from "Pages/LandingPage/LandingPage";
+import App from "Pages/App/App";
+import LoginPage from "Pages/LoginPage/LoginPage";
+import SignupPage from "Pages/SignupPage/SignupPage";
 
 firebase.initializeApp(firebaseConfig);
 
@@ -33,5 +36,5 @@ ReactDOM.render(
       </ReactReduxFirebaseProvider>
     </Provider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );

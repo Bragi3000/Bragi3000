@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { SpotifyAuth } from "Components/index";
+import SpotifyAuth from "Components/Spotify/SpotifyAuth";
 
 const LandingPage = function () {
   return (
