@@ -23,7 +23,7 @@ ReactDOM.render(
     <Provider store={store}>
       <ReactReduxFirebaseProvider
         firebase={firebase}
-        config={{ userProfile: "users" }}
+        config={{}}
         dispatch={store.dispatch}>
         <BrowserRouter>
           <Routes>
