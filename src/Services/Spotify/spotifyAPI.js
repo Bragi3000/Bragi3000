@@ -1,13 +1,6 @@
 import spotifyConfig from "Config/spotify";
 
-const SpotifyWebApi = require('spotify-web-api-node');
-
-const spotifyApi = new SpotifyWebApi({
-  clientId: spotifyConfig.clientId,
-  clientSecret: spotifyConfig.clientSecret,
-  redirectUri: spotifyConfig.redirectUri,
-});
-
+import SpotifyWebApi from "spotify-web-api-node";
 
 function promiseDataHandler(data) {
   console.log(data);
@@ -19,48 +12,43 @@ function promiseErrorHandler(err) {
   throw new Error(`API problem: ${err}`);
 }
 
-// responses can be checked at https://developer.spotify.com/documentation/web-api/reference/#/
+// https://developer.spotify.com/documentation/web-api/reference/#/operations/get-information-about-the-users-current-playback
+function getPlaybackState(token) {
+  return new SpotifyWebApi({token})
+    .getMyCurrentPlaybackState()
+    .then(promiseDataHandler)
+    .catch(promiseErrorHandler);
+}
 
+// https://developer.spotify.com/documentation/web-api/reference/#/operations/add-to-queue
+function addSongToQueue(token, songUri) {
+  return new SpotifyWebApi({token})
+    .addToQueue(songUri)
+    .then(promiseDataHandler)
+    .catch(promiseErrorHandler);
+}
+
+// https://developer.spotify.com/documentation/web-api/reference/#/operations/pause-a-users-playback
+function pauseSong(token) {
+  return new SpotifyWebApi({token})
+    .pause()
+    .then(promiseDataHandler)
+    .catch(promiseErrorHandler);
+}
 
 // https://developer.spotify.com/documentation/web-api/reference/#/operations/start-a-users-playback
-function getPlaybackState(token) {
-  spotifyApi.setAccessToken(token);
-  return spotifyApi.getMyCurrentPlaybackState()
-    .then(function (data) {
-      if (data.body && data.body.is_playing) {
-        // console.log("User is currently playing something!");
-        // console.log(data.body);
-        return data.body;
-      }
-    })
-    .catch(promiseErrorHandler);
-}
-
-function addSongToQueue(token, songUri) {
-  spotifyApi.setAccessToken(token);
-  return spotifyApi.addToQueue(songUri)
-    .then(promiseDataHandler)
-    .catch(promiseErrorHandler);
-}
-
-function pauseSong(token) {
-  spotifyApi.setAccessToken(token);
-  return spotifyApi.pause()
-    .then(promiseDataHandler)
-    .catch(promiseErrorHandler);
-}
-
 function playSong(token) {
-  spotifyApi.setAccessToken(token);
-  return spotifyApi.play()
+  return new SpotifyWebApi({token})
+    .play()
     .then(promiseDataHandler)
     .catch(promiseErrorHandler);
 }
 
+// https://developer.spotify.com/documentation/web-api/reference/#/operations/search
 // method can be changed to include offset for infinite scroll, could also make method to search artist etc...
 function searchSong(token, songName) {
-  spotifyApi.setAccessToken(token);
-  return spotifyApi.searchTracks(songName)
+  return new SpotifyWebApi({token})
+    .searchTracks(songName)
     .then(promiseDataHandler)
     .catch(promiseErrorHandler);
 }
