@@ -14,6 +14,7 @@ import LandingPage from "Pages/LandingPage/LandingPage";
 import App from "Pages/App/App";
 import LoginPage from "Pages/LoginPage/LoginPage";
 import SignupPage from "Pages/SignupPage/SignupPage";
+import SettingsPage from "Pages/SettingsPage/SettingsPage";
 
 firebase.initializeApp(firebaseConfig);
 
@@ -28,6 +29,7 @@ ReactDOM.render(
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/app" element={<App />} />
+            <Route path="/settings" element={<SettingsPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/auth" element={<SpotifyTokenHandler />} />
