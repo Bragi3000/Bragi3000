@@ -1,5 +1,5 @@
-import React, {useState} from "react"
-import Board from "./Board";
+import React, {useMemo, useState} from "react"
+import TicTacToeView from "./TicTacToeView";
 
 
 export function checkWin(squares, size) {
@@ -50,7 +50,7 @@ export function checkWin(squares, size) {
 export default function TicTacToe({size = 4}) {
   const [board, setBoard] = useState(Array(size * size).fill(null));
   const [currPlayer, setCurrPlayer] = useState(true);
-  const winner = checkWin(board, size);
+  const winner = useMemo(() => checkWin(board, size), [board, size]);
 
   if (winner) {
     console.log(`Winner: ${winner}`)
@@ -67,5 +67,5 @@ export default function TicTacToe({size = 4}) {
     setCurrPlayer(!currPlayer);
   }
 
-  return <Board squares={board} size={size} onClick={handleSetSquare}/>
+  return <TicTacToeView squares={board} size={size} onSetSquare={handleSetSquare}/>
 }
