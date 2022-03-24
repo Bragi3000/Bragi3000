@@ -1,7 +1,7 @@
 import spotifyConfig from "Config/spotify";
+import SpotifyLoginButtonView from "./SpotifyLoginButtonView";
 
-
-const SpotifyAuth = function () {
+const SpotifyLoginButton = function() {
   const urlParams = new URLSearchParams({
     client_id: spotifyConfig.clientId,
     redirect_uri: spotifyConfig.redirectUri,
@@ -10,11 +10,9 @@ const SpotifyAuth = function () {
     show_dialog: "true"
   });
 
-  return (
-    <a href={`${spotifyConfig.authEndpoint}?${urlParams.toString()}`}>
-      Login to Spotify
-    </a>
-  )
-}
+  const url = `${spotifyConfig.authEndpoint}?${urlParams.toString()}`;
 
-export default SpotifyAuth;
+  return <SpotifyLoginButtonView url={url} />;
+};
+
+export default SpotifyLoginButton;

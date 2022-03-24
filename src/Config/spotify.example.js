@@ -6,7 +6,7 @@
 const spotifyConfig = {
   clientId: "???",
   authEndpoint: 'https://accounts.spotify.com/authorize',
-  redirectUri: "http://localhost:3000/auth",
+  redirectUri: "http://localhost:3000/spotify-callback",
   // https://developer.spotify.com/documentation/general/guides/authorization/scopes/
   scopes: [
     "user-read-currently-playing",

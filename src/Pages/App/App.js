@@ -1,5 +1,6 @@
 import LogoutButton from "Components/LogoutButton/LogoutButton";
 import { Navigate } from "react-router";
+import { Link } from "react-router-dom";
 import useAuthentication from "Services/firebase/useAuthentication";
 
 const App = function () {
@@ -20,6 +21,8 @@ const App = function () {
       <span>Hello there, {user.email}!</span>
 
       <LogoutButton />
+
+      <Link to="/settings">Settings</Link>
     </div>
   );
 };

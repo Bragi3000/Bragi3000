@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import SpotifyAuth from "Components/Spotify/SpotifyAuth";
 
 const LandingPage = function () {
   return (
@@ -8,8 +7,6 @@ const LandingPage = function () {
       <br />
       <br />
       <Link to="/app">Open it</Link>
-      <br />
-      <SpotifyAuth />
     </div>
   );
 };
