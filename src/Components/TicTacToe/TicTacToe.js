@@ -10,8 +10,8 @@ function getLines(squares, size) {
   // add columns
   for (let i = 0; i < size; i++) {
     const tmp = [];
-    for (let j = 0; i < size; j++) {
-      tmp.push(i + j * size);
+    for (let j = 0; j < size; j++) {
+      tmp.push(squares[i + j * size]);
     }
     lines.push(tmp);
   }
@@ -47,13 +47,16 @@ function checkTie(squares, size) {
   const lines = getLines(squares, size);
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
+    // line does not contain X
     if (!line.some(e => e === 'X')) {
       return false;
     }
+    // line does not contain O
     if (!line.some(e => e === 'O')) {
       return false;
     }
   }
+  return true;
 }
 
 export default function TicTacToe({size = 4}) {
