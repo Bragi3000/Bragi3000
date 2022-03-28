@@ -7,10 +7,7 @@ const useSetSpotifyAuthData = function () {
   const path = `users/${user.uid}/spotifyAuthData`;
 
   const firebase = useFirebase();
-  return useCallback((data) => {
-    if (user.uid)
-      firebase.set(path, data);
-  }, [user.uid, firebase, path]);
-}
+  return useCallback((data) => firebase.set(path, data), [firebase, path]);
+};
 
 export default useSetSpotifyAuthData;

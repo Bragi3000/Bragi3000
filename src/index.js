@@ -15,6 +15,8 @@ import App from "Pages/App/App";
 import LoginPage from "Pages/LoginPage/LoginPage";
 import SignupPage from "Pages/SignupPage/SignupPage";
 import SettingsPage from "Pages/SettingsPage/SettingsPage";
+import RequireAuthentication from "Components/access-control/RequireAuthentication/RequireAuthentication";
+import RequireSpotifyToken from "Components/access-control/RequireSpotifyToken/RequireSpotifyToken";
 
 firebase.initializeApp(firebaseConfig);
 
@@ -24,15 +26,53 @@ ReactDOM.render(
       <ReactReduxFirebaseProvider
         firebase={firebase}
         config={{}}
-        dispatch={store.dispatch}>
+        dispatch={store.dispatch}
+      >
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<LandingPage />} />
-            <Route path="/app" element={<App />} />
-            <Route path="/settings" element={<SettingsPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/signup" element={<SignupPage />} />
-            <Route path="/spotify-callback" element={<SpotifyCallbackPage />} />
+            <Route
+              path="/app"
+              element={
+                <RequireAuthentication>
+                  <RequireSpotifyToken>
+                    <App />
+                  </RequireSpotifyToken>
+                </RequireAuthentication>
+              }
+            />
+            <Route
+              path="/settings"
+              element={
+                <RequireAuthentication>
+                  <SettingsPage />
+                </RequireAuthentication>
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                <RequireAuthentication reverse>
+                  <LoginPage />
+                </RequireAuthentication>
+              }
+            />
+            <Route
+              path="/signup"
+              element={
+                <RequireAuthentication reverse>
+                  <SignupPage />
+                </RequireAuthentication>
+              }
+            />
+            <Route
+              path="/spotify-callback"
+              element={
+                <RequireAuthentication>
+                  <SpotifyCallbackPage />
+                </RequireAuthentication>
+              }
+            />
           </Routes>
         </BrowserRouter>
       </ReactReduxFirebaseProvider>

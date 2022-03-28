@@ -1,31 +1,27 @@
+import WaitingView from "Components/WaitingView/WaitingView";
 import { useEffect } from "react";
-import { Navigate } from "react-router";
-import useAuthentication from "Services/firebase/useAuthentication";
+import { useNavigate } from "react-router";
 import useSetSpotifyAuthData from "Store/updaters/useSetSpotifyAuthData";
 import useHashParams from "Utils/useHashParams";
 
 const SpotifyCallbackPage = function () {
-  const { authReady, loggedIn } = useAuthentication();
+  const navigate = useNavigate();
   const params = useHashParams();
   const setSpotifyAuthData = useSetSpotifyAuthData();
 
   useEffect(() => {
-    if (authReady && loggedIn && params.get("access_token")) {
+    if (params.get("access_token")) {
       setSpotifyAuthData({
         access_token: params.get("access_token"),
         token_type: params.get("token_type"),
-        expires: Date.now() + (parseInt(params.get("expires_in") * 1000))
+        expires: Date.now() + parseInt(params.get("expires_in") * 1000),
+      }).then(() => {
+        navigate("/settings");
       });
     }
-  }, [authReady, loggedIn, params, setSpotifyAuthData]);
+  }, [params, setSpotifyAuthData, navigate]);
 
-  if (!authReady)
-    return <span>Waiting for auth...</span>;
-
-  if (!loggedIn)
-    return <Navigate replace to="/login" />;
-
-  return <Navigate replace to="/settings" />;
-}
+  return <WaitingView text="Updating token data" />;
+};
 
 export default SpotifyCallbackPage;

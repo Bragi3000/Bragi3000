@@ -4,11 +4,10 @@ import useAuthentication from "Services/firebase/useAuthentication";
 
 const useSpotifyAuthData = function () {
   const { user } = useAuthentication();
-  const path = `users/${user.uid}/spotifyAuthData`;
 
-  useFirebaseConnect(path);
+  useFirebaseConnect(user.uid ? `users/${user.uid}/spotifyAuthData` : [], user.uid);
   return useSelector(({ firebase: { data } }) => (
-    (data.users && data.users[user.uid] && data.users[user.uid].spotifyAuthData)
+    data.users && data.users[user.uid] && data.users[user.uid].spotifyAuthData
   ));
 }
 
