@@ -1,10 +1,10 @@
 import { isEmpty, isLoaded } from "react-redux-firebase";
 import { Navigate } from "react-router";
-import useAuthentication from "Services/firebase/useAuthentication";
+import useUserData from "Services/firebase/useUserData";
 import WaitingView from "Components/WaitingView/WaitingView";
 
 const RequireAuthentication = function ({ children, reverse = false }) {
-  const { user: userData } = useAuthentication();
+  const userData = useUserData();
 
   if (!isLoaded(userData))
     return <WaitingView text="Waiting for Firebase" />;

@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux";
 import { useFirebaseConnect } from "react-redux-firebase";
-import useAuthentication from "Services/firebase/useAuthentication";
+import useUserData from "Services/firebase/useUserData";
 
 const useSpotifyAuthData = function () {
-  const { user } = useAuthentication();
+  const user = useUserData();
 
   useFirebaseConnect(user.uid ? `users/${user.uid}/spotifyAuthData` : [], user.uid);
   return useSelector(({ firebase: { data } }) => (

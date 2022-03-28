@@ -1,9 +1,9 @@
 import LogoutButton from "Components/LogoutButton/LogoutButton";
 import { Link } from "react-router-dom";
-import useAuthentication from "Services/firebase/useAuthentication";
+import useUserData from "Services/firebase/useUserData";
 
 const App = function () {
-  const { user } = useAuthentication();
+  const user = useUserData();
 
   return (
     <div className="App">

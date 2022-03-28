@@ -1,9 +1,9 @@
 import { useCallback } from "react";
 import { useFirebase } from "react-redux-firebase";
-import useAuthentication from "Services/firebase/useAuthentication";
+import useUserData from "Services/firebase/useUserData";
 
 const useSetSpotifyAuthData = function () {
-  const { user } = useAuthentication();
+  const user = useUserData();
   const path = `users/${user.uid}/spotifyAuthData`;
 
   const firebase = useFirebase();
