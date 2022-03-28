@@ -70,6 +70,7 @@ export default function TicTacToe({size = 4}) {
     setBoard(Array(size * size).fill(null));
   } else if (tie) {
     console.log(`Tie`);
+    setBoard(Array(size * size).fill(null));
   }
 
   function handleSetSquare(i) {
