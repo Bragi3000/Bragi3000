@@ -1,11 +1,13 @@
-.square {}
+.squareEmpty {
+  font-size: 50px;
+}
 
-.square-cross {
+.squareCross {
   font-size: 50px;
   color: red;
 }
 
-.square-circle {
+.squareCircle {
   font-size: 50px;
   color: blue;
 }
