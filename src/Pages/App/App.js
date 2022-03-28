@@ -1,20 +1,9 @@
 import LogoutButton from "Components/LogoutButton/LogoutButton";
-import { Navigate } from "react-router";
 import { Link } from "react-router-dom";
-import useAuthentication from "Services/firebase/useAuthentication";
+import useUserData from "Services/firebase/useUserData";
 
 const App = function () {
-  const { authReady, loggedIn, user } = useAuthentication();
-
-  if (!authReady)
-    return (
-      <span>Waiting for auth...</span>
-    );
-
-  if (!loggedIn)
-    return (
-      <Navigate replace to="/login" />
-    );
+  const user = useUserData();
 
   return (
     <div className="App">
