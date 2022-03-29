@@ -1,7 +1,7 @@
 import {getPlaybackState, playSong, pauseSong} from "Services/Spotify/spotifyAPI";
 import {useState, useEffect} from "react";
 import useSpotifyAuth from "Store/selectors/useSpotifyAuthData"
-
+import bragiIcon from "Assets/images/bragi-icon.png"
 import SpotifyControlView from "./SpotifyControlView";
 
 const SpotifyControl = function () {
@@ -9,7 +9,7 @@ const SpotifyControl = function () {
 
   const [playBackState, setPlayBackState] = useState(null);
   const [data, setData] = useState({
-    "image_src": process.env.PUBLIC_URL + "/bragi-icon.png",
+    "image_src": bragiIcon,
     "name": "Bragi",
     "artist": "3000",
     "is_playing": false,

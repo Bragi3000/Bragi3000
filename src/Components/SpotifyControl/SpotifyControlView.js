@@ -1,8 +1,7 @@
 import styles from "./SpotifyControl.module.css"
+import playIcon from "Assets/images/play-icon.png";
+import pauseIcon from "Assets/images/pause-icon.png";
 
-const publicPath = process.env.PUBLIC_URL;
-const playIcon = publicPath + "/play-icon.png"
-const pauseIcon = publicPath + "/pause-icon.png"
 
 const SpotifyControlView = function ({onModifyPlayback, data}) {
   return (
