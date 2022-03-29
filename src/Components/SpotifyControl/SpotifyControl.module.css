@@ -1,0 +1,23 @@
+.controlBar {
+  display: flex;
+  justify-content: center;
+  background-color: #444;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.controlBar img {
+  width: 100px;
+  margin: 10px;
+}
+
+.containerRow{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: white;
+  font-size: 20px;
+}
+

@@ -10,7 +10,8 @@ const SpotifyControl = function () {
   const [playBackState, setPlayBackState] = useState(null);
   const [data, setData] = useState({
     "image_src": null,
-    "name": "temp",
+    "name": null,
+    "artist": null,
     "is_playing": false,
   });
   const [isPlaying, setIsPlaying] = useState(null)
@@ -25,15 +26,12 @@ const SpotifyControl = function () {
     setData({
       "image_src": playback_data.body.item.album.images[0].url,
       "name": playback_data.body.item.name,
+      "artist": playback_data.body.item.artists.map((artist)=>artist.name).join(", "),
       "is_playing": playback_data.body.is_playing,
     });
     setIsPlaying(playback_data.body.is_playing);
     return playback_data.body;
   }
-
-  useEffect(() => {
-    console.log(data)
-  }, [data]);
 
   const handlePlay = () => {
     isPlaying ? pauseSong(token.access_token) : playSong(token.access_token);
