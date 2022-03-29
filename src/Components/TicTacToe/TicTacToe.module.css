@@ -1,0 +1,19 @@
+.squareEmpty {
+  font-size: 50px;
+}
+
+.squareCross {
+  font-size: 50px;
+  color: red;
+}
+
+.squareCircle {
+  font-size: 50px;
+  color: blue;
+}
+
+.TicTacToe {
+  display: grid;
+  width: 500px;
+  height: 500px;
+}
