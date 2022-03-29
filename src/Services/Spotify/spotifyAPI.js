@@ -14,7 +14,7 @@ function promiseErrorHandler(err) {
 
 // https://developer.spotify.com/documentation/web-api/reference/#/operations/get-information-about-the-users-current-playback
 function getPlaybackState(token) {
-  return new SpotifyWebApi({token})
+  return new SpotifyWebApi({'accessToken':token})
     .getMyCurrentPlaybackState()
     .then(promiseDataHandler)
     .catch(promiseErrorHandler);
@@ -22,7 +22,7 @@ function getPlaybackState(token) {
 
 // https://developer.spotify.com/documentation/web-api/reference/#/operations/add-to-queue
 function addSongToQueue(token, songUri) {
-  return new SpotifyWebApi({token})
+  return new SpotifyWebApi({'accessToken':token})
     .addToQueue(songUri)
     .then(promiseDataHandler)
     .catch(promiseErrorHandler);
@@ -30,7 +30,7 @@ function addSongToQueue(token, songUri) {
 
 // https://developer.spotify.com/documentation/web-api/reference/#/operations/pause-a-users-playback
 function pauseSong(token) {
-  return new SpotifyWebApi({token})
+  return new SpotifyWebApi({'accessToken':token})
     .pause()
     .then(promiseDataHandler)
     .catch(promiseErrorHandler);
@@ -38,7 +38,7 @@ function pauseSong(token) {
 
 // https://developer.spotify.com/documentation/web-api/reference/#/operations/start-a-users-playback
 function playSong(token) {
-  return new SpotifyWebApi({token})
+  return new SpotifyWebApi({'accessToken':token})
     .play()
     .then(promiseDataHandler)
     .catch(promiseErrorHandler);
@@ -47,7 +47,7 @@ function playSong(token) {
 // https://developer.spotify.com/documentation/web-api/reference/#/operations/search
 // method can be changed to include offset for infinite scroll, could also make method to search artist etc...
 function searchSong(token, songName) {
-  return new SpotifyWebApi({token})
+  return new SpotifyWebApi({'accessToken':token})
     .searchTracks(songName)
     .then(promiseDataHandler)
     .catch(promiseErrorHandler);
