@@ -1,16 +1,15 @@
 .controlBar {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   background-color: #444;
-  overflow: hidden;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
+  width: 50%;
+  border-radius: 20px;
 }
 
 .controlBar img {
   width: 100px;
   margin: 10px;
+  border-radius: 10px;
 }
 
 .containerRow{

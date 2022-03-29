@@ -12,7 +12,7 @@ const SpotifyControlView = function ({onModifyPlayback, data}) {
         <span className={"title"}> {data.name} </span>
         <span className={"artist"}> {data.artist} </span>
       </div>
-      <img src={data.is_playing ? playIcon : pauseIcon} alt={"_"} onClick={onModifyPlayback}/>
+      <img src={data.is_playing ? pauseIcon : playIcon} alt={"_"} onClick={onModifyPlayback}/>
     </div>
   )
 }
