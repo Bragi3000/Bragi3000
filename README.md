@@ -1,5 +1,8 @@
 # Bragi 3000
 
+![bragi-icon](public/bragi-icon.png)
+
+
 | Command         | Description |
 |-----------------|-------------|
 | `npm run start` | Starts app in development mode |
