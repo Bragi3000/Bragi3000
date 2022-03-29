@@ -2,6 +2,7 @@ import LogoutButton from "Components/LogoutButton/LogoutButton";
 import { Navigate } from "react-router";
 import { Link } from "react-router-dom";
 import useAuthentication from "Services/firebase/useAuthentication";
+import SpotifyControl from "../../Components/SpotifyControl/SpotifyControl";
 
 const App = function () {
   const { authReady, loggedIn, user } = useAuthentication();
@@ -23,6 +24,8 @@ const App = function () {
       <LogoutButton />
 
       <Link to="/settings">Settings</Link>
+
+      <SpotifyControl/>
     </div>
   );
 };
