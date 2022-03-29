@@ -1,11 +1,13 @@
 import {getPlaybackState, playSong, pauseSong} from "Services/Spotify/spotifyAPI";
 import {useState, useEffect} from "react";
+import useSpotifyAuth from "Store/selectors/useSpotifyAuthData"
 
 import SpotifyControlView from "./SpotifyControlView";
 
 // we might want a function to access the token from firebase instead of passing it to the component
-const SpotifyControl = function (token) {
-  const [playBackState, setPlayBackState] = useState(getPlaybackState(token));
+const SpotifyControl = function () {
+  const {access_token} = useSpotifyAuth();
+  const [playBackState, setPlayBackState] = useState(getPlaybackState(access_token));
   const [data, setData] = useState(null);
   const [isPlaying, setIsPlaying] = useState(null)
 
@@ -19,9 +21,9 @@ const SpotifyControl = function (token) {
   useEffect(handleData, [playBackState]);
 
   const handlePlay = (isPlaying) => {
-    isPlaying ? pauseSong(token) : playSong(token);
+    isPlaying ? pauseSong(access_token) : playSong(access_token);
     setIsPlaying(!isPlaying);
-    setPlayBackState(getPlaybackState(token));
+    setPlayBackState(getPlaybackState(access_token));
   }
 
   return (
@@ -31,3 +33,5 @@ const SpotifyControl = function (token) {
     />
   )
 }
+
+export default SpotifyControl;
