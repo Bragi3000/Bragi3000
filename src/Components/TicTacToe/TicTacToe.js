@@ -1,5 +1,6 @@
 import React, {useMemo, useState} from "react"
 import TicTacToeView from "./TicTacToeView";
+import bragiIcon from "Assets/images/bragi-icon.png"
 
 function getLines(squares, size) {
   const lines = [];
@@ -59,7 +60,7 @@ function checkTie(squares, size) {
   return true;
 }
 
-export default function TicTacToe({size = 4}) {
+export default function TicTacToe({size = 4, circleIcon = bragiIcon, crossIcon = bragiIcon}) {
   const [board, setBoard] = useState(Array(size * size).fill(null));
   const [currPlayer, setCurrPlayer] = useState(true);
   const winner = useMemo(() => checkWin(board, size), [board, size]);
@@ -83,5 +84,6 @@ export default function TicTacToe({size = 4}) {
     setCurrPlayer(!currPlayer);
   }
 
-  return <TicTacToeView squares={board} size={size} onSetSquare={handleSetSquare}/>
+  return <TicTacToeView squares={board} size={size} onSetSquare={handleSetSquare}
+    circleIcon={circleIcon} crossIcon={crossIcon}/>
 }
