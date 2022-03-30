@@ -28,7 +28,7 @@ const SpotifyControl = function () {
   useEffect(() => {
     const interval = setInterval(() => {
       updatePlaybackState();
-    }, Math.max(playbackState.duration_ms - playbackState.progress_ms, 15000));
+    }, Math.min(playbackState.duration_ms - playbackState.progress_ms, 15000));
     return () => clearInterval(interval);
   }, [playbackState]);
 
