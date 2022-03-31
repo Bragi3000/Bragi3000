@@ -1,3 +1,5 @@
+import styles from "./SongSelector.module.css";
+
 const SelectedSongView = function ({
   song,
   isConfirmed = false,
@@ -5,15 +7,25 @@ const SelectedSongView = function ({
   onCancel = () => {},
 }) {
   return (
-    <div>
-      <img src={song.album.images[2].url} alt="" />
-      <span>{song.name}</span>
-      <br />
-      <span>{song.artists.map((artist) => artist.name).join(", ")}</span>
-      <br />
-      <button disabled={isConfirmed} onClick={() => onConfirm()}>Confirm</button>
-      <button hidden={isConfirmed} onClick={() => onCancel()}>Cancel</button>
-    </div>
+    <>
+      <div className={styles.selectedSong}>
+        <img
+          className={styles.songImage}
+          src={song.album.images[2].url}
+          alt=""
+        />
+        <div className={styles.songDetails}>
+          <span className={styles.songTitle}>{song.name}</span>
+          <span>{song.artists.map((artist) => artist.name).join(", ")}</span>
+        </div>
+      </div>
+      <button disabled={isConfirmed} onClick={() => onConfirm()}>
+        Confirm
+      </button>
+      <button hidden={isConfirmed} onClick={() => onCancel()}>
+        Cancel
+      </button>
+    </>
   );
 };
 

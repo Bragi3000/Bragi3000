@@ -4,6 +4,7 @@ import useSpotifyAuthData from "Store/selectors/useSpotifyAuthData";
 import SearchFormView from "./SearchFormView";
 import SearchResultsView from "./SearchResultsView";
 import SelectedSongView from "./SelectedSongView";
+import styles from "./SongSelector.module.css";
 
 const SongSelector = function () {
   const { access_token } = useSpotifyAuthData();
@@ -31,7 +32,7 @@ const SongSelector = function () {
   };
 
   return (
-    <>
+    <div className={styles.holder}>
       {!selectedSong ? (
         <>
           <SearchFormView onSearch={handleSearch} />
@@ -48,7 +49,7 @@ const SongSelector = function () {
           onCancel={handleCancelSong}
         />
       )}
-    </>
+    </div>
   );
 };
 

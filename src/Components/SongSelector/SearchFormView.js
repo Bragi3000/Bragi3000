@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import styles from "./SongSelector.module.css";
 
 const SearchFormView = function ({
   onQueryChange = (query) => {},
@@ -16,7 +17,7 @@ const SearchFormView = function ({
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className={styles.searchForm} onSubmit={handleSubmit}>
       <input type="text" placeholder="Search song" ref={query} onChange={handleChange} />
       <input type="submit" value="Search!" />
     </form>
