@@ -14,6 +14,7 @@ const SongSelector = function () {
   const [songConfirmed, setSongConfirmed] = useState(false);
 
   const handleSearch = (query) => {
+    query = query ? query : "Never Gonna Give You Up Rick Astley";
     searchSong(access_token, query).then((data) => {
       if (data.statusCode === 200) setSearchResults(data.body.tracks.items);
     });
