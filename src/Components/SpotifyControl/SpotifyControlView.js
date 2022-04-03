@@ -10,7 +10,6 @@ import pauseIcon from "Assets/images/pause-icon.png";
  * @param {boolean} is_playing playing status of current song
  * @param {string} artists artists of the current song
  * @returns {JSX.Element} View with current song information
- * @constructor
  */
 const SpotifyControlView = function ({onModifyPlayback, name, imageSrc, is_playing, artists}) {
   return (
