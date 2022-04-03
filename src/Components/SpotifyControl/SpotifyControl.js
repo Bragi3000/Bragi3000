@@ -4,6 +4,10 @@ import useSpotifyAuth from "Store/selectors/useSpotifyAuthData"
 import bragiIcon from "Assets/images/bragi-icon.png"
 import SpotifyControlView from "./SpotifyControlView";
 
+/**
+ * Component for current song information showing play/pause button, cover image, name of song and artists
+ * @returns {JSX.Element} SpotifyControlView with current song information
+ */
 const SpotifyControl = function () {
   const token = useSpotifyAuth();
   const [playbackState, setPlaybackState] = useState({
