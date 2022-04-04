@@ -2,8 +2,7 @@ import { useEffect } from "react";
 
 /**
  * Hook to set the title of the page
- *
- * @param {String} title Title of the page
+ * @param title Title to set
  */
 const useTitle = function (title) {
   useEffect(() => {

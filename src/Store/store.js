@@ -7,6 +7,12 @@ import {
   actionTypes as rrfActionTypes,
 } from "react-redux-firebase";
 
+/**
+ * The complete Redux store used by the app. Includes custom reducer slices,
+ * as well as a Firebase reducer from React-Redux-Firebase.
+ * Middleware is provided by Redux Toolkit to allow for dispatching thunks,
+ * immutability in reducers without worrying, and extra checks.
+ */
 const store = configureStore({
   reducer: {
     firebase: firebaseReducer,
