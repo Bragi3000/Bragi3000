@@ -1,5 +1,10 @@
-import styles from "./SongSelector.module.css";
+import styles from "../SongSelector.module.css";
 
+/**
+ * View showing song results after a search.
+ * @param props.songs List of songs to show
+ * @param props.onSelectSong Event that fires when clicking a song
+ */
 const SearchResultsView = function ({
   songs = [],
   onSelectSong: onSongSelect = (song) => {},

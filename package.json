@@ -46,8 +46,7 @@
         "always"
       ],
       "import/no-duplicates": "error",
-      "import/no-namespace": "error",
-      "import/no-relative-parent-imports": "warn"
+      "import/no-namespace": "error"
     }
   },
   "browserslist": {
