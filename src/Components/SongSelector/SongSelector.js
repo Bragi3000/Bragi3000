@@ -1,35 +1,59 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { searchSong } from "Services/Spotify/spotifyAPI";
 import useSpotifyAuthData from "Store/selectors/useSpotifyAuthData";
+import {
+  cancelSelectedSong,
+  confirmSelectedSong,
+  selectSelectedSong,
+  selectSongIsAlreadyChosen,
+  selectSongIsConfirmed,
+  setSelectedSong,
+} from "Store/slices/selectedSongs";
 import SearchFormView from "./SearchFormView";
 import SearchResultsView from "./SearchResultsView";
 import SelectedSongView from "./SelectedSongView";
 import styles from "./SongSelector.module.css";
 
-const SongSelector = function () {
+const defaultSearchQuery = window.atob(
+  "YXJ0aXN0OlJpY2sgQXN0bGV5IGFsYnVtOldoZW5ldmVyIFlvdSBOZWVkIFNvbWVib2R5IHRyYWNrOk5ldmVyIEdvbm5hIEdpdmUgWW91IFVw"
+);
+
+const SongSelector = function ({ player }) {
   const { access_token } = useSpotifyAuthData();
 
+  const dispatch = useDispatch();
+
+  const selectedSong = useSelector((state) =>
+    selectSelectedSong(state, player)
+  );
+
+  const songConfirmed = useSelector((state) =>
+    selectSongIsConfirmed(state, player)
+  );
+
+  const songIsAlreadyChosen = useSelector((state) =>
+    selectSongIsAlreadyChosen(state, player)
+  );
+
   const [searchResults, setSearchResults] = useState([]);
-  const [selectedSong, setSelectedSong] = useState(null);
-  const [songConfirmed, setSongConfirmed] = useState(false);
 
   const handleSearch = (query) => {
-    query = query ? query : "Never Gonna Give You Up Rick Astley";
-    searchSong(access_token, query).then((data) => {
+    searchSong(access_token, query || defaultSearchQuery).then((data) => {
       if (data.statusCode === 200) setSearchResults(data.body.tracks.items);
     });
   };
 
   const handleSelectSong = (song) => {
-    setSelectedSong(song);
+    dispatch(setSelectedSong({ player, song }));
   };
 
   const handleConfirmSong = () => {
-    setSongConfirmed(true);
-  }
+    dispatch(confirmSelectedSong({ player }));
+  };
 
   const handleCancelSong = () => {
-    setSelectedSong(null);
+    dispatch(cancelSelectedSong({ player }));
   };
 
   return (
@@ -46,6 +70,7 @@ const SongSelector = function () {
         <SelectedSongView
           song={selectedSong}
           isConfirmed={songConfirmed}
+          isAlreadyChosen={songIsAlreadyChosen}
           onConfirm={handleConfirmSong}
           onCancel={handleCancelSong}
         />

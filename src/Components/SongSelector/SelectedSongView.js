@@ -3,6 +3,7 @@ import styles from "./SongSelector.module.css";
 const SelectedSongView = function ({
   song,
   isConfirmed = false,
+  isAlreadyChosen = false,
   onConfirm = () => {},
   onCancel = () => {},
 }) {
@@ -19,7 +20,7 @@ const SelectedSongView = function ({
           <span>{song.artists.map((artist) => artist.name).join(", ")}</span>
         </div>
       </div>
-      <button disabled={isConfirmed} onClick={() => onConfirm()}>
+      <button disabled={isConfirmed || isAlreadyChosen} onClick={() => onConfirm()}>
         Confirm
       </button>
       <button hidden={isConfirmed} onClick={() => onCancel()}>
