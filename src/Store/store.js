@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import selectedSongs from "./slices/selectedSongs";
+import songSearch from "./slices/songSearch";
 import {
   firebaseReducer,
   getFirebase,
@@ -10,6 +11,7 @@ const store = configureStore({
   reducer: {
     firebase: firebaseReducer,
     selectedSongs,
+    songSearch,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
