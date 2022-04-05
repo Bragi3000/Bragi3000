@@ -20,6 +20,10 @@ import RequireSpotifyToken from "Components/access-control/RequireSpotifyToken/R
 
 firebase.initializeApp(firebaseConfig);
 
+/**
+ * The initial React render to bootstrap the application with all necessary
+ * providers, as well as configuring routes and their access control.
+ */
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

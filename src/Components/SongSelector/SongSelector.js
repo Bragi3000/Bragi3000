@@ -1,57 +1,15 @@
-import { useState } from "react";
-import { searchSong } from "Services/Spotify/spotifyAPI";
-import useSpotifyAuthData from "Store/selectors/useSpotifyAuthData";
-import SearchFormView from "./SearchFormView";
-import SearchResultsView from "./SearchResultsView";
-import SelectedSongView from "./SelectedSongView";
-import styles from "./SongSelector.module.css";
+import { connect } from "react-redux";
+import { selectSelectedSong } from "Store/slices/selectedSongs";
+import SongSelectorView from "./SongSelectorView";
 
-const SongSelector = function () {
-  const { access_token } = useSpotifyAuthData();
-
-  const [searchResults, setSearchResults] = useState([]);
-  const [selectedSong, setSelectedSong] = useState(null);
-  const [songConfirmed, setSongConfirmed] = useState(false);
-
-  const handleSearch = (query) => {
-    query = query ? query : "Never Gonna Give You Up Rick Astley";
-    searchSong(access_token, query).then((data) => {
-      if (data.statusCode === 200) setSearchResults(data.body.tracks.items);
-    });
-  };
-
-  const handleSelectSong = (song) => {
-    setSelectedSong(song);
-  };
-
-  const handleConfirmSong = () => {
-    setSongConfirmed(true);
-  }
-
-  const handleCancelSong = () => {
-    setSelectedSong(null);
-  };
-
-  return (
-    <div className={styles.holder}>
-      {!selectedSong ? (
-        <>
-          <SearchFormView onSearch={handleSearch} />
-          <SearchResultsView
-            songs={searchResults}
-            onSelectSong={handleSelectSong}
-          />
-        </>
-      ) : (
-        <SelectedSongView
-          song={selectedSong}
-          isConfirmed={songConfirmed}
-          onConfirm={handleConfirmSong}
-          onCancel={handleCancelSong}
-        />
-      )}
-    </div>
-  );
-};
+/**
+ * Component that allows the user to search for and select songs.
+ * Presenter for {@link SongSelectorView}, wiring it to the store.
+ * @param props.player The player for whom the component is
+ * @param props.selectedSong The currently selected song (if any)
+ */
+const SongSelector = connect((state, { player }) => ({
+  selectedSong: selectSelectedSong(state, player),
+}))(SongSelectorView);
 
 export default SongSelector;

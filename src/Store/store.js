@@ -1,7 +1,38 @@
-import { createStore } from "redux";
+import { configureStore } from "@reduxjs/toolkit";
+import selectedSongs from "./slices/selectedSongs";
+import songSearch from "./slices/songSearch";
+import {
+  firebaseReducer,
+  getFirebase,
+  actionTypes as rrfActionTypes,
+} from "react-redux-firebase";
 
-import rootReducer from "./reducers";
-
-const store = createStore(rootReducer, {});
+/**
+ * The complete Redux store used by the app. Includes custom reducer slices,
+ * as well as a Firebase reducer from React-Redux-Firebase.
+ * Middleware is provided by Redux Toolkit to allow for dispatching thunks,
+ * immutability in reducers without worrying, and extra checks.
+ */
+const store = configureStore({
+  reducer: {
+    firebase: firebaseReducer,
+    selectedSongs,
+    songSearch,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: Object.keys(rrfActionTypes).map(
+          (type) => `@@reactReduxFirebase/${type}`
+        ),
+        ignoredPaths: ["firebase", "firestore"],
+      },
+      thunk: {
+        extraArgument: {
+          getFirebase,
+        },
+      },
+    }),
+});
 
 export default store;
