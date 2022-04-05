@@ -1,6 +1,14 @@
 import React, {useMemo, useState} from "react"
 import TicTacToeView from "./TicTacToeView";
 import bragiIcon from "Assets/images/bragi-icon.png"
+import {
+  selectSelectedSong,
+  selectSongIsConfirmed,
+} from "Store/slices/selectedSongs";
+
+import { LEFT_PLAYER, RIGHT_PLAYER } from "Constants/players";
+import {useSelector} from "react-redux";
+
 
 function getLines(squares, size) {
   const lines = [];
@@ -66,6 +74,16 @@ export default function TicTacToe({size = 4, circleIcon = bragiIcon, crossIcon =
   const winner = useMemo(() => checkWin(board, size), [board, size]);
   const tie = useMemo(() => checkTie(board, size), [board, size]);
 
+  const leftSongConfirmed = useSelector(state => selectSongIsConfirmed(state, LEFT_PLAYER));
+  const rightSongConfirmed = useSelector(state => selectSongIsConfirmed(state, RIGHT_PLAYER));
+  const leftSong = useSelector(state => selectSelectedSong(state, LEFT_PLAYER));
+  const rightSong = useSelector(state => selectSelectedSong(state, RIGHT_PLAYER));
+
+  if (leftSongConfirmed && rightSongConfirmed) {
+    circleIcon = leftSong.album.images[0].url;
+    crossIcon = rightSong.album.images[0].url;
+  }
+
   if (winner) {
     console.log(`Winner: ${winner}`)
     setBoard(Array(size * size).fill(null));
@@ -76,7 +94,7 @@ export default function TicTacToe({size = 4, circleIcon = bragiIcon, crossIcon =
 
   function handleSetSquare(i) {
     const boardCopy = [...board];
-    if (winner || boardCopy[i]) {
+    if (winner || boardCopy[i] || !(leftSongConfirmed && rightSongConfirmed)) {
       return;
     }
     boardCopy[i] = currPlayer ? "X" : "O";
