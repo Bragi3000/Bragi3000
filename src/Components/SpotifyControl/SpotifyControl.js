@@ -1,5 +1,5 @@
 import {getPlaybackState, playSong, pauseSong} from "Services/Spotify/spotifyAPI";
-import {useState, useEffect} from "react";
+import {useState, useEffect, useCallback} from "react";
 import useSpotifyAuth from "Store/selectors/useSpotifyAuthData"
 import bragiIcon from "Assets/images/bragi-icon.png"
 import SpotifyControlView from "./SpotifyControlView";
@@ -28,13 +28,21 @@ const SpotifyControl = function () {
     }
   }, [token]);
 
+  const updatePlaybackState = useCallback(() => {
+    getPlaybackState(token.access_token)
+      .then((newData) => {
+        if (newData.statusCode === 200) setPlaybackState(handleData(newData.body));
+      }).catch((err) => {
+        console.log(err);
+      });
+  }, [token.access_token]);
 
   useEffect(() => {
     const interval = setInterval(() => {
       updatePlaybackState();
     }, Math.min(playbackState.duration_ms - playbackState.progress_ms, 15000));
     return () => clearInterval(interval);
-  }, [playbackState]);
+  }, [playbackState, updatePlaybackState]);
 
   const handleData = (newData) => {
     return {
@@ -45,15 +53,6 @@ const SpotifyControl = function () {
       progress_ms: newData.progress_ms,
       duration_ms: newData.item.duration_ms,
     };
-  }
-
-  const updatePlaybackState = () => {
-    getPlaybackState(token.access_token)
-      .then((newData) => {
-        if (newData.statusCode === 200) setPlaybackState(handleData(newData.body));
-      }).catch((err) => {
-      console.log(err);
-    });
   }
 
   const handlePlay = () => {
