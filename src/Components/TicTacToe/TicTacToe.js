@@ -2,6 +2,13 @@ import React, {useMemo, useState} from "react"
 import TicTacToeView from "./TicTacToeView";
 import bragiIcon from "Assets/images/bragi-icon.png"
 
+
+/**
+ * Get all the lines of the board which can be used to win the game.
+ * @param {Array} squares - Array of the squares of the board
+ * @param {Integer} size - Size of the board
+ * @return {Array} lines - Array containing all the lines of the board
+ */
 function getLines(squares, size) {
   const lines = [];
   // add rows
@@ -29,6 +36,11 @@ function getLines(squares, size) {
   return lines;
 }
 
+/**
+ * Check if one of the players has won the game.
+ * @param {Array} squares - Array of the squares of the board
+ * @param {Integer} size - Size of the board
+ */
 function checkWin(squares, size) {
   const lines = getLines(squares, size);
   for (let i = 0; i < lines.length; i++) {
@@ -39,6 +51,12 @@ function checkWin(squares, size) {
   }
 }
 
+/**
+ * Check if the game is a draw. This is the case if the game is not won
+ * but there exists not line which only contains O or X.
+ * @param {Array} squares - Array of the squares of the board
+ * @param {Integer} size - Size of the board
+ */
 function checkTie(squares, size) {
   // check if all fields are occupied
   const occupiedFields = squares.filter(x => x !== null).length
@@ -60,6 +78,12 @@ function checkTie(squares, size) {
   return true;
 }
 
+/**
+ * Component for the TicTacToe game.
+ * @param {Integer} size - Size of the board (default: 4)
+ * @param {String} circleIcon - Path of Icon for the circlePlayer
+ * @param {String} crossIcon - Icon for the crossPlayer
+ */
 export default function TicTacToe({size = 4, circleIcon = bragiIcon, crossIcon = bragiIcon}) {
   const [board, setBoard] = useState(Array(size * size).fill(null));
   const [currPlayer, setCurrPlayer] = useState(true);
@@ -74,6 +98,10 @@ export default function TicTacToe({size = 4, circleIcon = bragiIcon, crossIcon =
     setBoard(Array(size * size).fill(null));
   }
 
+  /**
+   * Callback to handle the click on a square.
+   * @param {Integer} i - Index of the square
+   */
   function handleSetSquare(i) {
     const boardCopy = [...board];
     if (winner || boardCopy[i]) {

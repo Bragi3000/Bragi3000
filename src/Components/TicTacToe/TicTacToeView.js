@@ -1,6 +1,14 @@
 import React from "react"
 import styles from "./TicTacToe.module.css";
 
+/**
+ * Subcomponent representing one square of the TicTacToe board.
+ * @param  value - The value of the square "X", "O", or " "
+ * @param onClick
+ * @param icon
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function Square({value, onClick, icon}) {
   let squareStyle;
   let square;
