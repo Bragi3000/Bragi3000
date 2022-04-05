@@ -4,6 +4,7 @@ import SpotifyControl from "Components/SpotifyControl/SpotifyControl";
 import useUserData from "Services/firebase/useUserData";
 import SongSelector from "Components/SongSelector/SongSelector";
 import { LEFT_PLAYER, RIGHT_PLAYER } from "Constants/players";
+import TicTacToe from "../../Components/TicTacToe/TicTacToe";
 
 const App = function () {
   const user = useUserData();
@@ -19,6 +20,8 @@ const App = function () {
       <SpotifyControl />
 
       <SongSelector player={LEFT_PLAYER} />
+
+      <TicTacToe size={3}/>
 
       <SongSelector player={RIGHT_PLAYER} />
     </div>
