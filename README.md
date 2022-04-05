@@ -11,15 +11,33 @@ game is tic tac toe and could be changed to a different game. The song of the lo
 be banned from being added to the playlist/queue.
 
 ## Finished Features
+
 - Firebase and Spotify authentication
 - Song controller ( shows current playing song on spotify and can pause/resume it )
 - Song selector ( allows users to search and select a song they want to battle for )
 - MiniGame ( tic tac toe as a way to battle for which song gets added )
 
 ## Planned Features
-- Landing Page
-- Adding song to playlist/queue and banning other song
+
+- Visually appealing landing Page
+- Spotify playlist/queue Component
+- MiniGame song handling
+  - Adding winning song to playlist/queue
+  - Banning lost song from being added again for *x* seconds
+  - Save winning and losing song to state
+- Components for winner and loser song from state
+- Wiring component functionality ( e.g. song selector reset when a game is won )
+- State / Persistence separation
+- Better API error handling
 - Styling
+
+Low Priority Features ( if we have time left in the end)
+
+- Firebase reset user password
+- Current song progress bar ( in Song controller )
+- Better API error handling
+- Different spotify authentication mechanism ( currently *Implicit Grant Flow* , alternative is *Authorization Code Flow
+  with PKCE extension*)
 
 ## Folder Structure
 
