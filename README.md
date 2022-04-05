@@ -2,10 +2,29 @@
 
 ![bragi-icon](public/bragi-icon.png)
 
+## Description
+
+On parties' people want to hear their favorite songs. The idea behind **Bragi 3000** is to give each person a chance to
+hear their favorite song. This is achieved by letting people battle with each other for their song to be added to the
+party playlist/queue. These battles should be simple and fun and the winner's song gets added. One example for such a
+game is tic tac toe and could be changed to a different game. The song of the loser will be discarded and be temporarily
+be banned from being added to the playlist/queue.
+
+## Finished Features
+- Firebase and Spotify authentication
+- Song controller ( shows current playing song on spotify and can pause/resume it )
+- Song selector ( allows users to search and select a song they want to battle for )
+- MiniGame ( tic tac toe as a way to battle for which song gets added )
+
+## Planned Features
+- Landing Page
+- Adding song to playlist/queue and banning other song
+- Styling
+
 ## Folder Structure
 
-This project uses a specific structure to everything has a (semi-)logical place
-to be put. This structure contains the following folders:
+This project uses a specific structure to everything has a (semi-)logical place to be put. This structure contains the
+following folders:
 
 | Folder            | Description                                                          |
 | ----------------- | -------------------------------------------------------------------- |
@@ -20,8 +39,7 @@ to be put. This structure contains the following folders:
 | `/src/Store`      | Scripts relating to the application state (and its persistence)      |
 | `/src/Utils`      | Generic utility scripts to be used by other parts of the app         |
 
-Documentation is included inside files to provide more information about their
-functionality.
+Documentation is included inside files to provide more information about their functionality.
 
 ## Commands
 
