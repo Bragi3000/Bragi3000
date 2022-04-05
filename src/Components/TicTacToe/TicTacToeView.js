@@ -3,11 +3,9 @@ import styles from "./TicTacToe.module.css";
 
 /**
  * Subcomponent representing one square of the TicTacToe board.
- * @param  value - The value of the square "X", "O", or " "
- * @param onClick
- * @param icon
- * @returns {JSX.Element}
- * @constructor
+ * @param  {String} value - The value of the square "X", "O", or " "
+ * @param {Function} onClick - Callback function to be called when the square is clicked
+ * @param {String} icon - The icon to be displayed in the square
  */
 function Square({value, onClick, icon}) {
   let squareStyle;
@@ -29,6 +27,14 @@ function Square({value, onClick, icon}) {
   )
 }
 
+/**
+ * View component for the TicTacToe game.
+ * @param {Array} squares - Board consisting of squares array
+ * @param {Integer} size - Size of the board
+ * @param {Function} onSetSquare - Callback function to be called when a square is clicked
+ * @param {Function} circleIcon - Icon of the circle player
+ * @param {Function} crossIcon - Icon of the cross player
+ */
 export default function TicTacToeView({squares, size, onSetSquare, circleIcon, crossIcon}) {
   const dynamicStyle = {
     gridTemplateRows: `repeat(${size}, 1fr)`,
