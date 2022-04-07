@@ -3,6 +3,11 @@ import style from "./SignupForm.module.css";
 
 const { useRef } = require("react")
 
+/**
+ *  SignupFormView.
+ *  @param onSignup - callback after user is signed up
+ *  @param error - if error occurred during signup
+ */
 const SignupFormView = function ({ onSignup, error }) {
   const email = useRef();
   const password = useRef();

@@ -3,6 +3,9 @@ import { useFirebase } from "react-redux-firebase";
 
 import LoginFormView from "./LoginFormView";
 
+/**
+ *  LoginForm with email and password
+ */
 const LoginForm = function () {
   const firebase = useFirebase();
   const [error, setError] = useState(null);
