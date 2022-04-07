@@ -5,6 +5,10 @@ import useSpotifyAuthData from "Store/selectors/useSpotifyAuthData";
 import useTitle from "Utils/useTitle";
 import { Link } from "react-router-dom";
 
+/*
+  * SettingsPage of the application.
+  * Shows user-id, access-token and link to the Spotify Login.
+ */
 const SettingsPage = function () {
   useTitle("Bragi 3000 - Settings");
 
