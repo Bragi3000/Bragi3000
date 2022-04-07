@@ -1,3 +1,6 @@
+/**
+ * View for Spotify login button.
+ */
 const SpotifyLoginButtonView = function ({ url }) {
   return (
     <a href={url}>

@@ -3,6 +3,9 @@ import { useFirebase } from "react-redux-firebase";
 
 import SignupFormView from "./SignupFormView";
 
+/**
+ *  SignupForm with mail, password, and confirm password.
+ */
 const SignupForm = function () {
   const firebase = useFirebase();
   const [error, setError] = useState(null);

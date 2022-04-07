@@ -3,6 +3,11 @@ import { Navigate } from "react-router";
 import useUserData from "Services/firebase/useUserData";
 import WaitingView from "Components/WaitingView/WaitingView";
 
+/**
+ * Component to restrict access to authenticated users.
+ * @param children the access restricted content
+ * @param reverse reverse the behavior, restrict to unauthenticated users
+ */
 const RequireAuthentication = function ({ children, reverse = false }) {
   const userData = useUserData();
 

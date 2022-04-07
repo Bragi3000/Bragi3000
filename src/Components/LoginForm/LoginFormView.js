@@ -2,6 +2,12 @@ import { useRef } from "react";
 import { Link } from "react-router-dom";
 import style from "./LoginForm.module.css";
 
+
+/**
+ *  View for the LoginForm component.
+ *  @param onLogin - callback when login button is clicked
+ *  @param error - value if error occurred
+ */
 const LoginFormView = function ({ onLogin, error }) {
   const email = useRef();
   const password = useRef();

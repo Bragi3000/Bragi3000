@@ -3,6 +3,11 @@ import { Navigate } from "react-router";
 import useSpotifyAuthData from "Store/selectors/useSpotifyAuthData";
 import WaitingView from "Components/WaitingView/WaitingView";
 
+/**
+ * Component restrict to users with a non-expired Spotify token in the store.
+ * @param children the access restricted content
+ * @param reverse reverse the behavior, ensures there is no token in the store
+ */
 const RequireSpotifyToken = function ({ children }) {
   const spotifyAuthData = useSpotifyAuthData();
 

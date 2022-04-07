@@ -1,7 +1,10 @@
 import SignupForm from "Components/SignupForm/SignupForm";
 import useTitle from "Utils/useTitle";
 
-const LoginPage = function () {
+/*
+ * Signup Page to sign up for the application.
+ */
+const SignupPage = function () {
   useTitle("Bragi 3000 - Signup");
 
   return (
@@ -12,4 +15,4 @@ const LoginPage = function () {
   );
 };
 
-export default LoginPage;
+export default SignupPage;

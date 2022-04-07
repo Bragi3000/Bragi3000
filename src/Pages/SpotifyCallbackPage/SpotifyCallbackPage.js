@@ -4,6 +4,9 @@ import { useNavigate } from "react-router";
 import useSetSpotifyAuthData from "Store/updaters/useSetSpotifyAuthData";
 import useHashParams from "Utils/useHashParams";
 
+/*
+ * Page to sign in to Spotify account.
+ */
 const SpotifyCallbackPage = function () {
   const navigate = useNavigate();
   const params = useHashParams();
