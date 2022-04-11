@@ -14,6 +14,7 @@ const spotifyConfig = {
     "user-modify-playback-state",
     "playlist-modify-private",
     "ugc-image-upload",
+    "playlist-read-private"
   ],
 }
 
