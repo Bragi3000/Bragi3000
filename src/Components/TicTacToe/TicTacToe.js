@@ -5,10 +5,11 @@ import {
   selectSelectedSong,
   selectSongIsConfirmed,
 } from "Store/slices/selectedSongs";
-
+import useSpotifyAuth from "Store/selectors/useSpotifyAuthData"
+import { selectPlaylistId } from "Store/slices/playlist";
 import { LEFT_PLAYER, RIGHT_PLAYER } from "Constants/players";
-import {useSelector} from "react-redux";
-
+import { useSelector} from "react-redux";
+import { addSongToPlaylist} from "Services/Spotify/spotifyAPI"
 
 
 /**
@@ -103,13 +104,20 @@ export default function TicTacToe({size = 4, circleIcon = bragiIcon, crossIcon =
   const leftSong = useSelector(state => selectSelectedSong(state, LEFT_PLAYER));
   const rightSong = useSelector(state => selectSelectedSong(state, RIGHT_PLAYER));
 
+  const playlistId = useSelector(state => selectPlaylistId(state));
+  const token = useSpotifyAuth();
+
   if (leftSongConfirmed && rightSongConfirmed) {
     circleIcon = leftSong.album.images[0].url;
     crossIcon = rightSong.album.images[0].url;
   }
 
   if (winner) {
-    console.log(`Winner: ${winner}`)
+    if (winner === 'X') {
+      addSongToPlaylist(token.access_token, playlistId, leftSong.uri);
+    } else {
+      addSongToPlaylist(token.access_token, playlistId, rightSong.uri);
+    }
     setBoard(Array(size * size).fill(null));
   } else if (tie) {
     console.log(`Tie`);
