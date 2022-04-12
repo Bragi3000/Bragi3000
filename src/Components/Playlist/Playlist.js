@@ -1,14 +1,15 @@
 import useSpotifyAuth from "Store/selectors/useSpotifyAuthData"
 import {
-  addSongToPlaylist,
   getPlaylist,
   removeSongsFromPlaylist,
   getSpotifyUser,
   getUserPlaylists,
-  createPlaylist,
+  createPlaylist
 } from "Services/Spotify/spotifyAPI";
 import PlaylistView from "./PlaylistView";
+import { setPlaylistId, setPlaylistSongs, selectPlaylistId, selectPlaylistSongs } from "Store/slices/playlist";
 import {useEffect, useState} from "react";
+import { useDispatch, useSelector} from "react-redux";
 
 const playlistName = "bragi3000";
 
@@ -61,23 +62,24 @@ function getPlaylistId (accessToken) {
 
 const Playlist = function () {
   const token = useSpotifyAuth();
-  // TODO move to application state
-  const [playlistId, setPlaylistId] = useState(null);
-  const [songs, setSongs] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getPlaylistId(token.access_token).then((playlistId) => {
-      setPlaylistId(playlistId);
+      dispatch(setPlaylistId(playlistId));
       getPlaylist(token.access_token, playlistId).then(
         (resp) => {
-          console.log(resp.body.tracks.items)
-          setSongs(resp.body.tracks.items.map(song => song.track));
+          const playlistSongs = resp.body.tracks.items.map(song => song.track);
+          dispatch(setPlaylistSongs(playlistSongs));
         })}
     );
-  },[])
+  },[]);
+
+  const playlistId = useSelector(state => selectPlaylistId(state));
+  const playlistSongs = useSelector(state => selectPlaylistSongs(state));
 
   // addSongToPlaylist(token.access_token, playlistID, "spotify:track:4iV5W9uYEdYUVa79Axb7Rh").then(resp => console.log(resp));
-  return <PlaylistView songs={songs}/>
+  return <PlaylistView songs={playlistSongs}/>
 }
 
 export default Playlist;
