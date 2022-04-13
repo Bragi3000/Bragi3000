@@ -149,6 +149,7 @@ function getPlaylistId (accessToken) {
           // check if playlist exists
           const playlist = playlists.find(playlist => playlist.name === playlistName);
           if (playlist) {
+            console.log(playlist);
             return playlist.id;
           } else {
             // otherwise, create playlist
@@ -164,12 +165,25 @@ function getPlaylistId (accessToken) {
 }
 
 /**
- * Function to delete all songs from a playlist
- * @param playlistId {string} - The id of the playlist to delete from
+ * Function to get all the songs in the playlist.
  * @param accessToken {string} - The access token to use
+ * @param playlistId {string} - The id of the playlist to get the songs from
+ * @returns {Promise} - A promise that resolves into an array of song objects
+ */
+function getPlaylistSongs (accessToken, playlistId) {
+  return getPlaylist(accessToken, playlistId).then(
+    (resp) => {
+      return resp.body.tracks.items.map(song => song.track);
+    })
+}
+
+/**
+ * Function to delete all songs from a playlist
+ * @param accessToken {string} - The access token to use
+ * @param playlistId {string} - The id of the playlist to delete from
  * @returns {Promise} - A promise that resolves when the songs have been deleted
  */
-function resetPlaylist(playlistId, accessToken) {
+function resetPlaylist(accessToken, playlistId) {
   return getPlaylist(accessToken, playlistId)
     .then(resp => resp.body)
     .then((body) => {
@@ -179,4 +193,22 @@ function resetPlaylist(playlistId, accessToken) {
     });
 }
 
-export { getPlaybackState, addSongToQueue, playSong, pauseSong, searchSong, createPlaylist, getPlaylist, addSongToPlaylist, getSpotifyUser, getUserPlaylists, removeSongsFromPlaylist, getPlaylistId, resetPlaylist };
+
+/**
+ * Function to start the bragi3000 playlist.
+ * @param accessToken {string} - The access token to use
+ * @param playlistId - The id of the playlist to start
+ * @returns {Promise} - A promise that resolves when the playlist has started
+ */
+function startPlaylist(accessToken, playlistId) {
+  return new SpotifyWebApi({ accessToken }).play({
+    context_uri: `spotify:playlist:${playlistId}`,
+    offset: {
+      position: 0
+    }
+  });
+}
+
+
+
+export { getPlaybackState, addSongToQueue, playSong, pauseSong, searchSong, createPlaylist, getPlaylist, addSongToPlaylist, getSpotifyUser, getUserPlaylists, removeSongsFromPlaylist, getPlaylistId, resetPlaylist, getPlaylistSongs, startPlaylist };
