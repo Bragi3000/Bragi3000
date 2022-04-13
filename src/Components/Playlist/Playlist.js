@@ -7,7 +7,7 @@ import {
 } from "Store/slices/playlist";
 import { useEffect } from "react";
 import { useDispatch, useSelector} from "react-redux";
-import {getPlaylistId, getPlaylistSongs} from "Services/Spotify/spotifyAPI";
+import {getAvailableDevices, getPlaylistId, getPlaylistSongs, startPlaylist} from "Services/Spotify/spotifyAPI";
 
 
 const Playlist = function () {
@@ -17,9 +17,22 @@ const Playlist = function () {
   // TODO replace with dispatch(fetPlaylistSongs(token))
   useEffect(() => {
     getPlaylistId(token.access_token).then(playlistId => {
+      console.log(playlistId);
       dispatch(setPlaylistId(playlistId));
       getPlaylistSongs(token.access_token, playlistId).then(
         (songs) => dispatch(setPlaylistSongs(songs)));
+
+      getAvailableDevices(token.access_token).then(
+        (devices) => {
+          // check if one of the devices is active
+          const activeDevice = devices.find(device => device.is_active);
+          if (activeDevice) {
+            startPlaylist(token.access_token);
+          } else {
+            console.log("No active devices available");
+          }
+        }
+      );
     });
   },[]);
 

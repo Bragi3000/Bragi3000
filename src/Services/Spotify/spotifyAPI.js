@@ -209,6 +209,19 @@ function startPlaylist(accessToken, playlistId) {
   });
 }
 
+/**
+ * Get the currently available devices for the user.
+ * @param accessToken - The access token to use
+ * @returns {Promise} - A promise that resolves to an array of devices
+ */
+function getAvailableDevices(accessToken) {
+  return new SpotifyWebApi({ accessToken }).getMyDevices().then(
+    (resp) => {
+      return resp.body.devices;
+    }
+  );
+}
 
 
-export { getPlaybackState, addSongToQueue, playSong, pauseSong, searchSong, createPlaylist, getPlaylist, addSongToPlaylist, getSpotifyUser, getUserPlaylists, removeSongsFromPlaylist, getPlaylistId, resetPlaylist, getPlaylistSongs, startPlaylist };
+
+export { getPlaybackState, addSongToQueue, playSong, pauseSong, searchSong, createPlaylist, getPlaylist, addSongToPlaylist, getSpotifyUser, getUserPlaylists, removeSongsFromPlaylist, getPlaylistId, resetPlaylist, getPlaylistSongs, startPlaylist, getAvailableDevices };
