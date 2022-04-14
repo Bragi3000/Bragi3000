@@ -2,11 +2,11 @@ import {
   createAsyncThunk,
   createSlice,
 } from "@reduxjs/toolkit";
-import { getPlaylistId, getPlaylistSongs} from "Services/Spotify/spotifyAPI";
+import {getPlaylistId, getPlaylistSongs } from "Services/Spotify/spotifyAPI";
 import { FULFILLED, IDLE, PENDING, REJECTED } from "Constants/promiseStatus";
 
 /**
- * Action to fetch the playlistId
+ * Action to fetch the playlistId and start the playlist
  * @param obj.accessToken Spotify access token
  */
 export const fetchPlaylistId = createAsyncThunk(
