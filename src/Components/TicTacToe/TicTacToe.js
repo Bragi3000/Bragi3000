@@ -116,7 +116,7 @@ export default function TicTacToe({size = 4, circleIcon = bragiIcon, crossIcon =
   }
 
   if (winner) {
-    const winner_uri = winner === 'X' ? leftSong.uri : rightSong.uri;
+    const winner_uri = winner === 'X' ? rightSong.uri : leftSong.uri;
     addSongToPlaylist(token.access_token, playlistId, winner_uri).then(() => {
       const accessToken = token.access_token;
       // update the playlist
