@@ -56,9 +56,8 @@ function checkWin(squares, size) {
   const lines = getLines(squares, size);
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
-    if (line.every(e => e === line[0])) {
-      return line[0];
-    }
+    if (line.every(square => square === "X")) return "X";
+    if (line.every(square => square === "O")) return "O";
   }
 }
 
