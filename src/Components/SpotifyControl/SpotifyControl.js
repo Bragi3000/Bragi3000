@@ -20,12 +20,12 @@ const SpotifyControl = function () {
 
   const playbackState = useSelector(state => selectPlayback(state));
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     dispatch(fetchPlaybackState({ accessToken }));
-  //   }, Math.min(playbackState.duration_ms - playbackState.progress_ms, 15000));
-  //   return () => clearInterval(interval);
-  // }, [playbackState]);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      dispatch(fetchPlaybackState({ accessToken }));
+    }, Math.min(playbackState.duration_ms - playbackState.progress_ms, 15000));
+    return () => clearInterval(interval);
+  }, [playbackState]);
 
   const handlePlay = () => {
     if (playbackState.is_playing) {
