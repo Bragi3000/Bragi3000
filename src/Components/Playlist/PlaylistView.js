@@ -1,6 +1,9 @@
 import styles from "./Playlist.module.css"
 
-
+/**
+ * View for the playlist component.
+ * @param songs - The songs to display.
+ */
 const PlaylistView = function ({songs = []}) {
   return (
     <div className={styles.playlist}>

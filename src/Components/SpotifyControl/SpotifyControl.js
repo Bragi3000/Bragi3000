@@ -1,4 +1,4 @@
-import {getPlaybackState, playSong, pauseSong} from "Services/Spotify/spotifyAPI";
+import {getPlaybackState, playSong, pauseSong, getAvailableDevices, startPlaylist} from "Services/Spotify/spotifyAPI";
 import {useState, useEffect, useCallback} from "react";
 import useSpotifyAuth from "Store/selectors/useSpotifyAuthData"
 import bragiIcon from "Assets/images/bragi-icon.png"
@@ -59,7 +59,19 @@ const SpotifyControl = function () {
     if (playbackState.is_playing) {
       pauseSong(token.access_token).then(updatePlaybackState);
     } else {
-      playSong(token.access_token).then(updatePlaybackState);
+      // playSong(token.access_token).then(updatePlaybackState);
+
+      getAvailableDevices(token.access_token).then(
+        (devices) => {
+          // check if one of the devices is active
+          const activeDevice = devices.find(device => device.is_active);
+          if (activeDevice) {
+            startPlaylist(token.access_token);
+          } else {
+            console.log("No active devices available");
+          }
+        }
+      );
     }
   }
 

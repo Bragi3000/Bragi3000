@@ -23,9 +23,14 @@ export const fetchPlaylistSongs = createAsyncThunk(
   "playlist/fetchPlaylistSongs",
   ({ accessToken }, {getState}) =>
   {
-    return getPlaylistId(accessToken).then(playlistId =>
-      getPlaylistSongs(accessToken, playlistId)
-    );
+    const playlistId = getState().playlist.playlistId;
+    if (playlistId) {
+      return getPlaylistSongs(accessToken, playlistId);
+    } else {
+      return getPlaylistId(accessToken).then(playlistId =>
+        getPlaylistSongs(accessToken, playlistId)
+      );
+    }
   }
 );
 

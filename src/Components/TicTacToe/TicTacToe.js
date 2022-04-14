@@ -2,13 +2,15 @@ import React, {useMemo, useState} from "react"
 import TicTacToeView from "./TicTacToeView";
 import bragiIcon from "Assets/images/bragi-icon.png"
 import {
+  resetSelectedSongs,
   selectSelectedSong,
   selectSongIsConfirmed,
 } from "Store/slices/selectedSongs";
+import { resetSearch} from "Store/slices/songSearch";
 import useSpotifyAuth from "Store/selectors/useSpotifyAuthData"
-import { selectPlaylistId } from "Store/slices/playlist";
+import {fetchPlaylistSongs, selectPlaylistId} from "Store/slices/playlist";
 import { LEFT_PLAYER, RIGHT_PLAYER } from "Constants/players";
-import { useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { addSongToPlaylist} from "Services/Spotify/spotifyAPI"
 
 
@@ -99,13 +101,14 @@ export default function TicTacToe({size = 4, circleIcon = bragiIcon, crossIcon =
   const winner = useMemo(() => checkWin(board, size), [board, size]);
   const tie = useMemo(() => checkTie(board, size), [board, size]);
 
-  const leftSongConfirmed = useSelector(state => selectSongIsConfirmed(state, LEFT_PLAYER));
-  const rightSongConfirmed = useSelector(state => selectSongIsConfirmed(state, RIGHT_PLAYER));
-  const leftSong = useSelector(state => selectSelectedSong(state, LEFT_PLAYER));
-  const rightSong = useSelector(state => selectSelectedSong(state, RIGHT_PLAYER));
+  let leftSongConfirmed = useSelector(state => selectSongIsConfirmed(state, LEFT_PLAYER));
+  let rightSongConfirmed = useSelector(state => selectSongIsConfirmed(state, RIGHT_PLAYER));
+  let leftSong = useSelector(state => selectSelectedSong(state, LEFT_PLAYER));
+  let rightSong = useSelector(state => selectSelectedSong(state, RIGHT_PLAYER));
 
   const playlistId = useSelector(state => selectPlaylistId(state));
   const token = useSpotifyAuth();
+  const dispatch = useDispatch();
 
   if (leftSongConfirmed && rightSongConfirmed) {
     circleIcon = leftSong.album.images[0].url;
@@ -113,11 +116,16 @@ export default function TicTacToe({size = 4, circleIcon = bragiIcon, crossIcon =
   }
 
   if (winner) {
-    if (winner === 'X') {
-      addSongToPlaylist(token.access_token, playlistId, leftSong.uri);
-    } else {
-      addSongToPlaylist(token.access_token, playlistId, rightSong.uri);
-    }
+    const winner_uri = winner === 'X' ? leftSong.uri : rightSong.uri;
+    addSongToPlaylist(token.access_token, playlistId, winner_uri).then(() => {
+      const accessToken = token.access_token;
+      // update the playlist
+      dispatch(fetchPlaylistSongs({ accessToken }));
+      // reset song selection
+      dispatch(resetSearch());
+      dispatch((resetSelectedSongs()));
+    });
+
     setBoard(Array(size * size).fill(null));
   } else if (tie) {
     console.log(`Tie`);

@@ -149,7 +149,6 @@ function getPlaylistId (accessToken) {
           // check if playlist exists
           const playlist = playlists.find(playlist => playlist.name === playlistName);
           if (playlist) {
-            console.log(playlist);
             return playlist.id;
           } else {
             // otherwise, create playlist
@@ -210,6 +209,16 @@ function startPlaylist(accessToken, playlistId) {
 }
 
 /**
+ * Function to set the current playback device.
+ * @param accessToken - The access token to use
+ * @param deviceId - The id of the device to set as the current playback device
+ * @returns {Promise} - A promise that resolves when the device has been set
+ */
+function setActiveDevice(accessToken, deviceId) {
+  return new SpotifyWebApi({ accessToken }).transferMyPlayback([deviceId]);
+}
+
+/**
  * Get the currently available devices for the user.
  * @param accessToken - The access token to use
  * @returns {Promise} - A promise that resolves to an array of devices
@@ -224,4 +233,4 @@ function getAvailableDevices(accessToken) {
 
 
 
-export { getPlaybackState, addSongToQueue, playSong, pauseSong, searchSong, createPlaylist, getPlaylist, addSongToPlaylist, getSpotifyUser, getUserPlaylists, removeSongsFromPlaylist, getPlaylistId, resetPlaylist, getPlaylistSongs, startPlaylist, getAvailableDevices };
+export { getPlaybackState, addSongToQueue, playSong, pauseSong, searchSong, createPlaylist, getPlaylist, addSongToPlaylist, getSpotifyUser, getUserPlaylists, removeSongsFromPlaylist, getPlaylistId, resetPlaylist, getPlaylistSongs, startPlaylist, getAvailableDevices, setActiveDevice };
