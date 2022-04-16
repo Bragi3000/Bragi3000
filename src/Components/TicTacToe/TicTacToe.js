@@ -96,7 +96,7 @@ function checkTie(squares, size) {
  */
 export default function TicTacToe({size = 4, circleIcon = bragiIcon, crossIcon = bragiIcon}) {
   const [board, setBoard] = useState(Array(size * size).fill(null));
-  const [currPlayer, setCurrPlayer] = useState(true);
+  const [currPlayer, setCurrPlayer] = useState(false);
   const winner = useMemo(() => checkWin(board, size), [board, size]);
   const tie = useMemo(() => checkTie(board, size), [board, size]);
 
