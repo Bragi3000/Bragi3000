@@ -118,14 +118,12 @@ export default function TicTacToe({size = 4, circleIcon = bragiIcon, crossIcon =
   if (winner) {
     const winner_uri = winner === 'X' ? rightSong.uri : leftSong.uri;
     addSongToPlaylist(token.access_token, playlistId, winner_uri).then(() => {
-      const accessToken = token.access_token;
       // update the playlist
-      dispatch(fetchPlaylistSongs({ accessToken }));
+      dispatch(fetchPlaylistSongs({ accessToken: token.access_token }));
       // reset song selection
       dispatch(resetSearch());
       dispatch((resetSelectedSongs()));
     });
-
     setBoard(Array(size * size).fill(null));
   } else if (tie) {
     console.log(`Tie`);

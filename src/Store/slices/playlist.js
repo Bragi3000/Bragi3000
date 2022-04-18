@@ -4,6 +4,7 @@ import {
 } from "@reduxjs/toolkit";
 import {getPlaylistId, getPlaylistSongs } from "Services/Spotify/spotifyAPI";
 import { FULFILLED, IDLE, PENDING, REJECTED } from "Constants/promiseStatus";
+import {useDispatch} from "react-redux";
 
 /**
  * Action to fetch the playlistId and start the playlist
@@ -24,13 +25,7 @@ export const fetchPlaylistSongs = createAsyncThunk(
   ({ accessToken }, {getState}) =>
   {
     const playlistId = getState().playlist.playlistId;
-    if (playlistId) {
-      return getPlaylistSongs(accessToken, playlistId);
-    } else {
-      return getPlaylistId(accessToken).then(playlistId =>
-        getPlaylistSongs(accessToken, playlistId)
-      );
-    }
+    return getPlaylistSongs(accessToken, playlistId);
   }
 );
 

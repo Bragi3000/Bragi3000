@@ -7,11 +7,11 @@ import styles from "./Playlist.module.css"
 const PlaylistView = function ({songs = []}) {
   return (
     <div className={styles.playlist}>
-      {songs.map((song) => {
+      {songs.map((song, index) => {
         return (
           <a
             className={styles.resultSong}
-            key={song.id}
+            key={song.id + index}
             href="_"
           >
             <img
