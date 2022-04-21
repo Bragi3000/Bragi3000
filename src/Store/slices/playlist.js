@@ -4,7 +4,6 @@ import {
 } from "@reduxjs/toolkit";
 import {getPlaylistId, getPlaylistSongs } from "Services/Spotify/spotifyAPI";
 import { FULFILLED, IDLE, PENDING, REJECTED } from "Constants/promiseStatus";
-import {useDispatch} from "react-redux";
 
 /**
  * Action to fetch the playlistId and start the playlist

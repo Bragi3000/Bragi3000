@@ -23,7 +23,7 @@ const Playlist = function () {
     setTimeout(() => {
       dispatch(fetchPlaylistSongs({ accessToken }));
     }, 1000);
-  },[]);
+  },[dispatch, token.access_token]);
 
   const playlistSongs = useSelector(state => selectPlaylistSongs(state));
   return <PlaylistView songs={playlistSongs}/>

@@ -1,4 +1,4 @@
-import {getPlaybackState, playSong, pauseSong, getAvailableDevices, startPlaylist} from "Services/Spotify/spotifyAPI";
+import { playSong, pauseSong, getAvailableDevices } from "Services/Spotify/spotifyAPI";
 import { useEffect} from "react";
 import useSpotifyAuth from "Store/selectors/useSpotifyAuthData"
 import SpotifyControlView from "./SpotifyControlView";
@@ -16,7 +16,7 @@ const SpotifyControl = function () {
 
   useEffect(() => {
     dispatch(fetchPlaybackState({ accessToken }));
-  }, []);
+  }, [accessToken, dispatch]);
 
   const playbackState = useSelector(state => selectPlayback(state));
 
@@ -25,7 +25,7 @@ const SpotifyControl = function () {
       dispatch(fetchPlaybackState({ accessToken }));
     }, Math.min(playbackState.duration_ms - playbackState.progress_ms, 15000));
     return () => clearInterval(interval);
-  }, [playbackState]);
+  }, [accessToken, dispatch, playbackState]);
 
   const handlePlay = () => {
     if (playbackState.is_playing) {
