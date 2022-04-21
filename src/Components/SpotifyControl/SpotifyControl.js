@@ -1,8 +1,9 @@
-import {getPlaybackState, playSong, pauseSong} from "Services/Spotify/spotifyAPI";
-import {useState, useEffect, useCallback} from "react";
+import {getPlaybackState, playSong, pauseSong, getAvailableDevices, startPlaylist} from "Services/Spotify/spotifyAPI";
+import { useEffect} from "react";
 import useSpotifyAuth from "Store/selectors/useSpotifyAuthData"
-import bragiIcon from "Assets/images/bragi-icon.png"
 import SpotifyControlView from "./SpotifyControlView";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchPlaybackState, selectPlayback, togglePlayPause } from "Store/slices/playback";
 
 /**
  * Component for current song information showing play/pause button, cover image, name of song and artists
@@ -10,56 +11,41 @@ import SpotifyControlView from "./SpotifyControlView";
  */
 const SpotifyControl = function () {
   const token = useSpotifyAuth();
-  const [playbackState, setPlaybackState] = useState({
-    image_src: bragiIcon,
-    name: "Bragi",
-    artists: "3000",
-    is_playing: false,
-    progress_ms: 0,
-    duration_ms: 42069,
-  });
+  const dispatch = useDispatch();
+  const accessToken = token.access_token;
 
   useEffect(() => {
-    if (token) {
-      getPlaybackState(token.access_token)
-        .then((newData) => {
-          if (newData.statusCode === 200) setPlaybackState(handleData(newData.body));
-        });
-    }
-  }, [token]);
+    dispatch(fetchPlaybackState({ accessToken }));
+  }, []);
 
-  const updatePlaybackState = useCallback(() => {
-    getPlaybackState(token.access_token)
-      .then((newData) => {
-        if (newData.statusCode === 200) setPlaybackState(handleData(newData.body));
-      }).catch((err) => {
-        console.log(err);
-      });
-  }, [token.access_token]);
+  const playbackState = useSelector(state => selectPlayback(state));
 
   useEffect(() => {
     const interval = setInterval(() => {
-      updatePlaybackState();
+      dispatch(fetchPlaybackState({ accessToken }));
     }, Math.min(playbackState.duration_ms - playbackState.progress_ms, 15000));
     return () => clearInterval(interval);
-  }, [playbackState, updatePlaybackState]);
-
-  const handleData = (newData) => {
-    return {
-      image_src: newData.item.album.images[0].url,
-      name: newData.item.name,
-      artists: newData.item.artists.map((artist) => artist.name).join(", "),
-      is_playing: newData.is_playing,
-      progress_ms: newData.progress_ms,
-      duration_ms: newData.item.duration_ms,
-    };
-  }
+  }, [playbackState]);
 
   const handlePlay = () => {
     if (playbackState.is_playing) {
-      pauseSong(token.access_token).then(updatePlaybackState);
+      pauseSong(token.access_token).then(()=>
+        dispatch(togglePlayPause())
+      );
     } else {
-      playSong(token.access_token).then(updatePlaybackState);
+      getAvailableDevices(token.access_token).then(
+        (devices) => {
+          // check if one of the devices is active
+          const activeDevice = devices.find(device => device.is_active);
+          if (activeDevice) {
+            playSong(token.access_token).then(()=>
+              dispatch(togglePlayPause())
+            );
+          } else {
+            console.log("No active devices available");
+          }
+        }
+      );
     }
   }
 

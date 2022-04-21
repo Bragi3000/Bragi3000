@@ -4,7 +4,8 @@ import SpotifyControl from "Components/SpotifyControl/SpotifyControl";
 import useUserData from "Services/firebase/useUserData";
 import SongSelector from "Components/SongSelector/SongSelector";
 import { LEFT_PLAYER, RIGHT_PLAYER } from "Constants/players";
-import TicTacToe from "../../Components/TicTacToe/TicTacToe";
+import TicTacToe from "Components/TicTacToe/TicTacToe";
+import Playlist from "Components/Playlist/Playlist";
 
 /*
  * Main page of the app consisting of song selectors, song control and tic-tac-toe game.
@@ -27,6 +28,8 @@ const App = function () {
       <TicTacToe size={3}/>
 
       <SongSelector player={RIGHT_PLAYER} />
+
+      <Playlist />
     </div>
   );
 };

@@ -1,0 +1,40 @@
+.playlist {
+  overflow-y: scroll;
+  width: 350px;
+  height: 500px;
+  background-color: lightgray;
+  float: left;
+}
+
+.songImage {
+  flex: 0 0 64px;
+}
+
+.resultSong, .selectedSong {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  color: inherit;
+  text-decoration: inherit;
+  margin-bottom: 15px;
+}
+
+.songDetails {
+  flex: 1 0 0%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  overflow: hidden;
+}
+
+.songTitle {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.songArtists {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
