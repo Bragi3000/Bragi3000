@@ -3,7 +3,13 @@ import { useEffect} from "react";
 import useSpotifyAuth from "Store/selectors/useSpotifyAuthData"
 import SpotifyControlView from "./SpotifyControlView";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchPlaybackState, selectPlayback, setStartedPlaylist, togglePlayPause} from "Store/slices/playback";
+import {
+  fetchPlaybackState,
+  selectActiveDevice,
+  selectPlayback,
+  setStartedPlaylist,
+  togglePlayPause
+} from "Store/slices/playback";
 import {selectPlaylistId} from "../../Store/slices/playlist";
 
 /**
@@ -21,6 +27,7 @@ const SpotifyControl = function () {
 
   const playbackState = useSelector(state => selectPlayback(state));
   const playlistId = useSelector(state => selectPlaylistId(state));
+  const activeDevice = useSelector(state => selectActiveDevice(state));
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -30,29 +37,21 @@ const SpotifyControl = function () {
   }, [accessToken, dispatch, playbackState]);
 
   const handlePlay = async () => {
-    if (!playbackState.started_playlist) {
-      const devices = await getAvailableDevices(token.access_token);
-      if (devices.length === 0) return; // if no devices available, do nothing
-      const activeDevice = devices.find(device => device.is_active);
-
-      // if devices but no active device, try setting active device
-      if (!activeDevice) {
-        console.log(devices);
-        if (devices.length === 1) {
-          await setActiveDevice(token.access_token, devices[0].id);
-        } else {
-          // TODO let user choose device
-          await setActiveDevice(token.access_token, devices[0].id);
-        }
+    if (!playbackState.started_playlist && !playbackState.is_playing) {
+      if (activeDevice) {
+        // start playing bragi3000 playlist
+        await startPlaylist(token.access_token, playlistId);
+        dispatch(setStartedPlaylist(true));
+      } else {
+        // TODO
+        console.log("Please select a device to play music");
+        return;
       }
-      // start bragi playlist
-      await startPlaylist(token.access_token, playlistId);
-      dispatch(setStartedPlaylist(true));
-
     } else {
       const togglePlayPauseFunc = playbackState.is_playing ? pauseSong : playSong;
       await togglePlayPauseFunc(token.access_token);
     }
+    dispatch(fetchPlaybackState(token.access_token));
     dispatch(togglePlayPause());
   }
 

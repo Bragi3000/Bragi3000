@@ -30,6 +30,7 @@ const DeviceSelector = function () {
   const onDeviceClick = async (device) => {
     await setActiveDevice(token.access_token, device.id);
     dispatch(setActiveDeviceState({device}));
+    dispatch(fetchDevices({ accessToken }));
   };
 
   const devices = useSelector(state => selectDevices(state));

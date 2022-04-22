@@ -51,7 +51,7 @@ const playback = createSlice({
   name: "playback",
   initialState,
   reducers: {
-    togglePlayPause: (state) => {
+    togglePlayPause: (state, action) => {
       state.is_playing = !state.is_playing;
     },
     resetPlaybackState: () => initialState,
@@ -119,7 +119,7 @@ const playback = createSlice({
   },
 });
 
-export const { togglePlayPause, setStartedPlaylist, setActiveDeviceState, setDevices } = playback.actions;
+export const { togglePlayPause, setStartedPlaylist, setActiveDeviceState } = playback.actions;
 export default playback.reducer;
 
 /**
