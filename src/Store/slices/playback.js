@@ -26,6 +26,7 @@ const initialState = {
   status: IDLE,
   requestId: null,
   error: "",
+  started_playlist: false,
 };
 
 /**
@@ -38,7 +39,11 @@ const playback = createSlice({
     togglePlayPause: (state) => {
       state.is_playing = !state.is_playing;
     },
-    resetPlaybackState: () => initialState
+    resetPlaybackState: () => initialState,
+
+    setStartedPlaylist: (state, action) => {
+      state.started_playlist = action.payload;
+    },
   },
   extraReducers: {
     /**
@@ -76,7 +81,7 @@ const playback = createSlice({
   },
 });
 
-export const { togglePlayPause, resetPlaybackState } = playback.actions;
+export const { togglePlayPause, setStartedPlaylist } = playback.actions;
 export default playback.reducer;
 
 /**
