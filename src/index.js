@@ -1,5 +1,4 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
@@ -24,63 +23,61 @@ firebase.initializeApp(firebaseConfig);
  * The initial React render to bootstrap the application with all necessary
  * providers, as well as configuring routes and their access control.
  */
-ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <ReactReduxFirebaseProvider
-        firebase={firebase}
-        config={{}}
-        dispatch={store.dispatch}
-      >
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route
-              path="/app"
-              element={
-                <RequireAuthentication>
-                  <RequireSpotifyToken>
-                    <App />
-                  </RequireSpotifyToken>
-                </RequireAuthentication>
-              }
-            />
-            <Route
-              path="/settings"
-              element={
-                <RequireAuthentication>
-                  <SettingsPage />
-                </RequireAuthentication>
-              }
-            />
-            <Route
-              path="/login"
-              element={
-                <RequireAuthentication reverse>
-                  <LoginPage />
-                </RequireAuthentication>
-              }
-            />
-            <Route
-              path="/signup"
-              element={
-                <RequireAuthentication reverse>
-                  <SignupPage />
-                </RequireAuthentication>
-              }
-            />
-            <Route
-              path="/spotify-callback"
-              element={
-                <RequireAuthentication>
-                  <SpotifyCallbackPage />
-                </RequireAuthentication>
-              }
-            />
-          </Routes>
-        </BrowserRouter>
-      </ReactReduxFirebaseProvider>
-    </Provider>
-  </React.StrictMode>,
-  document.getElementById("root")
+const root = createRoot(document.getElementById("root"));
+root.render(
+  <Provider store={store}>
+    <ReactReduxFirebaseProvider
+      firebase={firebase}
+      config={{}}
+      dispatch={store.dispatch}
+    >
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route
+            path="/app"
+            element={
+              <RequireAuthentication>
+                <RequireSpotifyToken>
+                  <App />
+                </RequireSpotifyToken>
+              </RequireAuthentication>
+            }
+          />
+          <Route
+            path="/settings"
+            element={
+              <RequireAuthentication>
+                <SettingsPage />
+              </RequireAuthentication>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <RequireAuthentication reverse>
+                <LoginPage />
+              </RequireAuthentication>
+            }
+          />
+          <Route
+            path="/signup"
+            element={
+              <RequireAuthentication reverse>
+                <SignupPage />
+              </RequireAuthentication>
+            }
+          />
+          <Route
+            path="/spotify-callback"
+            element={
+              <RequireAuthentication>
+                <SpotifyCallbackPage />
+              </RequireAuthentication>
+            }
+          />
+        </Routes>
+      </BrowserRouter>
+    </ReactReduxFirebaseProvider>
+  </Provider>
 );
