@@ -1,4 +1,4 @@
-import {playSong, pauseSong, getAvailableDevices, setActiveDevice, startPlaylist} from "Services/Spotify/spotifyAPI";
+import {playSong, pauseSong, startPlaylist} from "Services/Spotify/spotifyAPI";
 import { useEffect} from "react";
 import useSpotifyAuth from "Store/selectors/useSpotifyAuthData"
 import SpotifyControlView from "./SpotifyControlView";
@@ -29,12 +29,14 @@ const SpotifyControl = function () {
   const playlistId = useSelector(state => selectPlaylistId(state));
   const activeDevice = useSelector(state => selectActiveDevice(state));
 
+  /* eslint-disable */
   useEffect(() => {
     const interval = setInterval(() => {
       dispatch(fetchPlaybackState({ accessToken }));
-    }, Math.min(playbackState.duration_ms - playbackState.progress_ms, 15000));
+    }, Math.min(playbackState.duration_ms - playbackState.progress_ms, 5000));
     return () => clearInterval(interval);
-  }, [accessToken, dispatch, playbackState]);
+  }, []);
+  /* eslint-enable */
 
   const handlePlay = async () => {
     if (!playbackState.started_playlist && !playbackState.is_playing) {
@@ -51,7 +53,6 @@ const SpotifyControl = function () {
       const togglePlayPauseFunc = playbackState.is_playing ? pauseSong : playSong;
       await togglePlayPauseFunc(token.access_token);
     }
-    dispatch(fetchPlaybackState(token.access_token));
     dispatch(togglePlayPause());
   }
 
