@@ -17,12 +17,7 @@ const Playlist = function () {
   useEffect(() => {
     const accessToken = token.access_token;
     dispatch(fetchPlaylistId({ accessToken })).unwrap().then(
-      playlistID => console.log(playlistID)
-    )
-    // TODO chain dispatch events
-    setTimeout(() => {
-      dispatch(fetchPlaylistSongs({ accessToken }));
-    }, 1000);
+      ()=> dispatch(fetchPlaylistSongs({ accessToken })))
   },[dispatch, token.access_token]);
 
   const playlistSongs = useSelector(state => selectPlaylistSongs(state));
