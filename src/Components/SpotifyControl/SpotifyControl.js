@@ -37,6 +37,7 @@ const SpotifyControl = function () {
 
       // if devices but no active device, try setting active device
       if (!activeDevice) {
+        console.log(devices);
         if (devices.length === 1) {
           await setActiveDevice(token.access_token, devices[0].id);
         } else {
