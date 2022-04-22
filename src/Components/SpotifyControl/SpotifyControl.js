@@ -23,7 +23,7 @@ const SpotifyControl = function () {
   useEffect(() => {
     const interval = setInterval(() => {
       dispatch(fetchPlaybackState({ accessToken }));
-    }, Math.min(playbackState.duration_ms - playbackState.progress_ms, 15000));
+    }, Math.max(1000, Math.min(playbackState.duration_ms - playbackState.progress_ms, 15000)));
     return () => clearInterval(interval);
   }, [accessToken, dispatch, playbackState]);
 
