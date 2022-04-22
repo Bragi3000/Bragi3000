@@ -2,7 +2,8 @@ import DeviceSelectorView from "./DeviceSelectorView";
 import useSpotifyAuth from "../../Store/selectors/useSpotifyAuthData";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
-import {fetchDevices, selectDevices} from "Store/slices/playback";
+import {fetchDevices, selectDevices, setActiveDeviceState} from "Store/slices/playback";
+import {setActiveDevice} from "Services/Spotify/spotifyAPI";
 
 /*
 Component to select device to play music from.
@@ -26,8 +27,13 @@ const DeviceSelector = function () {
     return () => clearInterval(interval);
   }, [accessToken, dispatch]);
 
+  const onDeviceClick = async (device) => {
+    await setActiveDevice(token.access_token, device.id);
+    dispatch(setActiveDeviceState({device}));
+  };
+
   const devices = useSelector(state => selectDevices(state));
-  return <DeviceSelectorView devices={devices} />;
+  return <DeviceSelectorView devices={devices} onClickDevice={onDeviceClick} />;
 }
 
 export default DeviceSelector;

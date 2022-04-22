@@ -62,7 +62,7 @@ const playback = createSlice({
     setDevices: (state, action) => {
       state.devices = action.payload;
     },
-    setActiveDevice: (state, action) => {
+    setActiveDeviceState: (state, action) => {
       state.active_device = action.payload;
     },
   },
@@ -119,7 +119,7 @@ const playback = createSlice({
   },
 });
 
-export const { togglePlayPause, setStartedPlaylist, setActiveDevice, setDevices } = playback.actions;
+export const { togglePlayPause, setStartedPlaylist, setActiveDeviceState, setDevices } = playback.actions;
 export default playback.reducer;
 
 /**
