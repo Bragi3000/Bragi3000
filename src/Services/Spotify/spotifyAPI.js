@@ -152,7 +152,7 @@ function getPlaylistId (accessToken) {
             return playlist.id;
           } else {
             // otherwise, create playlist
-            createPlaylist(accessToken).then(
+            return createPlaylist(accessToken).then(
               (resp) => {
                 return resp.body.id
               });
