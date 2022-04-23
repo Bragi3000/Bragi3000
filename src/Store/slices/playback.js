@@ -57,12 +57,6 @@ const playback = createSlice({
       if (state.requestId === meta.requestId) {
         state.status = FULFILLED;
         if (payload.statusCode === 200 && payload.body.item) {
-
-          // if new song is playing which is not the initial son, previous song can be added to played songs
-          if (state.uri && state.uri !== payload.body.item.uri) {
-            state.playedSongs = [...state.playedSongs, state.uri];
-          }
-
           state.image_src=payload.body.item.album.images[0].url;
           state.name=payload.body.item.name;
           state.artists=payload.body.item.artists.map((artist) => artist.name).join(", ");
@@ -70,6 +64,7 @@ const playback = createSlice({
           state.progress_ms=payload.body.progress_ms;
           state.duration_ms=payload.body.item.duration_ms;
           state.uri=payload.body.item.uri;
+          state.playedSongs = [...state.playedSongs, payload.body.item.uri];
         }
       }
     },
