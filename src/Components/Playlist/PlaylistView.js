@@ -5,15 +5,15 @@ import PlaylistTimer from "./PlaylistTimer/PlaylistTimer";
  * View for the playlist component.
  * @param songs - The songs to display.
  */
-const PlaylistView = function ({songs = []}) {
+const PlaylistView = function ({songs = [], onClickSong}) {
   return (
     <div className={styles.playlist}>
       {songs.map((song, index) => {
         return (
-          <a
+          <button
             className={styles.resultSong}
             key={song.id + index}
-            href="_"
+            onClick={() => onClickSong(song)}
           >
             <img
               className={styles.songImage}
@@ -26,7 +26,7 @@ const PlaylistView = function ({songs = []}) {
                 {song.artists.map((artist) => artist.name).join(", ")}
               </span>
             </div>
-          </a>
+          </button>
         );
       })}
       <PlaylistTimer />

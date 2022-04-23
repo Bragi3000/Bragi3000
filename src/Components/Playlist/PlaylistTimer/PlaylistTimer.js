@@ -2,7 +2,15 @@ import PlaylistTimerView from './PlaylistTimerView.js';
 import { useSelector } from "react-redux";
 import { selectPlaylistSongs } from "Store/slices/playlist";
 import { selectPlayback } from "Store/slices/playback";
+import store from "Store/store";
 
+
+const createPlaybackTimeString = function (playtimeMs) {
+  const seconds = Math.floor((playtimeMs / 1000) % 60);
+  const minutes = Math.floor((playtimeMs / 1000 / 60) % 60);
+  const hours = Math.floor((playtimeMs / 1000 / 60 / 60) % 24);
+  return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+};
 
 const PlaylistTimer = function () {
 
@@ -16,15 +24,23 @@ const PlaylistTimer = function () {
   const playbackStatePlaytime = playbackState.duration_ms - playbackState.progress_ms;
   let totalPlaytime = queuePlaytime + playbackStatePlaytime;
 
-  const createPlaybackTimeString = function (playtimeMs) {
-    const seconds = Math.floor((playtimeMs / 1000) % 60);
-    const minutes = Math.floor((playtimeMs / 1000 / 60) % 60);
-    const hours = Math.floor((playtimeMs / 1000 / 60 / 60) % 24);
-    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-  };
-
   const playbackTimeString = createPlaybackTimeString(totalPlaytime);
   return <PlaylistTimerView remainingTime={playbackTimeString}/>;
+}
+
+export const getTimeUntilSong = function (song) {
+  const state = store.getState();
+  const playlistSongs = state.playlist.playlistSongs;
+  const playlistSongIndex = playlistSongs.findIndex(playlistSong => playlistSong.uri === song.uri);
+
+  const queuePlaytime = playlistSongs.slice(0, playlistSongIndex).reduce((accumulate, track) => {
+    return accumulate + track.duration_ms
+  }, 0);
+  const playbackStatePlaytime = state.playback.duration_ms - state.playback.progress_ms;
+  let totalPlaytime = queuePlaytime + playbackStatePlaytime;
+  const playbackTimeString = createPlaybackTimeString(totalPlaytime);
+  console.log(playbackTimeString);
+  return playbackTimeString;
 }
 
 export default PlaylistTimer;
