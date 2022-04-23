@@ -1,4 +1,5 @@
 import styles from "./Playlist.module.css"
+import PlaylistTimer from "./PlaylistTimer/PlaylistTimer";
 
 /**
  * View for the playlist component.
@@ -28,6 +29,7 @@ const PlaylistView = function ({songs = []}) {
           </a>
         );
       })}
+      <PlaylistTimer />
     </div>
   );
 }
