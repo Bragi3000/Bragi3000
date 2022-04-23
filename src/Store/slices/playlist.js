@@ -39,7 +39,7 @@ const initialState = {
   error: "",
   idStatus: IDLE,
   idRequestId: null,
-  idError: "",
+  idError: ""
 };
 
 /**
