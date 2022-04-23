@@ -6,7 +6,7 @@ import {fetchDevices, selectDevices, setActiveDeviceState} from "Store/slices/pl
 import {setActiveDevice} from "Services/Spotify/spotifyAPI";
 
 /*
-Component to select device to play music from.
+ * Component to select device to play music from.
  */
 const DeviceSelector = function () {
 
@@ -14,7 +14,7 @@ const DeviceSelector = function () {
   const dispatch = useDispatch();
   const accessToken = token.access_token;
 
-  // fetch devices intially
+  // fetch devices initially
   useEffect(() => {
     dispatch(fetchDevices({ accessToken }));
   }, []);

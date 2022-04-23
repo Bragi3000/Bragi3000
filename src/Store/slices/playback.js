@@ -13,7 +13,7 @@ export const fetchPlaybackState = createAsyncThunk(
     getPlaybackState(accessToken)
 );
 
-/*
+/**
  * Action to fetch the available devices
  * @param obj.accessToken Spotify access token
  */
@@ -51,17 +51,31 @@ const playback = createSlice({
   name: "playback",
   initialState,
   reducers: {
+    /**
+     * Action & reducer to toggle between playing and paused
+     */
     togglePlayPause: (state, action) => {
       state.is_playing = !state.is_playing;
     },
+    /**
+     * Action & reducer to reset the playback state
+     */
     resetPlaybackState: () => initialState,
-
+    /**
+     * Action & reducer to set if the bragi3000 playlist was started
+     */
     setStartedPlaylist: (state, action) => {
       state.started_playlist = action.payload;
     },
+    /**
+     * Action & reducer to set the available devices
+     */
     setDevices: (state, action) => {
       state.devices = action.payload;
     },
+    /**
+     * Action & reducer to set active device
+     */
     setActiveDeviceState: (state, action) => {
       state.active_device = action.payload;
     },
@@ -99,9 +113,15 @@ const playback = createSlice({
         state.error = error.message;
       }
     },
+    /**
+     * Reducer for a newly pending device request
+     */
     [fetchDevices.pending]: (state, { meta }) => {
       state.deviceRequestId = meta.requestId;
     },
+    /**
+     * Reducer for a newly fulfilled device request
+     */
     [fetchDevices.fulfilled]: (state, { payload, meta }) => {
       if (state.deviceRequestId=== meta.requestId) {
         state.deviceStatus= FULFILLED;
@@ -110,6 +130,9 @@ const playback = createSlice({
         state.active_device = activeDevice ? activeDevice.id : null;
       }
     },
+    /**
+     * Reducer for a newly rejected device request
+     */
     [fetchDevices.rejected]: (state, { error, meta }) => {
       if (state.deviceRequestId=== meta.requestId) {
         state.deviceStatus= REJECTED;

@@ -1,6 +1,9 @@
 import styles from "./DeviceSelector.module.css"
 import soundIcon from "Assets/images/sound-icon.png";
 
+/*
+ * DeviceSelectorView to display the list of devices and let the user select one.
+ */
 const DeviceSelectorView = function ({devices, onClickDevice}) {
 
   return <div className={styles.DeviceSelector}>
@@ -10,6 +13,8 @@ const DeviceSelectorView = function ({devices, onClickDevice}) {
         {device.is_active && <img src={soundIcon} alt="sound icon" className={styles.SoundIcon}/>}
       </button>
     })}
+    {devices.length === 0 &&
+      <div className={styles.NoDevices}>No devices found, open Spotify on the device you want to use</div>}
   </div>
 }
 

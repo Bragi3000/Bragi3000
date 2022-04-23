@@ -38,6 +38,9 @@ const SpotifyControl = function () {
   }, []);
   /* eslint-enable */
 
+  /**
+   * Callback function when the play/pause button is clicked
+   */
   const handlePlay = async () => {
     if (!playbackState.started_playlist && !playbackState.is_playing) {
       if (activeDevice) {
