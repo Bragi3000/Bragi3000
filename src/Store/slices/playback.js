@@ -20,12 +20,14 @@ const initialState = {
   image_src: bragiIcon,
   name: "Bragi",
   artists: "3000",
+  uri: null,
   is_playing: false,
   progress_ms: 0,
   duration_ms: 42069,
   status: IDLE,
   requestId: null,
   error: "",
+  playedSongs: [],
 };
 
 /**
@@ -61,6 +63,8 @@ const playback = createSlice({
           state.is_playing=payload.body.is_playing;
           state.progress_ms=payload.body.progress_ms;
           state.duration_ms=payload.body.item.duration_ms;
+          state.uri=payload.body.item.uri;
+          state.playedSongs = [...state.playedSongs, payload.body.item.uri];
         }
       }
     },
