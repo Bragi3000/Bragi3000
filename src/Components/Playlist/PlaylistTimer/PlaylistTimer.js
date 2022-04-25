@@ -46,7 +46,7 @@ const PlaylistTimer = function () {
  */
 export const getTimeUntilSong = function (song) {
   const state = store.getState();
-  const playlistSongs = state.playlist.playlistSongs;
+  const playlistSongs = state.playlist.playlistSongs.filter(song => !state.playback.playedSongs.includes(song.uri));
   const playlistSongIndex = playlistSongs.findIndex(playlistSong => playlistSong.uri === song.uri);
   const queuePlaytime = playlistSongs.slice(0, playlistSongIndex).reduce((accumulate, track) => {
     return accumulate + track.duration_ms
