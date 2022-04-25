@@ -11,7 +11,6 @@ import store from "Store/store";
 import SpotifyCallbackPage from "Pages/SpotifyCallbackPage/SpotifyCallbackPage";
 import LandingPage from "Pages/LandingPage/LandingPage";
 import LoginPage from "Pages/LoginPage/LoginPage";
-import SignupPage from "Pages/SignupPage/SignupPage";
 import SettingsPage from "Pages/SettingsPage/SettingsPage";
 import RequireAuthentication from "Components/access-control/RequireAuthentication/RequireAuthentication";
 import RequireSpotifyToken from "Components/access-control/RequireSpotifyToken/RequireSpotifyToken";
@@ -64,14 +63,6 @@ root.render(
             element={
               <RequireAuthentication reverse>
                 <LoginPage />
-              </RequireAuthentication>
-            }
-          />
-          <Route
-            path="/signup"
-            element={
-              <RequireAuthentication reverse>
-                <SignupPage />
               </RequireAuthentication>
             }
           />
