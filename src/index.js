@@ -17,6 +17,8 @@ import SettingsPage from "Pages/SettingsPage/SettingsPage";
 import RequireAuthentication from "Components/access-control/RequireAuthentication/RequireAuthentication";
 import RequireSpotifyToken from "Components/access-control/RequireSpotifyToken/RequireSpotifyToken";
 
+import "./index.css";
+
 firebase.initializeApp(firebaseConfig);
 
 /**
