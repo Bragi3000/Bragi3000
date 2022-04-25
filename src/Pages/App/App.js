@@ -32,7 +32,7 @@ const App = function () {
 
       <Playlist />
 
-    <DeviceSelector />
+      <DeviceSelector />
     </div>
   );
 };

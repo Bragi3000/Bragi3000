@@ -39,7 +39,7 @@ const initialState = {
   error: "",
   idStatus: IDLE,
   idRequestId: null,
-  idError: "",
+  idError: ""
 };
 
 /**
@@ -129,6 +129,8 @@ export default playlist.reducer;
 export const selectPlaylistId = state => state.playlist.playlistId;
 
 /**
- * Selector for the playlist songs
+ * Selector for the playlist songs which are not played yet
  */
-export const selectPlaylistSongs = state => state.playlist.playlistSongs;
+export const selectPlaylistSongs = state => {
+  return state.playlist.playlistSongs.filter(song => !state.playback.playedSongs.includes(song.uri));
+}

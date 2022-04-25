@@ -14,10 +14,11 @@ const DeviceSelector = function () {
   const dispatch = useDispatch();
   const accessToken = token.access_token;
 
-  // fetch devices initially
+  /* eslint-disable */
   useEffect(() => {
     dispatch(fetchDevices({ accessToken }));
   }, []);
+  /* eslint-enable */
 
   // trigger fetch of devices in fixed interval
   useEffect(() => {

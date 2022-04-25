@@ -1,4 +1,6 @@
 import styles from "./Playlist.module.css"
+import PlaylistTimer from "./PlaylistTimer/PlaylistTimer";
+import PlaylistSong from "./PlaylistSong/PlaylistSong";
 
 /**
  * View for the playlist component.
@@ -7,26 +9,9 @@ import styles from "./Playlist.module.css"
 const PlaylistView = function ({songs = []}) {
   return (
     <div className={styles.playlist}>
+      <PlaylistTimer />
       {songs.map((song, index) => {
-        return (
-          <a
-            className={styles.resultSong}
-            key={song.id + index}
-            href="_"
-          >
-            <img
-              className={styles.songImage}
-              src={song.album.images[2].url}
-              alt=""
-            />
-            <div className={styles.songDetails}>
-              <span className={styles.songTitle}>{song.name}</span>
-              <span className={styles.songArtists}>
-                {song.artists.map((artist) => artist.name).join(", ")}
-              </span>
-            </div>
-          </a>
-        );
+        return <PlaylistSong song={song} index={index} key={index}/>
       })}
     </div>
   );
