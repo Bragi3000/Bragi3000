@@ -5,11 +5,15 @@ import { Link } from "react-router-dom";
  */
 const LandingPage = function () {
   return (
-    <div className="LandingPage">
-      <span>Welcome to Bragi, enjoy!</span>
-      <br />
-      <br />
-      <Link to="/app">Open it</Link>
+    <div className="container mx-auto px-5 my-40 text-center">
+      <h1 className="text-7xl mb-8">Bragi 3000</h1>
+
+      <Link
+        className="block w-fit mx-auto rounded-md bg-green-500 px-5 py-2 hover:bg-green-400"
+        to="/app"
+      >
+        Start playing
+      </Link>
     </div>
   );
 };
