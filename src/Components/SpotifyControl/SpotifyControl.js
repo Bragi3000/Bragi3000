@@ -1,9 +1,16 @@
-import { playSong, pauseSong, getAvailableDevices } from "Services/Spotify/spotifyAPI";
+import {playSong, pauseSong, startPlaylist} from "Services/Spotify/spotifyAPI";
 import { useEffect} from "react";
 import useSpotifyAuth from "Store/selectors/useSpotifyAuthData"
 import SpotifyControlView from "./SpotifyControlView";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchPlaybackState, selectPlayback, togglePlayPause } from "Store/slices/playback";
+import {
+  fetchPlaybackState,
+  selectActiveDevice,
+  selectPlayback,
+  setStartedPlaylist,
+  togglePlayPause
+} from "Store/slices/playback";
+import {selectPlaylistId} from "../../Store/slices/playlist";
 
 /**
  * Component for current song information showing play/pause button, cover image, name of song and artists
@@ -19,34 +26,37 @@ const SpotifyControl = function () {
   }, [accessToken, dispatch]);
 
   const playbackState = useSelector(state => selectPlayback(state));
+  const playlistId = useSelector(state => selectPlaylistId(state));
+  const activeDevice = useSelector(state => selectActiveDevice(state));
 
+  /* eslint-disable */
   useEffect(() => {
     const interval = setInterval(() => {
       dispatch(fetchPlaybackState({ accessToken }));
     }, 1000);
     return () => clearInterval(interval);
-  }, [accessToken, dispatch, playbackState]);
+  }, []);
+  /* eslint-enable */
 
-  const handlePlay = () => {
-    if (playbackState.is_playing) {
-      pauseSong(token.access_token).then(()=>
-        dispatch(togglePlayPause())
-      );
+  /**
+   * Callback function when the play/pause button is clicked
+   */
+  const handlePlay = async () => {
+    if (!playbackState.started_playlist && !playbackState.is_playing) {
+      if (activeDevice) {
+        // start playing bragi3000 playlist
+        await startPlaylist(token.access_token, playlistId);
+        dispatch(setStartedPlaylist(true));
+      } else {
+        // TODO
+        console.log("Please select a device to play music");
+        return;
+      }
     } else {
-      getAvailableDevices(token.access_token).then(
-        (devices) => {
-          // check if one of the devices is active
-          const activeDevice = devices.find(device => device.is_active);
-          if (activeDevice) {
-            playSong(token.access_token).then(()=>
-              dispatch(togglePlayPause())
-            );
-          } else {
-            console.log("No active devices available");
-          }
-        }
-      );
+      const togglePlayPauseFunc = playbackState.is_playing ? pauseSong : playSong;
+      await togglePlayPauseFunc(token.access_token);
     }
+    dispatch(togglePlayPause());
   }
 
   return (<SpotifyControlView

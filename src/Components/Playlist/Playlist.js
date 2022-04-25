@@ -6,7 +6,6 @@ import {
 } from "Store/slices/playlist";
 import { useEffect } from "react";
 import { useDispatch, useSelector} from "react-redux";
-import {getTimeUntilSong} from "./PlaylistTimer/PlaylistTimer";
 
 /**
  * Component that displays the playlist of the game.
