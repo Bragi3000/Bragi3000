@@ -10,6 +10,8 @@ module.exports = {
     colors: {
       white: "#fff",
       main: colors.zinc,
+      green: colors.green,
+      red: colors.red,
     },
     extend: {},
   },

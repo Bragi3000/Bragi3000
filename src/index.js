@@ -10,12 +10,14 @@ import firebaseConfig from "Config/firebase";
 import store from "Store/store";
 import SpotifyCallbackPage from "Pages/SpotifyCallbackPage/SpotifyCallbackPage";
 import LandingPage from "Pages/LandingPage/LandingPage";
-import App from "Pages/App/App";
 import LoginPage from "Pages/LoginPage/LoginPage";
 import SignupPage from "Pages/SignupPage/SignupPage";
 import SettingsPage from "Pages/SettingsPage/SettingsPage";
 import RequireAuthentication from "Components/access-control/RequireAuthentication/RequireAuthentication";
 import RequireSpotifyToken from "Components/access-control/RequireSpotifyToken/RequireSpotifyToken";
+import AppPage from "Pages/AppPage/AppPage";
+import AppGamePage from "Pages/AppPage/AppGamePage/AppGamePage";
+import AppQueuePage from "Pages/AppPage/AppQueuePage/AppQueuePage";
 
 import "./index.css";
 
@@ -41,11 +43,14 @@ root.render(
             element={
               <RequireAuthentication>
                 <RequireSpotifyToken>
-                  <App />
+                  <AppPage />
                 </RequireSpotifyToken>
               </RequireAuthentication>
             }
-          />
+          >
+            <Route index element={<AppGamePage />} />
+            <Route path="queue" element={<AppQueuePage />} />
+          </Route>
           <Route
             path="/settings"
             element={
