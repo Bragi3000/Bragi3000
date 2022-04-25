@@ -1,6 +1,25 @@
 import PlaylistSongView from "./PlaylistSongView";
-import { getTimeUntilSong } from "../PlaylistTimer/PlaylistTimer";
+import { createPlaybackTimeString } from "../PlaylistTimer/PlaylistTimer";
 import { useState } from "react";
+import store from "Store/store";
+
+/**
+ * Function to calculate the remaining time until the song is played.
+ * @param song - to calculate the remaining time in the playlist
+ * @returns string representing the remaining time
+ */
+export const getTimeUntilSong = function (song) {
+  const state = store.getState();
+  const playlistSongs = state.playlist.playlistSongs.filter(song => !state.playback.playedSongs.includes(song.uri));
+  const playlistSongIndex = playlistSongs.findIndex(playlistSong => playlistSong.uri === song.uri);
+  const queuePlaytime = playlistSongs.slice(0, playlistSongIndex).reduce((accumulate, track) => {
+    return accumulate + track.duration_ms
+  }, 0);
+  const playbackStatePlaytime = state.playback.duration_ms - state.playback.progress_ms;
+  let totalPlaytime = queuePlaytime + playbackStatePlaytime;
+  return createPlaybackTimeString(totalPlaytime);
+}
+
 
 /**
 * Component that represents a song in the playlist

@@ -22,7 +22,7 @@ const Playlist = function () {
   },[dispatch, token.access_token]);
 
   const playlistSongs = useSelector(state => selectPlaylistSongs(state));
-  return <PlaylistView songs={playlistSongs} onClickSong={getTimeUntilSong}/>
+  return <PlaylistView songs={playlistSongs}/>
 }
 
 export default Playlist;
