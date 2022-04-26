@@ -7,6 +7,7 @@ import { LEFT_PLAYER, RIGHT_PLAYER } from "Constants/players";
 import TicTacToe from "Components/TicTacToe/TicTacToe";
 import Playlist from "Components/Playlist/Playlist";
 import DeviceSelector from "../../Components/DeviceSelector/DeviceSelector";
+import BannedSongs from "../../Components/BannedSongs/BannedSongs";
 
 /*
  * Main page of the app consisting of song selectors, song control and tic-tac-toe game.
@@ -33,6 +34,8 @@ const App = function () {
       <Playlist />
 
       <DeviceSelector />
+
+      <BannedSongs />
     </div>
   );
 };
