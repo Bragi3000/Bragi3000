@@ -234,7 +234,12 @@ function getAvailableDevices(accessToken) {
   );
 }
 
-
+/**
+ * Replace the image used to represent a specific playlist.
+ * @param accessToken - The access token to use
+ * @param playlistId - playlistID receiving custom image
+ * @returns {Promise} Promise that resolves once picture is uploaded
+ */
 function uploadPlaylistImage(accessToken, playlistId) {
   return new SpotifyWebApi({accessToken}).uploadCustomPlaylistCoverImage(playlistId, bragi_icon_b64);
 }
