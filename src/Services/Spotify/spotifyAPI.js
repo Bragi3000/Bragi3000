@@ -1,4 +1,5 @@
 import SpotifyWebApi from "spotify-web-api-node";
+import bragi_icon_b64 from "Assets/images/bragi-icon-b64";
 
 /**
  * Method which calls the spotify API to get information about the playback state of the authenticated user
@@ -7,7 +8,7 @@ import SpotifyWebApi from "spotify-web-api-node";
  * @returns {Promise} API response; example can be found in the link
  */
 function getPlaybackState(accessToken) {
-  return new SpotifyWebApi({ accessToken }).getMyCurrentPlaybackState();
+  return new SpotifyWebApi({accessToken}).getMyCurrentPlaybackState();
 }
 
 /**
@@ -18,7 +19,7 @@ function getPlaybackState(accessToken) {
  * @returns {Promise} API response; example can be found in the link
  */
 function addSongToQueue(accessToken, songUri) {
-  return new SpotifyWebApi({ accessToken }).addToQueue(songUri);
+  return new SpotifyWebApi({accessToken}).addToQueue(songUri);
 }
 
 /**
@@ -28,7 +29,7 @@ function addSongToQueue(accessToken, songUri) {
  * @returns {Promise} API response; example can be found in the link
  */
 function pauseSong(accessToken) {
-  return new SpotifyWebApi({ accessToken }).pause();
+  return new SpotifyWebApi({accessToken}).pause();
 }
 
 /**
@@ -38,7 +39,7 @@ function pauseSong(accessToken) {
  * @returns {Promise} API response; example can be found in the link
  */
 function playSong(accessToken) {
-  return new SpotifyWebApi({ accessToken }).play();
+  return new SpotifyWebApi({accessToken}).play();
 }
 
 /** A nice default in case the given query is empty */
@@ -56,7 +57,7 @@ const defaultSearchQuery = window.atob(
  * @throws Will reject if the response status code is not 200
  */
 async function searchSong(accessToken, searchQuery) {
-  const response = await new SpotifyWebApi({ accessToken }).searchTracks(
+  const response = await new SpotifyWebApi({accessToken}).searchTracks(
     searchQuery || defaultSearchQuery
   );
 
@@ -74,7 +75,7 @@ const playlistName = "bragi3000"
  * @throws Will reject if the response status code is not 201
  */
 function getSpotifyUser(accessToken) {
-  return new SpotifyWebApi({ accessToken }).getMe();
+  return new SpotifyWebApi({accessToken}).getMe();
 }
 
 
@@ -97,7 +98,7 @@ function getUserPlaylists(accessToken, userId) {
  * @returns {Promise} Promise for the newly created playlist object returned by the API
  */
 function createPlaylist(accessToken) {
-  return new SpotifyWebApi({ accessToken }).createPlaylist(playlistName, { 'public': false });
+  return new SpotifyWebApi({accessToken}).createPlaylist(playlistName, {'public': false});
 }
 
 /**
@@ -108,7 +109,7 @@ function createPlaylist(accessToken) {
  * @returns {Promise} Promise for the playlist object returned by the API
  */
 function getPlaylist(accessToken, playlistId) {
-  return new SpotifyWebApi({ accessToken }).getPlaylist(playlistId);
+  return new SpotifyWebApi({accessToken}).getPlaylist(playlistId);
 }
 
 /**
@@ -119,7 +120,7 @@ function getPlaylist(accessToken, playlistId) {
  * @returns {Promise} Promise for the songs added to the playlist
  */
 function addSongToPlaylist(accessToken, playlistId, trackUri) {
-  return new SpotifyWebApi({ accessToken }).addTracksToPlaylist(playlistId, [trackUri]);
+  return new SpotifyWebApi({accessToken}).addTracksToPlaylist(playlistId, [trackUri]);
 }
 
 /**
@@ -131,7 +132,7 @@ function addSongToPlaylist(accessToken, playlistId, trackUri) {
  * @returns {Promise} Promise for the songs deleted from the playlist
  */
 function removeSongsFromPlaylist(accessToken, playlistId, trackUris, snapshotId) {
-  return new SpotifyWebApi({ accessToken }).removeTracksFromPlaylist(playlistId, trackUris, { snapshot_id: snapshotId });
+  return new SpotifyWebApi({accessToken}).removeTracksFromPlaylist(playlistId, trackUris, {snapshot_id: snapshotId});
 }
 
 /**
@@ -140,7 +141,7 @@ function removeSongsFromPlaylist(accessToken, playlistId, trackUris, snapshotId)
  * @param accessToken {string} - The access token to use
  * @returns {Promise} - A promise that resolves to the playlist id
  */
-function getPlaylistId (accessToken) {
+function getPlaylistId(accessToken) {
   return getSpotifyUser(accessToken).then(
     (resp) => {
       return getUserPlaylists(accessToken, resp.body.id).then(
@@ -154,7 +155,8 @@ function getPlaylistId (accessToken) {
             // otherwise, create playlist
             return createPlaylist(accessToken).then(
               (resp) => {
-                return resp.body.id
+                uploadPlaylistImage(accessToken, resp.body.id);
+                return resp.body.id;
               });
           }
         }
@@ -169,7 +171,7 @@ function getPlaylistId (accessToken) {
  * @param playlistId {string} - The id of the playlist to get the songs from
  * @returns {Promise} - A promise that resolves into an array of song objects
  */
-function getPlaylistSongs (accessToken, playlistId) {
+function getPlaylistSongs(accessToken, playlistId) {
   return getPlaylist(accessToken, playlistId).then(
     (resp) => {
       return resp.body.tracks.items.map(song => song.track);
@@ -187,7 +189,8 @@ function resetPlaylist(accessToken, playlistId) {
     .then(resp => resp.body)
     .then((body) => {
       const uris = body.tracks.items.map((song) => {
-        return {uri: song.track.uri}});
+        return {uri: song.track.uri}
+      });
       removeSongsFromPlaylist(accessToken, playlistId, uris, body.snapshot_id).then(() => true).catch(() => false);
     });
 }
@@ -200,7 +203,7 @@ function resetPlaylist(accessToken, playlistId) {
  * @returns {Promise} - A promise that resolves when the playlist has started
  */
 function startPlaylist(accessToken, playlistId) {
-  return new SpotifyWebApi({ accessToken }).play({
+  return new SpotifyWebApi({accessToken}).play({
     context_uri: `spotify:playlist:${playlistId}`,
     offset: {
       position: 0
@@ -215,7 +218,7 @@ function startPlaylist(accessToken, playlistId) {
  * @returns {Promise} - A promise that resolves when the device has been set
  */
 function setActiveDevice(accessToken, deviceId) {
-  return new SpotifyWebApi({ accessToken }).transferMyPlayback([deviceId]);
+  return new SpotifyWebApi({accessToken}).transferMyPlayback([deviceId]);
 }
 
 /**
@@ -224,7 +227,7 @@ function setActiveDevice(accessToken, deviceId) {
  * @returns {Promise} - A promise that resolves to an array of devices
  */
 function getAvailableDevices(accessToken) {
-  return new SpotifyWebApi({ accessToken }).getMyDevices().then(
+  return new SpotifyWebApi({accessToken}).getMyDevices().then(
     (resp) => {
       return resp.body.devices;
     }
@@ -232,5 +235,27 @@ function getAvailableDevices(accessToken) {
 }
 
 
+function uploadPlaylistImage(accessToken, playlistId) {
+  return new SpotifyWebApi({accessToken}).uploadCustomPlaylistCoverImage(playlistId, bragi_icon_b64);
+}
 
-export { getPlaybackState, addSongToQueue, playSong, pauseSong, searchSong, createPlaylist, getPlaylist, addSongToPlaylist, getSpotifyUser, getUserPlaylists, removeSongsFromPlaylist, getPlaylistId, resetPlaylist, getPlaylistSongs, startPlaylist, getAvailableDevices, setActiveDevice };
+
+export {
+  getPlaybackState,
+  addSongToQueue,
+  playSong,
+  pauseSong,
+  searchSong,
+  createPlaylist,
+  getPlaylist,
+  addSongToPlaylist,
+  getSpotifyUser,
+  getUserPlaylists,
+  removeSongsFromPlaylist,
+  getPlaylistId,
+  resetPlaylist,
+  getPlaylistSongs,
+  startPlaylist,
+  getAvailableDevices,
+  setActiveDevice
+};
