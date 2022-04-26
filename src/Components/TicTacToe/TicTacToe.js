@@ -8,10 +8,10 @@ import {
 } from "Store/slices/selectedSongs";
 import { resetSearch} from "Store/slices/songSearch";
 import useSpotifyAuth from "Store/selectors/useSpotifyAuthData"
-import {fetchPlaylistSongs, selectPlaylistId} from "Store/slices/playlist";
+import {appendBannedSongs, fetchPlaylistSongs, selectPlaylistId} from "Store/slices/playlist";
 import { LEFT_PLAYER, RIGHT_PLAYER } from "Constants/players";
 import {useDispatch, useSelector} from "react-redux";
-import { addSongToPlaylist} from "Services/Spotify/spotifyAPI"
+import {addSongToPlaylist} from "Services/Spotify/spotifyAPI"
 
 
 /**
@@ -116,12 +116,14 @@ export default function TicTacToe({size = 4, circleIcon = bragiIcon, crossIcon =
 
   if (winner) {
     const winner_uri = winner === 'X' ? rightSong.uri : leftSong.uri;
+    const loser_song = winner === 'X' ? leftSong : rightSong;
     addSongToPlaylist(token.access_token, playlistId, winner_uri).then(() => {
       // update the playlist
       dispatch(fetchPlaylistSongs({ accessToken: token.access_token }));
       // reset song selection
       dispatch(resetSearch());
       dispatch((resetSelectedSongs()));
+      dispatch(appendBannedSongs(loser_song));
     });
     setBoard(Array(size * size).fill(null));
   } else if (tie) {

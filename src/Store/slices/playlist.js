@@ -130,7 +130,7 @@ const playlist = createSlice({
   },
 });
 
-export const {setPlaylistId, setPlaylistSongs} = playlist.actions;
+export const {setPlaylistId, setPlaylistSongs, appendBannedSongs} = playlist.actions;
 export default playlist.reducer;
 
 /**
