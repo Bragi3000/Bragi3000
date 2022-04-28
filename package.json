@@ -7,7 +7,6 @@
     "@tailwindcss/forms": "^0.5.0",
     "autoprefixer": "^10.4.5",
     "firebase": "^9.6.11",
-    "flowbite": "^1.4.3",
     "phosphor-react": "^1.4.1",
     "postcss": "^8.4.12",
     "react": "^18.0.0",
