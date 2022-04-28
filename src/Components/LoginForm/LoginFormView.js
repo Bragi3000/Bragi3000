@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { Link } from "react-router-dom";
 
 /**
  * View for the LoginForm component
@@ -13,7 +14,6 @@ const LoginFormView = function ({
   error = "",
   waiting = false,
   onSubmit = (email, password, passwordConfirm) => {},
-  onSwitchMode = () => {},
 }) {
   const email = useRef();
   const password = useRef();
@@ -77,12 +77,12 @@ const LoginFormView = function ({
 
       <p>
         {signupMode ? "Already a member? " : "Not a member yet? "}
-        <button
+        <Link
+          to={signupMode ? "/login" : "/signup"}
           className="text-green-400 hover:underline my-3"
-          onClick={() => onSwitchMode()}
         >
           {signupMode ? "Log in" : "Sign up"}
-        </button>
+        </Link>
       </p>
     </>
   );

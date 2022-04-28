@@ -67,6 +67,14 @@ root.render(
             }
           />
           <Route
+            path="/signup"
+            element={
+              <RequireAuthentication reverse>
+                <LoginPage />
+              </RequireAuthentication>
+            }
+          />
+          <Route
             path="/spotify-callback"
             element={
               <RequireAuthentication>

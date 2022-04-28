@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFirebase } from "react-redux-firebase";
+import { useMatch } from "react-router";
 
 import LoginFormView from "./LoginFormView";
 
@@ -9,8 +10,12 @@ import LoginFormView from "./LoginFormView";
 const LoginForm = function () {
   const firebase = useFirebase();
   const [error, setError] = useState(null);
-  const [signupMode, setSignupMode] = useState(false);
   const [waiting, setWaiting] = useState(false);
+  const signupMode = !!useMatch("/signup");
+
+  useEffect(() => {
+    setError(null);
+  }, [signupMode]);
 
   const handleSubmit = async (email, password, passwordConfirm) => {
     setWaiting(true);
@@ -36,10 +41,6 @@ const LoginForm = function () {
       signupMode={signupMode}
       error={error}
       waiting={waiting}
-      onSwitchMode={() => {
-        setError("");
-        setSignupMode((mode) => !mode);
-      }}
       onSubmit={handleSubmit}
     />
   );
