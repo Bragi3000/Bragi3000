@@ -21,6 +21,8 @@ const SpotifyCallbackPage = function () {
       }).then(() => {
         navigate("/settings");
       });
+    } else {
+      navigate("/settings");
     }
   }, [params, setSpotifyAuthData, navigate]);
 
