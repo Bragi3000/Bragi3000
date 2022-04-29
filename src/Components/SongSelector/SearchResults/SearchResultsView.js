@@ -1,4 +1,4 @@
-import styles from "../SongSelector.module.css";
+import Song from "../Song/Song";
 
 /**
  * View showing song results after a search.
@@ -6,36 +6,14 @@ import styles from "../SongSelector.module.css";
  * @param props.onSelectSong Event that fires when clicking a song
  */
 const SearchResultsView = function ({
-  songs = [],
-  onSelectSong: onSongSelect = (song) => {},
+  songs,
+  onSelectSong,
 }) {
   return (
-    <div className={styles.searchResults}>
+    <div className="overflow-auto">
       {songs.map((song) => {
-        const handleClick = (e) => {
-          e.preventDefault();
-          onSongSelect(song);
-        };
-
         return (
-          <a
-            className={styles.resultSong}
-            key={song.id}
-            href="_"
-            onClick={handleClick}
-          >
-            <img
-              className={styles.songImage}
-              src={song.album.images[2].url}
-              alt=""
-            />
-            <div className={styles.songDetails}>
-              <span className={styles.songTitle}>{song.name}</span>
-              <span className={styles.songArtists}>
-                {song.artists.map((artist) => artist.name).join(", ")}
-              </span>
-            </div>
-          </a>
+          <Song key={song.id} song={song} onClick={() => onSelectSong(song)} />
         );
       })}
     </div>
