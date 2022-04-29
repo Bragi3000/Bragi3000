@@ -5,6 +5,9 @@ import {
   Queue as QueueIcon,
   DesktopTower as DevicesIcon,
 } from "phosphor-react";
+import DeviceSelector from "./DeviceSelector/DeviceSelector";
+import Playlist from "./Playlist/Playlist";
+import PopoverIcon from "./PopoverIcon/PopoverIcon";
 
 /**
  * Simple song information view showing play/pause button, cover image, name of song and artists
@@ -37,13 +40,13 @@ const SpotifyControlView = function ({
           color: "currentColor",
         }}
       >
-        <button className="flex-none hover:text-main-400">
-          <DevicesIcon className="w-auto h-8" />
-        </button>
-        <button className="flex-none hover:text-main-400">
-          <QueueIcon className="w-auto h-8" />
-        </button>
-        <button className="flex-none hover:text-main-400">
+        <PopoverIcon icon={<DevicesIcon className="w-auto h-8" />}>
+          <DeviceSelector />
+        </PopoverIcon>
+        <PopoverIcon icon={<QueueIcon className="w-auto h-8" />}>
+          <Playlist />
+        </PopoverIcon>
+        <button className="block flex-none hover:text-main-400">
           <PlayPauseIcon
             weight="fill"
             className="w-auto h-20"

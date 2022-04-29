@@ -16,7 +16,6 @@ import RequireAuthentication from "Components/access-control/RequireAuthenticati
 import RequireSpotifyToken from "Components/access-control/RequireSpotifyToken/RequireSpotifyToken";
 import AppPage from "Pages/AppPage/AppPage";
 import AppGamePage from "Pages/AppPage/AppGamePage/AppGamePage";
-import AppQueuePage from "Pages/AppPage/AppQueuePage/AppQueuePage";
 
 import "./index.css";
 
@@ -48,7 +47,6 @@ root.render(
             }
           >
             <Route index element={<AppGamePage />} />
-            <Route path="queue" element={<AppQueuePage />} />
           </Route>
           <Route
             path="/settings"

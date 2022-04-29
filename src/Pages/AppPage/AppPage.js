@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 const AppPage = function () {
   return (
     <>
-      <div className="pb-28 overflow-clip">
+      <div className="pb-28 overflow-auto">
         <Link to="/settings">Settings</Link>
 
         <Outlet />
