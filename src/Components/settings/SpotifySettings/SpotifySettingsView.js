@@ -1,3 +1,12 @@
+/**
+ * Settings section showing configuration for Spotify.
+ * This view is only meant to be used by the presenter.
+ * @param token Current Spotify access token
+ * @param expireStamp Timestamp at which the access token expires
+ * @param onLink Event fired when the 'link Spotify account' button is pressed
+ * @param onUnlink Event fired when the 'unlink Spotify account' button is pressed
+ * @returns The view for the component
+ */
 const SpotifySettingsView = function ({
   token,
   expireStamp,
@@ -20,7 +29,7 @@ const SpotifySettingsView = function ({
       )}
       {token && expireStamp && (
         <>
-          <p className="whitespace-nowrap overflow-hidden text-ellipsis">
+          <p className="nowrap-ellipsis">
             <span className="font-bold">Access token (for debugging):</span>{" "}
             <span>{token}</span>
           </p>

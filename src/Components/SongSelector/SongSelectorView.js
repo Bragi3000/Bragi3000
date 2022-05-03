@@ -15,7 +15,7 @@ const SongSelectorView = function ({ player, selectedSong }) {
   const { access_token } = useSpotifyAuthData();
 
   return (
-    <div className="bg-main-900 w-80 flex-none h-128 flex flex-col">
+    <div className="bg-gray-900 w-80 flex-none h-128 flex flex-col">
       <h1
         className={cx([
           "text-2xl m-3 flex-none",

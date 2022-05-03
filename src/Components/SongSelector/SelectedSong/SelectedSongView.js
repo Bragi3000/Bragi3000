@@ -36,7 +36,7 @@ const SelectedSongView = function ({
 
       {!isConfirmed && (
         <button
-          className="text-main-400 hover:underline"
+          className="text-gray-400 hover:underline"
           onClick={() => onCancel()}
         >
           Select another song

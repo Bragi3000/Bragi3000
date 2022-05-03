@@ -10,6 +10,10 @@ import {
 } from "Store/slices/playback";
 import DeviceSelectorView from "./DeviceSelectorView";
 
+/**
+ * A list of Spotify devices from which the active device can be chosen.
+ * @returns The presenter for the component
+ */
 const DeviceSelector = function () {
   const { access_token: accessToken } = useSpotifyAuthData();
   const dispatch = useDispatch();

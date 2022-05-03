@@ -1,3 +1,11 @@
+/**
+ * Settings section showing configuration for the Firebase account.
+ * This view is only meant to be used by the presenter.
+ * @param email Email of the logged-in user
+ * @param uid Unique ID of the logged-in user
+ * @param onLogout Event fired when the 'log out' button is pressed
+ * @returns The view for the component
+ */
 const AccountSettingsView = function ({ email, uid, onLogout }) {
   return (
     <div className="my-10">

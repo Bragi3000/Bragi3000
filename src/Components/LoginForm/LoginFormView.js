@@ -28,6 +28,30 @@ const LoginFormView = function ({
     event.preventDefault();
   };
 
+  const fields = [
+    {
+      key: "email",
+      label: "Email address",
+      placeholder: "john@example.com",
+      type: "text",
+      ref: email,
+    },
+    {
+      key: "password",
+      label: "Password",
+      placeholder: "••••••••••••",
+      type: "password",
+      ref: password,
+    },
+    signupMode && {
+      key: "password-confirm",
+      label: "Password (confirmation)",
+      placeholder: "••••••••••••",
+      type: "password",
+      ref: passwordConfirm,
+    },
+  ];
+
   return (
     <>
       <h1 className="text-3xl mb-3">{signupMode ? "Sign up" : "Log in"}</h1>
@@ -35,39 +59,20 @@ const LoginFormView = function ({
       <form onSubmit={handleSubmit}>
         {error && <p className="text-red-500 my-3">{error}</p>}
 
-        <label className="block my-3">
-          Email address
-          <input
-            className="block w-full mt-1 rounded-md bg-main-700 border-transparent focus:border-main-600 focus:ring-0"
-            type="text"
-            placeholder="john@example.com"
-            ref={email}
-            disabled={waiting}
-          />
-        </label>
-
-        <label className="block my-3">
-          Password
-          <input
-            className="block w-full mt-1 rounded-md bg-main-700 border-transparent focus:border-main-600 focus:ring-0"
-            type="password"
-            placeholder="••••••••••••"
-            ref={password}
-            disabled={waiting}
-          />
-        </label>
-
-        {signupMode && (
-          <label className="block my-3">
-            Password (confirmation)
-            <input
-              className="block w-full mt-1 rounded-md bg-main-700 border-transparent focus:border-main-600 focus:ring-0"
-              type="password"
-              placeholder="••••••••••••"
-              ref={passwordConfirm}
-              disabled={waiting}
-            />
-          </label>
+        {fields.map(
+          ({ key, label, placeholder, type, ref } = {}) =>
+            key && (
+              <label key={key} className="block my-3">
+                {label}
+                <input
+                  className="block w-full mt-1 rounded-md bg-gray-700 border-transparent focus:border-gray-600 focus:ring-0"
+                  type={type}
+                  placeholder={placeholder}
+                  ref={ref}
+                  disabled={waiting}
+                />
+              </label>
+            )
         )}
 
         <button className="block w-full my-3 mt-6 rounded-md bg-green-500 px-5 py-2 hover:bg-green-400">
@@ -75,7 +80,7 @@ const LoginFormView = function ({
         </button>
       </form>
 
-      <p>
+      <p className="my-3">
         {signupMode ? "Already a member? " : "Not a member yet? "}
         <Link
           to={signupMode ? "/login" : "/signup"}

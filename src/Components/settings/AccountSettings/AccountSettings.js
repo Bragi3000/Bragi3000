@@ -3,6 +3,10 @@ import { useNavigate } from "react-router";
 import useUserData from "Services/firebase/useUserData";
 import AccountSettingsView from "./AccountSettingsView";
 
+/**
+ * Settings section showing configuration for the Firebase account.
+ * @returns The presenter for the component
+ */
 const AccountSettings = function () {
   const firebase = useFirebase();
   const navigate = useNavigate();

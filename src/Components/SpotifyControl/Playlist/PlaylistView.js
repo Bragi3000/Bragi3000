@@ -7,7 +7,7 @@ import PlaylistSong from "./PlaylistSong/PlaylistSong";
  */
 const PlaylistView = function ({ songs = [] }) {
   return (
-    <div className="w-96 h-96">
+    <div className="w-96 h-128">
       <h1 className="text-xl text-center p-4">Playlist</h1>
       <PlaylistTimer />
       {songs.map((song, index) => {

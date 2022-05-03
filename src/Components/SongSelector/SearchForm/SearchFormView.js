@@ -25,7 +25,7 @@ const SearchFormView = function ({
   return (
     <form className="flex mb-3 px-3 space-x-3" onSubmit={handleSubmit}>
       <input
-        className="flex-auto bg-transparent border-0 border-b-2 border-main-400 focus:ring-0 focus:border-main-100 px-0.5 placeholder:text-main-400"
+        className="flex-auto bg-transparent border-0 border-b-2 border-gray-400 focus:ring-0 focus:border-gray-100 px-0.5 placeholder:text-gray-400"
         type="text"
         placeholder="Song or artist"
         defaultValue={query}

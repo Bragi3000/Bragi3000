@@ -13,8 +13,8 @@ import {
 import {selectPlaylistId} from "../../Store/slices/playlist";
 
 /**
- * Component for current song information showing play/pause button, cover image, name of song and artists
- * @returns {JSX.Element} SpotifyControlView with current song information
+ * Controlbar for showing playback information and controlling it.
+ * @returns The presenter for the component
  */
 const SpotifyControl = function () {
   const token = useSpotifyAuth();

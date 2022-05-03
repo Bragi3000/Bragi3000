@@ -3,6 +3,10 @@ import useSpotifyAuthData from "Store/selectors/useSpotifyAuthData";
 import useSetSpotifyAuthData from "Store/updaters/useSetSpotifyAuthData";
 import SpotifySettingsView from "./SpotifySettingsView";
 
+/**
+ * Settings section showing configuration for Spotify.
+ * @returns The presenter for the component
+ */
 const SpotifySettings = function () {
   const authData = useSpotifyAuthData();
   const setAuthData = useSetSpotifyAuthData();

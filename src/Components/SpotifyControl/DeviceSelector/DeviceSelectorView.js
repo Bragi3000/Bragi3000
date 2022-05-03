@@ -2,6 +2,14 @@ import { RadioGroup } from "@headlessui/react";
 import cx from "Utils/classNames";
 import { SpeakerHigh as SoundIcon } from "phosphor-react";
 
+/**
+ * A list of Spotify devices from which the active device can be chosen.
+ * This view is only meant to be used by the presenter.
+ * @param devices List of devices to show
+ * @param activeDeviceId Id of the currently active device
+ * @param onSelectDeviceId Event fired when a device a selected
+ * @returns The view for the component
+ */
 const DeviceSelectorView = function ({
   devices = [],
   activeDeviceId,
@@ -19,7 +27,7 @@ const DeviceSelectorView = function ({
             {({ checked }) => (
               <div
                 className={cx([
-                  "px-5 space-x-3 cursor-pointer hover:bg-main-800 flex items-center",
+                  "px-5 space-x-3 cursor-pointer hover:bg-gray-800 flex items-center",
                   checked && "text-green-400",
                 ])}
               >
@@ -37,7 +45,7 @@ const DeviceSelectorView = function ({
         {devices.length === 0 && (
           <div className="px-5 pt-3 pb-5 text-center">
             <p>No devices were found</p>
-            <p className="text-main-400">
+            <p className="text-gray-400">
               Please open Spotify on the device you want to use
             </p>
           </div>

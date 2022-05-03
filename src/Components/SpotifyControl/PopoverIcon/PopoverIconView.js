@@ -1,8 +1,15 @@
 import { Popover, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import { usePopper } from "react-popper";
 import cx from "Utils/classNames";
 
+/**
+ * An icon with an openable popover in the controlbar.
+ * This view is only meant to be used by the presenter.
+ * @param icon Icon component to show in control bar
+ * @param children Component to show in the popover
+ * @returns The view for the component
+ */
 const PopoverIconView = function ({ icon, children }) {
   const [buttonRef, setButtonRef] = useState();
   const [panelRef, setPanelRef] = useState();
@@ -18,7 +25,7 @@ const PopoverIconView = function ({ icon, children }) {
             ref={setButtonRef}
             className={cx([
               "block",
-              open ? "text-green-400" : "hover:text-main-400",
+              open ? "text-green-400" : "hover:text-gray-400",
             ])}
           >
             {icon}
@@ -37,7 +44,7 @@ const PopoverIconView = function ({ icon, children }) {
               style={styles.popper}
               {...attributes.popper}
             >
-              <div className="overflow-hidden m-2 mb-5 rounded-xl ring-1 ring-main-700 bg-main-900 shadow-lg shadow-main-900">
+              <div className="overflow-hidden m-2 mb-5 rounded-xl ring-1 ring-gray-700 bg-gray-900 shadow-lg shadow-gray-900">
                 {children}
               </div>
             </Popover.Panel>
