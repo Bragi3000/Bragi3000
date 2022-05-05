@@ -3,6 +3,7 @@ import selectedSongs from "./slices/selectedSongs";
 import songSearch from "./slices/songSearch";
 import playlist from "./slices/playlist";
 import playback from "./slices/playback";
+import devices from "./slices/devices";
 import {
   firebaseReducer,
   getFirebase,
@@ -21,7 +22,8 @@ const store = configureStore({
     selectedSongs,
     songSearch,
     playlist,
-    playback
+    playback,
+    devices
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
