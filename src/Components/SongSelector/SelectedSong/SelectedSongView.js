@@ -1,4 +1,4 @@
-import styles from "../SongSelector.module.css";
+import Song from "../Song/Song";
 
 /**
  * View showing a currently selected song.
@@ -10,31 +10,39 @@ import styles from "../SongSelector.module.css";
  */
 const SelectedSongView = function ({
   song,
-  isConfirmed = false,
-  isAlreadyChosen = false,
-  onConfirm = () => {},
-  onCancel = () => {},
+  isConfirmed,
+  isAlreadyChosen,
+  onConfirm,
+  onCancel,
 }) {
   return (
-    <>
-      <div className={styles.selectedSong}>
-        <img
-          className={styles.songImage}
-          src={song.album.images[2].url}
-          alt=""
-        />
-        <div className={styles.songDetails}>
-          <span className={styles.songTitle}>{song.name}</span>
-          <span>{song.artists.map((artist) => artist.name).join(", ")}</span>
-        </div>
-      </div>
-      <button disabled={isConfirmed || isAlreadyChosen} onClick={() => onConfirm()}>
-        Confirm
-      </button>
-      <button hidden={isConfirmed} onClick={() => onCancel()}>
-        Cancel
-      </button>
-    </>
+    <div className="flex flex-col h-full justify-center pb-16 overflow-auto">
+      <Song song={song} />
+
+      {!isConfirmed && isAlreadyChosen && (
+        <p className="text-red-500 text-center p-3">
+          This song has already been chosen by the other player!
+        </p>
+      )}
+
+      {!isConfirmed && !isAlreadyChosen && (
+        <button
+          className="block text-green-400 m-3 hover:underline"
+          onClick={() => onConfirm()}
+        >
+          Confirm selection
+        </button>
+      )}
+
+      {!isConfirmed && (
+        <button
+          className="text-gray-400 hover:underline"
+          onClick={() => onCancel()}
+        >
+          Select another song
+        </button>
+      )}
+    </div>
   );
 };
 

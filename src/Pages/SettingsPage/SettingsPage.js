@@ -1,35 +1,24 @@
-import LogoutButton from "Components/LogoutButton/LogoutButton";
-import SpotifyLoginButton from "Components/SpotifyLoginButton/SpotifyLoginButton";
-import useUserData from "Services/firebase/useUserData";
-import useSpotifyAuthData from "Store/selectors/useSpotifyAuthData";
-import useTitle from "Utils/useTitle";
+import AccountSettings from "Components/settings/AccountSettings/AccountSettings";
+import SpotifySettings from "Components/settings/SpotifySettings/SpotifySettings";
 import { Link } from "react-router-dom";
+import useTitle from "Utils/useTitle";
 
 /*
-  * SettingsPage of the application.
-  * Shows user-id, access-token and link to the Spotify Login.
+ * SettingsPage of the application.
+ * Shows user-id, access-token and link to the Spotify Login.
  */
 const SettingsPage = function () {
-  useTitle("Bragi 3000 - Settings");
-
-  const user = useUserData();
-
-  const spotifyAuthData = useSpotifyAuthData();
+  useTitle("Settings - Bragi 3000");
 
   return (
-    <div>
-      <span>Your UID: {user.uid}</span>
-      <br />
-      <span>Your email: {user.email}</span>
-      <br />
-      <span>{JSON.stringify(spotifyAuthData)}</span>
-      <br />
-      <SpotifyLoginButton />
-      <br />
-      <LogoutButton />
-      <br />
-      <br />
-      <Link to="/app">Start playing</Link>
+    <div className="container mx-auto px-5">
+      <div className="my-10 text-right">
+        <Link className="text-green-400 hover:underline" to="/app">
+          Close settings
+        </Link>
+      </div>
+      <AccountSettings />
+      <SpotifySettings />
     </div>
   );
 };

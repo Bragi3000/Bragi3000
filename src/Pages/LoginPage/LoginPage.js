@@ -5,11 +5,10 @@ import useTitle from "Utils/useTitle";
  * LoginPage to login into the application.
  */
 const LoginPage = function () {
-  useTitle("Bragi 3000 - Login");
+  useTitle("Log In - Bragi 3000");
 
   return (
-    <div>
-      <h1>Login</h1>
+    <div className="py-20 px-5 max-w-md mx-auto">
       <LoginForm />
     </div>
   );

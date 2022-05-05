@@ -1,5 +1,4 @@
 import { useRef } from "react";
-import styles from "../SongSelector.module.css";
 
 /**
  * View showing a search form for songs.
@@ -24,15 +23,16 @@ const SearchFormView = function ({
   };
 
   return (
-    <form className={styles.searchForm} onSubmit={handleSubmit}>
+    <form className="flex mb-3 px-3 space-x-3" onSubmit={handleSubmit}>
       <input
+        className="flex-auto bg-transparent border-0 border-b-2 border-gray-400 focus:ring-0 focus:border-gray-100 px-0.5 placeholder:text-gray-400"
         type="text"
-        placeholder="Search song"
-        value={query}
+        placeholder="Song or artist"
+        defaultValue={query}
         ref={queryElement}
         onChange={handleChange}
       />
-      <input type="submit" value="Search!" />
+      <button className="text-green-400 hover:underline">Search!</button>
     </form>
   );
 };
