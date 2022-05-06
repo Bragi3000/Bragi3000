@@ -1,6 +1,6 @@
 import HelpButtonView from "./HelpButtonView"
 import {useDispatch} from "react-redux";
-import {toggleHelpActivity} from "Store/slices/helper";
+import {selectPosition, changePosition, toggleHelpActivity} from "Store/slices/helper";
 
 const HelpButton = function () {
   const dispatch = useDispatch();
@@ -8,6 +8,16 @@ const HelpButton = function () {
   function toggle() {
     dispatch(toggleHelpActivity());
   }
+
+  function handleHelperPosition(event) {
+    if ([37, 39].includes(event.keyCode)) {
+      const number = event.keyCode === 39 ? 1 : -1;
+      dispatch(changePosition(number));
+    }
+
+  }
+
+  document.body.addEventListener("keydown", handleHelperPosition);
 
   return (
     <HelpButtonView toggle={toggle}/>
