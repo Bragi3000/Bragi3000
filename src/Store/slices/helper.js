@@ -20,29 +20,33 @@ const helperSlice = createSlice({
      * Action & reducer to toggle help activity
      */
     toggleHelpActivity: (state, action) => {
+      if (!state.helpActive) {
+        state.position = initialState.position;
+      }
       state.helpActive = !state.helpActive;
     },
 
     /**
      * Action & reducer to reset the playback state
      */
-    resetPlaybackState: () => initialState,
+    resetHelper: () => initialState,
 
 
     /**
      * Action & reducer to show help for certain component position
      */
-    setHelpedComponent: (state, {payload: {explainedComponentPosition}}) => {
-      state.position = explainedComponentPosition;
-    }
+    changePosition: (state, action) => {
+      state.position = Math.min(Math.max(state.position + action.payload, 0), 10);
+    },
+
 
   }
 })
 
 export const {
   toggleHelpActivity,
-  setHelpedComponent,
-  resetPlaybackState
+  changePosition,
+  resetHelper
 } = helperSlice.actions;
 
 export default helperSlice.reducer;
