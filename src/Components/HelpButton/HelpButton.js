@@ -1,8 +1,9 @@
 import HelpButtonView from "./HelpButtonView"
-import {useDispatch} from "react-redux";
-import {selectPosition, changePosition, toggleHelpActivity} from "Store/slices/helper";
+import {useDispatch, useSelector} from "react-redux";
+import {selectPosition, changePosition, toggleHelpActivity, selectHelpActive} from "Store/slices/helper";
 
 const HelpButton = function () {
+  const helpActive = useSelector(state => selectHelpActive(state));
   const dispatch = useDispatch();
 
   function toggle() {
@@ -20,7 +21,9 @@ const HelpButton = function () {
   document.body.addEventListener("keydown", handleHelperPosition);
 
   return (
-    <HelpButtonView toggle={toggle}/>
+    <HelpButtonView
+      text={helpActive ? "Close Help" : "Help"}
+      toggle={toggle}/>
   )
 }
 

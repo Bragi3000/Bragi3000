@@ -54,9 +54,9 @@ export default helperSlice.reducer;
 /**
  * Selector for help activity
  */
-export const selectHelpActive = state => state.helpActive;
+export const selectHelpActive = state => state.helper.helpActive;
 
 /**
  * Selector for position i.e. component help displayed
  */
-export const selectPosition = state => state.position;
+export const selectPosition = state => state.helper.position;
