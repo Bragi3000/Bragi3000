@@ -46,3 +46,13 @@ export const {
 } = helperSlice.actions;
 
 export default helperSlice.reducer;
+
+/**
+ * Selector for help activity
+ */
+export const selectHelpActive = state => state.helpActive;
+
+/**
+ * Selector for position i.e. component help displayed
+ */
+export const selectPosition = state => state.position;
