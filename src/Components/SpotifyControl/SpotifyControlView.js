@@ -8,6 +8,7 @@ import {
 import DeviceSelector from "./DeviceSelector/DeviceSelector";
 import Playlist from "./Playlist/Playlist";
 import PopoverIcon from "./PopoverIcon/PopoverIcon";
+import PopoverHelp from "../PopoverHelp/PopoverHelp";
 
 /**
  * Controlbar for showing playback information and controlling it.
@@ -30,10 +31,14 @@ const SpotifyControlView = function ({
 
   return (
     <div className="h-28 px-5 py-3 bg-gray-900 flex space-x-3 items-center">
-      <img className="h-full flex-none" src={imageSrc} alt="Album cover" />
+      <PopoverHelp number={0} helperText={"This is the album cover"} horizontal={"right"} vertical={"top"}>
+        <img className="h-full flex-none" src={imageSrc} alt="Album cover"/>
+      </PopoverHelp>
       <div className="flex-auto flex flex-col">
-        <span className="block"> {name} </span>
-        <span className="block text-gray-400"> {artists} </span>
+        <PopoverHelp number={1} helperText={"This is the album cover"} horizontal={"right"} vertical={"top"}>
+          <span className="block"> {name} </span>
+          <span className="block text-gray-400"> {artists} </span>
+        </PopoverHelp>
       </div>
 
       <IconContext.Provider
@@ -41,11 +46,11 @@ const SpotifyControlView = function ({
           color: "currentColor",
         }}
       >
-        <PopoverIcon icon={<DevicesIcon className="w-auto h-8" />}>
-          <DeviceSelector />
+        <PopoverIcon icon={<DevicesIcon className="w-auto h-8"/>}>
+          <DeviceSelector/>
         </PopoverIcon>
-        <PopoverIcon icon={<QueueIcon className="w-auto h-8" />}>
-          <Playlist />
+        <PopoverIcon icon={<QueueIcon className="w-auto h-8"/>}>
+          <Playlist/>
         </PopoverIcon>
         <button className="block flex-none hover:text-gray-400">
           <PlayPauseIcon
