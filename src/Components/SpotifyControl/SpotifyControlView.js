@@ -9,6 +9,8 @@ import DeviceSelector from "./DeviceSelector/DeviceSelector";
 import Playlist from "./Playlist/Playlist";
 import PopoverIcon from "./PopoverIcon/PopoverIcon";
 import PopoverHelp from "../PopoverHelp/PopoverHelp";
+import devicedemo from "Assets/images/devicedemo.png";
+import playlistdemo from "Assets/images/playlistdemo.png";
 
 /**
  * Controlbar for showing playback information and controlling it.
@@ -31,11 +33,13 @@ const SpotifyControlView = function ({
 
   return (
     <div className="h-28 px-5 py-3 bg-gray-900 flex space-x-3 items-center">
-      <PopoverHelp number={0} helperText={"This is the album cover"} horizontal={"right"} vertical={"top"}>
+      <PopoverHelp number={0} helperText={"This displays the cover of the currently playing song"} horizontal={"right"}
+        vertical={"top"}>
         <img className="h-full flex-none" src={imageSrc} alt="Album cover"/>
       </PopoverHelp>
       <div className="flex-auto flex flex-col">
-        <PopoverHelp number={1} helperText={"This is the album cover"} horizontal={"right"} vertical={"top"}>
+        <PopoverHelp number={1} helperText={"The name and artist of the currently playing song"} horizontal={"right"}
+          vertical={"top"}>
           <span className="block"> {name} </span>
           <span className="block text-gray-400"> {artists} </span>
         </PopoverHelp>
@@ -46,10 +50,22 @@ const SpotifyControlView = function ({
           color: "currentColor",
         }}
       >
-        <PopoverIcon icon={<DevicesIcon className="w-auto h-8"/>}>
+        <PopoverIcon icon={
+          <PopoverHelp number={2}
+            helperText={"Playback device selection. Make sure one device is selected and show the green play icon"}
+            helperImg={devicedemo} horizontal={"left"} vertical={"top"}>
+            <DevicesIcon className="w-auto h-8"/>
+          </PopoverHelp>
+        }>
           <DeviceSelector/>
         </PopoverIcon>
-        <PopoverIcon icon={<QueueIcon className="w-auto h-8"/>}>
+        <PopoverIcon icon={
+          <PopoverHelp number={3}
+            helperText={"Show the next songs in the playlist and the remaining playlist. Hovering over the song"}
+            helperImg={playlistdemo} horizontal={"left"} vertical={"top"}>
+            <QueueIcon className="w-auto h-8"/>
+          </PopoverHelp>
+        }>
           <Playlist/>
         </PopoverIcon>
         <button className="block flex-none hover:text-gray-400">

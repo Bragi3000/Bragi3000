@@ -1,15 +1,36 @@
 import HelperBox from './HelperBox';
 
-const PopoverHelpView = function ({helperText, vertical, horizontal, active, children}) {
+const PopoverHelpView = function ({helperText, vertical, horizontal, helperImg, active, children}) {
 
-  const verticalPos = vertical === 'top' ? '-translate-y-full' : 'translate-y-full';
-  const horizontalPos = horizontal === 'left' ? '-translate-x-1/8' : 'translate-x-1/8';
+  let verticalPos, horizontalPos;
+
+  switch (vertical) {
+  case 'top':
+    verticalPos = '-translate-y-full';
+    break;
+  case 'bottom':
+    verticalPos = 'translate-y-full';
+    break;
+  default:
+    verticalPos = '';
+  }
+
+  switch (horizontal) {
+  case 'left':
+    horizontalPos = '-left-[120px]';
+    break;
+  case 'right':
+    horizontalPos = '';
+    break;
+  default:
+    horizontalPos = '';
+  }
 
   return (
     <div className="flex-none h-full relative">
       {children}
-      <div className={`${active ? "" : "hidden"} ${verticalPos} ${horizontalPos} absolute top-0 left-0 w-[200px]`}>
-        <HelperBox helperText={helperText} />
+      <div className={`${active ? "" : "hidden"} ${verticalPos} ${horizontalPos} absolute -top-1 w-[250px] z-50`}>
+        <HelperBox helperText={helperText} helperImg={helperImg}/>
       </div>
     </div>);
 };
