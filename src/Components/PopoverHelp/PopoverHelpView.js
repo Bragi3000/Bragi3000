@@ -38,7 +38,7 @@ const PopoverHelpView = function ({helperText, helperHeading, vertical, horizont
   return (
     <div className="h-full relative">
       {children}
-      <div className={`transition-all duration-100 ${active ? "opacity-100" : "opacity-0"} ${verticalPos} ${horizontalPos} absolute z-50`}>
+      <div className={`transition-all duration-100 ${active ? "opacity-100" : "opacity-0 pointer-events-none"} ${verticalPos} ${horizontalPos} absolute z-50`}>
         <HelperBox helperText={helperText} helperHeading={helperHeading} helperImg={helperImg}/>
       </div>
     </div>);
