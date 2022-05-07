@@ -15,9 +15,24 @@ import {
 } from "./selectedSongs";
 import { resetSearch } from "./songSearch";
 
+/**
+ * Action to set the stage of the game.
+ * @param payload The stage
+ * @returns Dispatchable object
+ */
 const setStage = createAction("game/setStage");
+
+/**
+ * Action to set the winner of the minigame.
+ * @param payload The winner
+ * @returns Dispatchable object
+ */
 const setWinner = createAction("game/setWinner");
 
+/**
+ * Action to start the game when both songs are confirmed.
+ * @returns Dispatchable thunk
+ */
 export const maybeStartGame = () => (dispatch, getState) => {
   if (
     selectSongIsConfirmed(getState(), LEFT_PLAYER) &&
@@ -27,6 +42,12 @@ export const maybeStartGame = () => (dispatch, getState) => {
   }
 };
 
+/**
+ * Action to end the minigame with a winner.
+ * @param winner The winner
+ * @param accessToken Spotify access token
+ * @returns Dispatchable thunk
+ */
 export const endGame = createAsyncThunk(
   "game/endGame",
   async ({ winner, accessToken }, { getState, dispatch }) => {
@@ -48,6 +69,10 @@ export const endGame = createAsyncThunk(
   }
 );
 
+/**
+ * Action to reset the game to the picking songs stage.
+ * @returns Dispatchable thunk
+ */
 export const resetGame = () => (dispatch) => {
   dispatch(resetSearch());
   dispatch(resetSelectedSongs());
@@ -68,6 +93,9 @@ const initialState = {
   },
 };
 
+/**
+ * Slice of the Redux store that handles state related to the stage of the game.
+ */
 const game = createSlice({
   name: "game",
   initialState,
@@ -99,10 +127,22 @@ const game = createSlice({
 export default game.reducer;
 
 /**
- * Selector for the current game stage
+ * Selector for the game stage
+ * @param state The root Redux store
+ * @returns The stage
  */
 export const selectGameStage = (state) => state.game.stage;
 
+/**
+ * Selector for the minigame winner
+ * @param state The root Redux store
+ * @returns The winner
+ */
 export const selectWinner = (state) => state.game.winner;
 
+/**
+ * Selector for the status of the actions executed after ending the game
+ * @param state The root Redux store
+ * @returns The promise status
+ */
 export const selectEndGameStatus = (state) => state.game.endGame.status;

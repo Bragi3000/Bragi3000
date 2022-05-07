@@ -2,6 +2,14 @@ import { LEFT_PLAYER } from "Constants/players";
 import { FULFILLED, PENDING, REJECTED } from "Constants/promiseStatus";
 import { SmileySad, Trophy as TrophyIcon } from "phosphor-react";
 
+/**
+ * Component that shows information and actions after the minigame has ended.
+ * This view is only meant to be used by the presenter.
+ * @param winner Winner of the game
+ * @param endGameStatus Status of the actions executed after the game
+ * @param onContinue Event fired when the continue button is pressed
+ * @returns The view for the component
+ */
 const FinishedGameView = function ({ winner, endGameStatus, onContinue }) {
   return (
     <div className="flex flex-col space-y-3 text-center">
