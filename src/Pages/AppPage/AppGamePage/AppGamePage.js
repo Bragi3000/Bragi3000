@@ -3,6 +3,7 @@ import TicTacToe from "Components/TicTacToe/TicTacToe";
 import {LEFT_PLAYER, RIGHT_PLAYER} from "Constants/players";
 import {Link} from "react-router-dom";
 import HelpButton from "Components/HelpButton/HelpButton";
+import HelpModal from "../../../Components/PopoverHelp/HelpModal";
 
 const AppGamePage = function () {
   return (
@@ -22,6 +23,7 @@ const AppGamePage = function () {
 
         <SongSelector player={RIGHT_PLAYER}/>
       </div>
+      <HelpModal/>
     </>
   );
 };

@@ -44,7 +44,7 @@ export default function TicTacToeView({squares, size, onSetSquare, circleIcon, c
   }
 
   return (
-    <PopoverHelp number={6} helperText={"This is the album cover"} horizontal={"center"} vertical={"center"}>
+    <PopoverHelp number={7} helperText={"This is the album cover"} horizontal={"center"} vertical={"center"}>
       <div style={dynamicStyle} className={styles.TicTacToe}>
         {squares.map((square, i) => (
           <Square value={square} key={i} onClick={() => onSetSquare(i)}

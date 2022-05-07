@@ -33,12 +33,12 @@ const SpotifyControlView = function ({
 
   return (
     <div className="h-28 px-5 py-3 bg-gray-900 flex space-x-3 items-center">
-      <PopoverHelp number={0} helperText={"This displays the cover of the currently playing song"} horizontal={"right"}
+      <PopoverHelp number={1} helperText={"This displays the cover of the currently playing song"} horizontal={"right"}
         vertical={"top"}>
         <img className="h-full flex-none" src={imageSrc} alt="Album cover"/>
       </PopoverHelp>
       <div className="flex-auto flex flex-col">
-        <PopoverHelp number={1} helperText={"The name and artist of the currently playing song"} horizontal={"right"}
+        <PopoverHelp number={2} helperText={"The name and artist of the currently playing song"} horizontal={"right"}
           vertical={"top"}>
           <span className="block"> {name} </span>
           <span className="block text-gray-400"> {artists} </span>
@@ -51,7 +51,7 @@ const SpotifyControlView = function ({
         }}
       >
         <PopoverIcon icon={
-          <PopoverHelp number={2}
+          <PopoverHelp number={3}
             helperText={"Playback device selection. Make sure one device is selected and show the green play icon"}
             helperImg={devicedemo} horizontal={"left"} vertical={"top"}>
             <DevicesIcon className="w-auto h-8"/>
@@ -60,7 +60,7 @@ const SpotifyControlView = function ({
           <DeviceSelector/>
         </PopoverIcon>
         <PopoverIcon icon={
-          <PopoverHelp number={3}
+          <PopoverHelp number={4}
             helperText={"Show the next songs in the playlist and the remaining playlist. Hovering over the song"}
             helperImg={playlistdemo} horizontal={"left"} vertical={"top"}>
             <QueueIcon className="w-auto h-8"/>

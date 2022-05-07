@@ -17,7 +17,7 @@ const SongSelectorView = function ({player, selectedSong}) {
   const {access_token} = useSpotifyAuthData();
 
   return (
-    <PopoverHelp number={player === LEFT_PLAYER ? 4 : 5} helperText={"This is the album cover"} helperImg={songsearch} horizontal={"right"} vertical={"bottom"}>
+    <PopoverHelp number={player === LEFT_PLAYER ? 5 : 6} helperText={"This is the album cover"} helperImg={songsearch} horizontal={"right"} vertical={"bottom"}>
       <div className="bg-gray-900 w-80 flex-none h-128 flex flex-col">
         <h1
           className={cx([
