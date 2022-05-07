@@ -1,9 +1,9 @@
 import {
-  IconContext,
   PlayCircle as PlayIcon,
   PauseCircle as PauseIcon,
   Queue as QueueIcon,
   DesktopTower as DevicesIcon,
+  IconContext,
 } from "phosphor-react";
 import DeviceSelector from "./DeviceSelector/DeviceSelector";
 import Playlist from "./Playlist/Playlist";

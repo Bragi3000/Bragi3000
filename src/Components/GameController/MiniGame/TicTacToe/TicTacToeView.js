@@ -1,7 +1,6 @@
-import React from "react"
+import {LEFT_PLAYER, RIGHT_PLAYER} from "Constants/players";
 import styles from "./TicTacToe.module.css";
-import {LEFT_PLAYER} from "../../Constants/players";
-import PopoverHelp from "../PopoverHelp/PopoverHelp";
+import PopoverHelp from "Components/PopoverHelp/PopoverHelp";
 import tictactoedemo from "Assets/images/tictactoedemo.gif"
 
 /**
@@ -13,10 +12,10 @@ import tictactoedemo from "Assets/images/tictactoedemo.gif"
 function Square({value, onClick, icon}) {
   let squareStyle;
   let square;
-  if (value === "X") {
+  if (value === LEFT_PLAYER) {
     squareStyle = styles.squareCross;
     square = <img src={icon} alt={"_"}/>;
-  } else if (value === "O") {
+  } else if (value === RIGHT_PLAYER) {
     squareStyle = styles.squareCircle;
     square = <img src={icon} alt={"_"}/>;
   } else {
@@ -35,10 +34,10 @@ function Square({value, onClick, icon}) {
  * @param {Array} squares - Board consisting of squares array
  * @param {Integer} size - Size of the board
  * @param {Function} onSetSquare - Callback function to be called when a square is clicked
- * @param {Function} circleIcon - Icon of the circle player
- * @param {Function} crossIcon - Icon of the cross player
+ * @param {Function} leftIcon - Icon of the left player
+ * @param {Function} rightIcon - Icon of the right player
  */
-export default function TicTacToeView({squares, size, onSetSquare, circleIcon, crossIcon}) {
+export default function TicTacToeView({squares, size, onSetSquare, leftIcon, rightIcon}) {
   const dynamicStyle = {
     gridTemplateRows: `repeat(${size}, 1fr)`,
     gridTemplateColumns: `repeat(${size}, 1fr)`
@@ -47,17 +46,18 @@ export default function TicTacToeView({squares, size, onSetSquare, circleIcon, c
   return (
     <PopoverHelp number={6} helperHeading={"Game Area"}
       helperText={"After both players selected and confirmed their songs you can start the game. " +
-         "The winner song will be added to the playlist to the playlist."}
+                   "The winner song will be added to the playlist to the playlist."}
       horizontal={"center"} vertical={"center"}
       helperImg={tictactoedemo}>
       <div style={dynamicStyle} className={styles.TicTacToe}>
         {squares.map((square, i) => (
           <Square value={square} key={i} onClick={() => onSetSquare(i)}
-            icon={square === "X" ? crossIcon : circleIcon}/>
+            icon={square === LEFT_PLAYER ? leftIcon : rightIcon}/>
         )
         )}
       </div>
     </PopoverHelp>
+
   );
 }
 

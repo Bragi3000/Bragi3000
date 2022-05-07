@@ -1,5 +1,3 @@
-import styles from "./PlaylistSongView.module.css";
-
 /**
  *  View to render a song in the playlist
  * @param song - song to render
@@ -10,23 +8,23 @@ import styles from "./PlaylistSongView.module.css";
 const PlaylistSongView = ({song, index, onHoverSong, timeUntilSong}) => {
   return (
     <button
-      className={styles.resultSong}
+      className={"flex-row flex mb-2 w-full"}
       key={song.uri + index}
       onMouseOver={() => onHoverSong(true)}
       onMouseOut={() => onHoverSong(false)}
     >
       <img
-        className={styles.songImage}
+        className={"flex w-[64px] ml-2 rounded-md"}
         src={song.album.images[2].url}
         alt=""
       />
-      <div className={styles.songDetails}>
-        <span className={styles.songTitle}>{song.name}</span>
-        <span className={styles.songArtists}>
+      <div className={"overflow-hidden justify-evenly flex-col flex mx-auto"}>
+        <span className={"overflow-hidden overflow-ellipsis whitespace-nowrap"}>{song.name}</span>
+        <span className={"overflow-hidden overflow-ellipsis whitespace-nowrap"}>
           {song.artists.map((artist) => artist.name).join(", ")}
         </span>
         {timeUntilSong && (
-          <span className={styles.songTime}>
+          <span className={""}>
             Time until song: {timeUntilSong}
           </span>
         )}

@@ -1,4 +1,3 @@
-import styles from "./WaitingView.module.css";
 import spinner from "Assets/images/spinner.svg";
 
 /**
@@ -6,11 +5,13 @@ import spinner from "Assets/images/spinner.svg";
  * Displays a spinner and a message
  * @param text - text which is shown in the waiting view
  */
-const WaitingView = function ({ text = "Waiting..." }) {
+const WaitingView = function ({text = "Waiting..."}) {
   return (
-    <div className={styles.view}>
-      <img className={styles.spinner} src={spinner} alt="Spinner" draggable={false} />
-      <span>{text}</span>
+    <div className={"absolute inset-0 h-screen flex justify-center items-center text-center"}>
+      <div>
+        <img className={"mx-auto w-[100px] h-[100px"} src={spinner} alt="Spinner" draggable={false}/>
+        <span className={"mt-auto"}>{text}</span>
+      </div>
     </div>
   );
 };
