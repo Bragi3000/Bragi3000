@@ -1,5 +1,4 @@
 import {
-  IconContext,
   PlayCircle as PlayIcon,
   PauseCircle as PauseIcon,
   Queue as QueueIcon,
