@@ -2,8 +2,9 @@
  * View for the help modal.
  * @param isOpen - Whether the modal is open or not.
  * @param closeHelp - Function to close the modal.
+ * @param nextHelp Function to go to the next help page.
  */
-const ModalView = function ({isOpen, closeHelp}) {
+const ModalView = function ({isOpen, closeHelp, nextHelp}) {
   return (isOpen &&
     <>
       <div
@@ -26,11 +27,15 @@ const ModalView = function ({isOpen, closeHelp}) {
                 You have to win a game to add your song to the playlist.
                 A bragi3000 playlist will be created automatically for you.
                 <br/><br/>
-                Use your arrow keys to navigate through the interactive help.
+                Use your arrow keys or arrow buttons to navigate through the interactive help.
               </p>
             </div>
             <div
-              className="flex items-center justify-end p-3 border-solid border-slate-200 rounded-b">
+              className="flex justify-end p-3">
+              <button onClick={nextHelp}
+                className="bg-transparent pr-5 float-right text-6xl font-semibold">
+                  &#62;
+              </button>
             </div>
           </div>
         </div>

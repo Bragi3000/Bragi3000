@@ -16,6 +16,13 @@ const PopoverHelp = function ({helperText, vertical, horizontal, helperImg, numb
   const helpActive = useSelector(state => selectHelpActive(state));
   const helperPos = useSelector(state => selectPosition(state));
   const active = helpActive && helperPos === number;
-  return <PopoverHelpView helperText={helperText} helperImg={helperImg} vertical={vertical} horizontal={horizontal} active={active} children={children} />
+  return <PopoverHelpView
+    helperText={helperText}
+    helperImg={helperImg}
+    vertical={vertical}
+    horizontal={horizontal}
+    active={active}
+    children={children}
+  />
 }
 export default PopoverHelp;
