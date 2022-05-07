@@ -33,14 +33,14 @@ const ModalView = function ({isOpen, closeHelp, nextHelp}) {
               </p>
             </div>
             <div
-              className="flex justify-between p-3">
+              className="flex justify-between p-2">
               <button
-                className="bg-transparent hover:scale-110 p-2 float-right text-6xl font-semibold"
+                className="bg-transparent hover:scale-110 p-2 float-right w-20"
                 onClick={closeHelp}>
                 <XCircle/>
               </button>
               <button onClick={nextHelp}
-                className="bg-transparent hover:scale-110 text-6xl font-semibold">
+                className="bg-transparent hover:scale-110 w-16">
                 <ArrowSquareRight />
               </button>
             </div>

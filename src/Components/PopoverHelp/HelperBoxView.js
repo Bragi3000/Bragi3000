@@ -18,9 +18,9 @@ const HelperBoxView = function({helperText,helperHeading , helperImg, nextHelp, 
     {helperText}
     {helperImg && <img className="pt-3 w-full" src={helperImg} alt=""/>}
     <div className="flex justify-between pt-3 text-4xl">
-      <ArrowSquareLeft onClick={prevHelp} className="hover:scale-110 max-w-[40px]"/>
-      <XCircle onClick={closeHelp} className="hover:scale-110 max-w-[40px]"/>
-      <ArrowSquareRight onClick={nextHelp} className="hover:scale-110 max-w-[40px]"/>
+      <ArrowSquareLeft onClick={prevHelp} className="hover:scale-110 w-12"/>
+      <XCircle onClick={closeHelp} className="hover:scale-110 w-12"/>
+      <ArrowSquareRight onClick={nextHelp} className="hover:scale-110 w-12"/>
     </div>
   </div>);
 }
