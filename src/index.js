@@ -1,10 +1,10 @@
-import { createRoot } from "react-dom/client";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {createRoot} from "react-dom/client";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/database";
-import { Provider } from "react-redux";
-import { ReactReduxFirebaseProvider } from "react-redux-firebase";
+import {Provider} from "react-redux";
+import {ReactReduxFirebaseProvider} from "react-redux-firebase";
 
 import firebaseConfig from "Config/firebase";
 import store from "Store/store";
@@ -18,6 +18,7 @@ import AppPage from "Pages/AppPage/AppPage";
 import AppGamePage from "Pages/AppPage/AppGamePage/AppGamePage";
 
 import "./index.css";
+import NotFoundPage from "./Pages/NotFoundPage/NotFoundPage";
 
 firebase.initializeApp(firebaseConfig);
 
@@ -35,24 +36,24 @@ root.render(
     >
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<LandingPage />} />
+          <Route path="/" element={<LandingPage/>}/>
           <Route
             path="/app"
             element={
               <RequireAuthentication>
                 <RequireSpotifyToken>
-                  <AppPage />
+                  <AppPage/>
                 </RequireSpotifyToken>
               </RequireAuthentication>
             }
           >
-            <Route index element={<AppGamePage />} />
+            <Route index element={<AppGamePage/>}/>
           </Route>
           <Route
             path="/settings"
             element={
               <RequireAuthentication>
-                <SettingsPage />
+                <SettingsPage/>
               </RequireAuthentication>
             }
           />
@@ -60,7 +61,7 @@ root.render(
             path="/login"
             element={
               <RequireAuthentication reverse>
-                <LoginPage />
+                <LoginPage/>
               </RequireAuthentication>
             }
           />
@@ -68,7 +69,7 @@ root.render(
             path="/signup"
             element={
               <RequireAuthentication reverse>
-                <LoginPage />
+                <LoginPage/>
               </RequireAuthentication>
             }
           />
@@ -76,8 +77,14 @@ root.render(
             path="/spotify-callback"
             element={
               <RequireAuthentication>
-                <SpotifyCallbackPage />
+                <SpotifyCallbackPage/>
               </RequireAuthentication>
+            }
+          />
+          <Route
+            path="*"
+            element={
+              <NotFoundPage/>
             }
           />
         </Routes>
