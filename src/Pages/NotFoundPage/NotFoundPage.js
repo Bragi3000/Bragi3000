@@ -13,7 +13,7 @@ const NotFoundPage = function () {
           How you got here is a mystery. <br/>
           Help scared kermit go back to safety by clicking the button below!
         </p>
-        <Link className={"block w-fit mx-auto rounded-md bg-green-500 px-5 py-2 hover:bg-green-400"} to={"/"}>
+        <Link className={"block w-fit mx-auto rounded-md bg-green-500 px-5 py-2 hover:bg-green-400 text-[#000]"} to={"/"}>
           Home
         </Link>
         <img className={"p-12 mx-auto rounded-xl"} src={kermit_404} alt={"Kermit is scared go back"} />
