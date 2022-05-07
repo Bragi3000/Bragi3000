@@ -45,7 +45,9 @@ export default function TicTacToeView({squares, size, onSetSquare, circleIcon, c
   }
 
   return (
-    <PopoverHelp number={7} helperText={"After both players selected their song, the game is taking place here"}
+    <PopoverHelp number={6} helperHeading={"Game Area"}
+      helperText={"After both players selected and confirmed their songs you can start the game. " +
+         "The winner song will be added to the playlist to the playlist."}
       horizontal={"center"} vertical={"center"}
       helperImg={tictactoedemo}>
       <div style={dynamicStyle} className={styles.TicTacToe}>

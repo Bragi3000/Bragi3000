@@ -3,43 +3,43 @@ import HelperBox from './HelperBox';
 /**
  * View for the help popover
  * @param helperText text to be displayed in the popover box.
+ * @param helperHeading
  * @param vertical position of the popover box (top, bottom, center).
  * @param horizontal position of the popover box (left, right, center).
  * @param helperImg (optional) image to be displayed in the popover box.
  * @param active (optional) if the popover is active or not.
  * @param children wrapped elements where to display the popover over
  */
-const PopoverHelpView = function ({helperText, vertical, horizontal, helperImg, active, children}) {
-
-  let verticalPos, horizontalPos;
+const PopoverHelpView = function ({helperText, helperHeading, vertical, horizontal, helperImg, active, children}) {
+  let horizontalPos, verticalPos;
 
   switch (vertical) {
-  case 'top':
-    verticalPos = '-translate-y-full';
+  case "top":
+    verticalPos = "-translate-y-full -top-2 ";
     break;
-  case 'bottom':
-    verticalPos = 'translate-y-full';
+  case "bottom":
+    verticalPos = "translate-y-full -bottom-2 ";
     break;
   default:
-    verticalPos = 'top-1/2 -translate-y-1/2';
+    verticalPos = "translate-y-center -top-16";
   }
 
   switch (horizontal) {
-  case 'left':
-    horizontalPos = '-left-[120px]';
+  case 'middle':
+    horizontalPos = '-left-[110px] w-[250px]';
     break;
   case 'right':
-    horizontalPos = '';
+    horizontalPos = 'w-[250px]';
     break;
   default:
-    horizontalPos = 'left-[50%] -translate-x-1/2';
+    horizontalPos = '';
   }
 
   return (
-    <div className="flex-none h-full relative">
+    <div className="h-full relative">
       {children}
-      <div className={`${active ? "" : "hidden"} ${verticalPos} ${horizontalPos} absolute -top-1 w-[250px] z-50`}>
-        <HelperBox helperText={helperText} helperImg={helperImg}/>
+      <div className={`transition-all duration-100 ${active ? "opacity-100" : "opacity-0"} ${verticalPos} ${horizontalPos} absolute z-50`}>
+        <HelperBox helperText={helperText} helperHeading={helperHeading} helperImg={helperImg}/>
       </div>
     </div>);
 };

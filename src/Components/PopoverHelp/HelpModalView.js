@@ -1,3 +1,7 @@
+import {
+  ArrowSquareRight,
+  XCircle,
+} from "phosphor-react";
 /**
  * View for the help modal.
  * @param isOpen - Whether the modal is open or not.
@@ -16,9 +20,6 @@ const ModalView = function ({isOpen, closeHelp, nextHelp}) {
               <h3 className="text-3xl p-5 font-semibold">
                 Interactive Help
               </h3>
-              <button
-                className="bg-transparent pr-5 float-right text-6xl font-semibold"
-                onClick={closeHelp}>×</button>
             </div>
             <div className="relative p-5 flex-auto">
               <p className="my-4 text-lg">
@@ -27,14 +28,20 @@ const ModalView = function ({isOpen, closeHelp, nextHelp}) {
                 You have to win a game to add your song to the playlist.
                 A bragi3000 playlist will be created automatically for you.
                 <br/><br/>
-                Use your arrow keys or arrow buttons to navigate through the interactive help.
+                Use your arrow keys or arrow buttons to navigate through the interactive help and learn about all
+                the features of the application.
               </p>
             </div>
             <div
-              className="flex justify-end p-3">
+              className="flex justify-between p-3">
+              <button
+                className="bg-transparent hover:scale-110 p-2 float-right text-6xl font-semibold"
+                onClick={closeHelp}>
+                <XCircle/>
+              </button>
               <button onClick={nextHelp}
-                className="bg-transparent pr-5 float-right text-6xl font-semibold">
-                  &#62;
+                className="bg-transparent hover:scale-110 text-6xl font-semibold">
+                <ArrowSquareRight />
               </button>
             </div>
           </div>

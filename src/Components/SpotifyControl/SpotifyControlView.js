@@ -11,6 +11,7 @@ import PopoverIcon from "./PopoverIcon/PopoverIcon";
 import PopoverHelp from "../PopoverHelp/PopoverHelp";
 import devicedemo from "Assets/images/devicedemo.png";
 import playlistdemo from "Assets/images/playlistdemo.png";
+import songdemo from "Assets/images/songdemo.png";
 
 /**
  * Controlbar for showing playback information and controlling it.
@@ -33,16 +34,15 @@ const SpotifyControlView = function ({
 
   return (
     <div className="h-28 px-5 py-3 bg-gray-900 flex space-x-3 items-center">
-      <PopoverHelp number={1} helperText={"This displays the cover of the currently playing song"} horizontal={"right"}
-        vertical={"top"}>
+      <PopoverHelp number={1}
+        helperText={"This section displays the cover, the title, and the artist of the currently played song."}
+        helperHeading={"Song and Cover"}
+        horizontal={"right"} vertical={"top"} helperImg={songdemo}>
         <img className="h-full flex-none" src={imageSrc} alt="Album cover"/>
       </PopoverHelp>
       <div className="flex-auto flex flex-col">
-        <PopoverHelp number={2} helperText={"The name and artist of the currently playing song"} horizontal={"right"}
-          vertical={"top"}>
-          <span className="block"> {name} </span>
-          <span className="block text-gray-400"> {artists} </span>
-        </PopoverHelp>
+        <span className="block"> {name} </span>
+        <span className="block text-gray-400"> {artists} </span>
       </div>
 
       <IconContext.Provider
@@ -51,18 +51,21 @@ const SpotifyControlView = function ({
         }}
       >
         <PopoverIcon icon={
-          <PopoverHelp number={3}
-            helperText={"Playback device selection. Make sure one device is selected and show the green play icon"}
-            helperImg={devicedemo} horizontal={"left"} vertical={"top"}>
+          <PopoverHelp number={2} helperHeading={"Device Selection"}
+            helperText={"This section allows you to select the device the music should be played on. " +
+              "Make sure a device is selected and shows the green play icon to start playing the game."}
+            helperImg={devicedemo} horizontal={"middle"} vertical={"top"}>
             <DevicesIcon className="w-auto h-8"/>
           </PopoverHelp>
         }>
           <DeviceSelector/>
         </PopoverIcon>
         <PopoverIcon icon={
-          <PopoverHelp number={4}
-            helperText={"Show the next songs in the playlist and the remaining playlist. Hovering over the song"}
-            helperImg={playlistdemo} horizontal={"left"} vertical={"top"}>
+          <PopoverHelp number={3}
+            helperHeading={"Playlist"}
+            helperText={"This section shows the upcoming songs in the playlist and the remaining playlist. " +
+              "You can also hover over a song to see when it will be played."}
+            helperImg={playlistdemo} horizontal={"middle"} vertical={"top"}>
             <QueueIcon className="w-auto h-8"/>
           </PopoverHelp>
         }>

@@ -27,7 +27,7 @@ const HelpButton = function () {
 
   return (
     <HelpButtonView
-      text={helpActive ? "Close Help" : "Help"}
+      text={helpActive ? "" : "Help"}
       toggle={toggle}/>
   )
 }

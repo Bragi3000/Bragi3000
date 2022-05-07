@@ -12,12 +12,13 @@ import {selectHelpActive, selectPosition} from "Store/slices/helper";
  * @param active (optional) if the popover is active or not.
  * @param children wrapped elements where to display the popover over
  */
-const PopoverHelp = function ({helperText, vertical, horizontal, helperImg, number, children}) {
+const PopoverHelp = function ({helperText, helperHeading, vertical, horizontal, helperImg, number, children}) {
   const helpActive = useSelector(state => selectHelpActive(state));
   const helperPos = useSelector(state => selectPosition(state));
   const active = helpActive && helperPos === number;
   return <PopoverHelpView
     helperText={helperText}
+    helperHeading={helperHeading}
     helperImg={helperImg}
     vertical={vertical}
     horizontal={horizontal}
