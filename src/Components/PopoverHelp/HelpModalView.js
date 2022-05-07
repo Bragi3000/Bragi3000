@@ -1,3 +1,8 @@
+/**
+ * View for the help modal.
+ * @param isOpen - Whether the modal is open or not.
+ * @param closeHelp - Function to close the modal.
+ */
 const ModalView = function ({isOpen, closeHelp}) {
   return (isOpen &&
     <>

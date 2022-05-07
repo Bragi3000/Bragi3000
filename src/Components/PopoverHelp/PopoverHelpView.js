@@ -1,5 +1,14 @@
 import HelperBox from './HelperBox';
 
+/**
+ * View for the help popover
+ * @param helperText text to be displayed in the popover box.
+ * @param vertical position of the popover box (top, bottom, center).
+ * @param horizontal position of the popover box (left, right, center).
+ * @param helperImg (optional) image to be displayed in the popover box.
+ * @param active (optional) if the popover is active or not.
+ * @param children wrapped elements where to display the popover over
+ */
 const PopoverHelpView = function ({helperText, vertical, horizontal, helperImg, active, children}) {
 
   let verticalPos, horizontalPos;
