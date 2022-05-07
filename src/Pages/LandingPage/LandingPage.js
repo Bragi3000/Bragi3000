@@ -9,7 +9,7 @@ const LandingPage = function () {
       <h1 className="text-7xl mb-8">Bragi 3000</h1>
 
       <Link
-        className="block w-fit mx-auto rounded-md bg-green-500 px-5 py-2 hover:bg-green-400"
+        className="block w-fit mx-auto rounded-md bg-green-500 px-5 py-2 hover:bg-green-400 text-[#000]"
         to="/app"
       >
         Start playing
