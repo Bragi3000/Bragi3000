@@ -5,6 +5,7 @@ import playlist from "./slices/playlist";
 import playback from "./slices/playback";
 import devices from "./slices/devices";
 import game from "./slices/game";
+import spotifyAuth from "./slices/spotifyAuth";
 import {
   firebaseReducer,
   getFirebase,
@@ -26,6 +27,7 @@ const store = configureStore({
     playback,
     devices,
     game,
+    spotifyAuth,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

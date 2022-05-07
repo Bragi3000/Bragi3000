@@ -1,7 +1,8 @@
 import WaitingView from "Components/WaitingView/WaitingView";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import useSetSpotifyAuthData from "Store/updaters/useSetSpotifyAuthData";
+import { selectSpotifyAccessToken, setSpotifyAuthData } from "Store/slices/spotifyAuth";
 import useHashParams from "Utils/useHashParams";
 
 /*
@@ -10,21 +11,25 @@ import useHashParams from "Utils/useHashParams";
 const SpotifyCallbackPage = function () {
   const navigate = useNavigate();
   const params = useHashParams();
-  const setSpotifyAuthData = useSetSpotifyAuthData();
+  const dispatch = useDispatch();
+  const currentAccessToken = useSelector(selectSpotifyAccessToken);
 
   useEffect(() => {
-    if (params.get("access_token")) {
-      setSpotifyAuthData({
-        access_token: params.get("access_token"),
-        token_type: params.get("token_type"),
-        expires: Date.now() + parseInt(params.get("expires_in") * 1000),
-      }).then(() => {
-        navigate("/settings");
-      });
-    } else {
-      navigate("/settings");
+    const accessToken = params.get("access_token");
+    const tokenType = params.get("token_type");
+    const expiresIn = parseInt(params.get("expires_in"));
+
+    if (accessToken && tokenType === "Bearer" && accessToken !== currentAccessToken) {
+      dispatch(
+        setSpotifyAuthData(
+          accessToken,
+          Date.now() + (expiresIn - 10) * 1000
+        )
+      );
     }
-  }, [params, setSpotifyAuthData, navigate]);
+
+    navigate("/settings");
+  }, [navigate, params, dispatch, currentAccessToken]);
 
   return <WaitingView text="Updating token data" />;
 };

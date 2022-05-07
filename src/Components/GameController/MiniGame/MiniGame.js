@@ -1,6 +1,6 @@
-import { useDispatch } from "react-redux";
-import useSpotifyAuthData from "Store/selectors/useSpotifyAuthData";
+import { useDispatch, useSelector } from "react-redux";
 import { endGame } from "Store/slices/game";
+import { selectSpotifyAccessToken } from "Store/slices/spotifyAuth";
 import MiniGameView from "./MiniGameView";
 
 /**
@@ -9,7 +9,7 @@ import MiniGameView from "./MiniGameView";
  */
 const MiniGame = function () {
   const dispatch = useDispatch();
-  const { access_token: accessToken } = useSpotifyAuthData();
+  const accessToken = useSelector(selectSpotifyAccessToken);
 
   const handleWin = (winner) => {
     dispatch(endGame({ winner, accessToken }));

@@ -1,6 +1,11 @@
 import spotifyConfig from "Config/spotify";
-import useSpotifyAuthData from "Store/selectors/useSpotifyAuthData";
-import useSetSpotifyAuthData from "Store/updaters/useSetSpotifyAuthData";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  resetSpotifyAuthData,
+  selectHasValidSpotifyToken,
+  selectSpotifyAccessToken,
+  selectSpotifyTokenExpiryDate,
+} from "Store/slices/spotifyAuth";
 import SpotifySettingsView from "./SpotifySettingsView";
 
 /**
@@ -8,8 +13,10 @@ import SpotifySettingsView from "./SpotifySettingsView";
  * @returns The presenter for the component
  */
 const SpotifySettings = function () {
-  const authData = useSpotifyAuthData();
-  const setAuthData = useSetSpotifyAuthData();
+  const dispatch = useDispatch();
+  const accessToken = useSelector(selectSpotifyAccessToken);
+  const expiryDate = useSelector(selectSpotifyTokenExpiryDate);
+  const hasValidToken = useSelector(selectHasValidSpotifyToken);
 
   const handleLink = () => {
     const urlParams = new URLSearchParams({
@@ -26,13 +33,12 @@ const SpotifySettings = function () {
   };
 
   const handleUnlink = () => {
-    setAuthData({});
+    dispatch(resetSpotifyAuthData());
   };
 
   return (
     <SpotifySettingsView
-      token={authData && authData.access_token}
-      expireStamp={authData && authData.expires}
+      {...{ accessToken, expiryDate, hasValidToken }}
       onLink={handleLink}
       onUnlink={handleUnlink}
     />

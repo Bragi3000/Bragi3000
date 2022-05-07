@@ -1,6 +1,5 @@
 import {playSong, pauseSong, startPlaylist} from "Services/Spotify/spotifyAPI";
 import { useEffect} from "react";
-import useSpotifyAuth from "Store/selectors/useSpotifyAuthData"
 import SpotifyControlView from "./SpotifyControlView";
 import {useDispatch, useSelector} from "react-redux";
 import {
@@ -13,15 +12,15 @@ import {
   selectActiveDevice
 } from "Store/slices/devices";
 import {selectPlaylistId} from "../../Store/slices/playlist";
+import { selectSpotifyAccessToken } from "Store/slices/spotifyAuth";
 
 /**
  * Controlbar for showing playback information and controlling it.
  * @returns The presenter for the component
  */
 const SpotifyControl = function () {
-  const token = useSpotifyAuth();
+  const accessToken = useSelector(selectSpotifyAccessToken);
   const dispatch = useDispatch();
-  const accessToken = token.access_token;
 
   useEffect(() => {
     dispatch(fetchPlaybackState({ accessToken }));
@@ -47,7 +46,7 @@ const SpotifyControl = function () {
     if (!playbackState.started_playlist && !playbackState.is_playing) {
       if (activeDevice) {
         // start playing bragi3000 playlist
-        await startPlaylist(token.access_token, playlistId);
+        await startPlaylist(accessToken, playlistId);
         dispatch(setStartedPlaylist(true));
       } else {
         // TODO
@@ -56,7 +55,7 @@ const SpotifyControl = function () {
       }
     } else {
       const togglePlayPauseFunc = playbackState.is_playing ? pauseSong : playSong;
-      await togglePlayPauseFunc(token.access_token);
+      await togglePlayPauseFunc(accessToken);
     }
     dispatch(togglePlayPause());
   }

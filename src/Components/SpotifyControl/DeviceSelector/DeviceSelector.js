@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import useSpotifyAuthData from "Store/selectors/useSpotifyAuthData";
 import {
   fetchDevices,
   selectDevices,
   setActiveDevice,
   selectActiveDevice,
 } from "Store/slices/devices";
+import { selectSpotifyAccessToken } from "Store/slices/spotifyAuth";
 import DeviceSelectorView from "./DeviceSelectorView";
 
 /**
@@ -14,7 +14,7 @@ import DeviceSelectorView from "./DeviceSelectorView";
  * @returns The presenter for the component
  */
 const DeviceSelector = function () {
-  const { access_token: accessToken } = useSpotifyAuthData();
+  const accessToken = useSelector(selectSpotifyAccessToken);
   const dispatch = useDispatch();
 
   useEffect(() => {

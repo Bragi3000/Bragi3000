@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 import { selectSelectedSong } from "Store/slices/selectedSongs";
+import { selectSpotifyAccessToken } from "Store/slices/spotifyAuth";
 import SongSelectorView from "./SongSelectorView";
 
 /**
@@ -10,6 +11,7 @@ import SongSelectorView from "./SongSelectorView";
  */
 const SongSelector = connect((state, { player }) => ({
   selectedSong: selectSelectedSong(state, player),
+  accessToken: selectSpotifyAccessToken(state),
 }))(SongSelectorView);
 
 export default SongSelector;

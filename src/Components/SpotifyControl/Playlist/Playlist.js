@@ -1,4 +1,3 @@
-import useSpotifyAuth from "Store/selectors/useSpotifyAuthData"
 import PlaylistView from "./PlaylistView";
 import {
   fetchPlaylistId, fetchPlaylistSongs,
@@ -6,12 +5,13 @@ import {
 } from "Store/slices/playlist";
 import { useEffect } from "react";
 import { useDispatch, useSelector} from "react-redux";
+import { selectSpotifyAccessToken } from "Store/slices/spotifyAuth";
 
 /**
  * Component that displays the playlist of the game.
  */
 const Playlist = function () {
-  const token = useSpotifyAuth();
+  const token = useSelector(selectSpotifyAccessToken);
   const dispatch = useDispatch();
 
   useEffect(() => {
