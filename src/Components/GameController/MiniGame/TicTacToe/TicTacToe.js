@@ -107,30 +107,6 @@ export default function TicTacToe({ size, onWin }) {
     setPlayer(player === LEFT_PLAYER ? RIGHT_PLAYER : LEFT_PLAYER);
   };
 
-  // const winner = useMemo(() => checkWin(board, size), [board, size]);
-  // const tie = useMemo(() => checkTie(board, size), [board, size]);
-
-  // const playlistId = useSelector((state) => selectPlaylistId(state));
-  // const token = useSpotifyAuth();
-  // const dispatch = useDispatch();
-
-  // if (winner) {
-  //   const winner_uri = winner === "X" ? rightSong.uri : leftSong.uri;
-  //   const loser_song = winner === "X" ? leftSong : rightSong;
-  //   addSongToPlaylist(token.access_token, playlistId, winner_uri).then(() => {
-  //     // update the playlist
-  //     dispatch(fetchPlaylistSongs({ accessToken: token.access_token }));
-  //     // reset song selection
-  //     dispatch(resetSearch());
-  //     dispatch(resetSelectedSongs());
-  //     dispatch(appendBannedSongs(loser_song));
-  //   });
-  //   setBoard(Array(size * size).fill(null));
-  // } else if (tie) {
-  //   console.log(`Tie`);
-  //   setBoard(Array(size * size).fill(null));
-  // }
-
   return (
     <TicTacToeView
       squares={board}

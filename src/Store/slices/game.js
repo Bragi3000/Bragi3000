@@ -1,5 +1,58 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { FINISHED, PICK_SONGS, PLAYING } from "Constants/gameStages";
+import { LEFT_PLAYER, RIGHT_PLAYER } from "Constants/players";
+import { FULFILLED, IDLE, REJECTED } from "Constants/promiseStatus";
+import { addSongToPlaylist } from "Services/Spotify/spotifyAPI";
+import {
+  appendBannedSongs,
+  fetchPlaylistSongs,
+  selectPlaylistId,
+} from "./playlist";
+import {
+  resetSelectedSongs,
+  selectSelectedSong,
+  selectSongIsConfirmed,
+} from "./selectedSongs";
+import { resetSearch } from "./songSearch";
+
+const setStage = createAction("game/setStage");
+const setWinner = createAction("game/setWinner");
+
+export const maybeStartGame = () => (dispatch, getState) => {
+  if (
+    selectSongIsConfirmed(getState(), LEFT_PLAYER) &&
+    selectSongIsConfirmed(getState(), RIGHT_PLAYER)
+  ) {
+    dispatch(setStage(PLAYING));
+  }
+};
+
+export const endGame = createAsyncThunk(
+  "game/endGame",
+  async ({ winner, accessToken }, { getState, dispatch }) => {
+    const loser = winner === LEFT_PLAYER ? RIGHT_PLAYER : LEFT_PLAYER;
+    const winningSong = selectSelectedSong(getState(), winner);
+    const losingSong = selectSelectedSong(getState(), loser);
+
+    const playListId = selectPlaylistId(getState());
+    const promise = addSongToPlaylist(accessToken, playListId, winningSong.uri);
+
+    dispatch(setWinner(winner));
+    dispatch(setStage(FINISHED));
+    dispatch(appendBannedSongs(losingSong));
+
+    await promise;
+    dispatch(fetchPlaylistSongs({ accessToken }));
+
+    // TODO: Maybe put the add to playlist thing in the playlist slice?
+  }
+);
+
+export const resetGame = () => (dispatch) => {
+  dispatch(resetSearch());
+  dispatch(resetSelectedSongs());
+  dispatch(setStage(PICK_SONGS));
+};
 
 /**
  * Initial state for {@link game}
@@ -7,57 +60,49 @@ import { FINISHED, PICK_SONGS, PLAYING } from "Constants/gameStages";
 const initialState = {
   stage: PICK_SONGS,
   winner: null,
+
+  endGame: {
+    requestId: null,
+    status: IDLE,
+    error: "",
+  },
 };
 
 const game = createSlice({
   name: "game",
   initialState,
-  reducers: {
-    /**
-     * Reducer that resets the stage to PICK_SONGS
-     */
-    resetGame: (state) => {
-      state.stage = PICK_SONGS;
+  reducers: {},
+  extraReducers: {
+    [setStage]: (state, { payload }) => {
+      state.stage = payload;
     },
-
-    /**
-     * Reducer that starts the mini-game by setting the stage to PLAYING
-     */
-    startGame: (state) => {
-      state.stage = PLAYING;
+    [setWinner]: (state, { payload }) => {
+      state.winner = payload;
     },
-
-    /**
-     * Reducer that ends the game by setting the stage to FINISHED
-     * and setting a winner
-     */
-    setWinner: (state, { payload: { winner } }) => {
-      state.stage = FINISHED;
-      state.winner = winner;
+    [endGame.pending]: (state, { meta }) => {
+      state.endGame.requestId = meta.requestId;
+    },
+    [endGame.fulfilled]: (state, { meta }) => {
+      if (state.endGame.requestId === meta.requestId) {
+        state.endGame.status = FULFILLED;
+      }
+    },
+    [endGame.rejected]: (state, { meta, error }) => {
+      if (state.endGame.requestId === meta.requestId) {
+        state.endGame.status = REJECTED;
+        state.endGame.error = error.msg;
+      }
     },
   },
-  extraReducers: {},
 });
 
 export default game.reducer;
 
 /**
- * Action for resetting the game to the song picking stage
- */
-export const resetGame = game.actions.resetGame;
-
-/**
- * Action for starting the mini-game
- */
-export const startGame = game.actions.startGame;
-
-/**
- * Action for ending the mini-game and setting the winner
- * @param winner The winner of the game (LEFT_PLAYER or RIGHT_PLAYER)
- */
-export const setWinner = game.actions.setWinner;
-
-/**
  * Selector for the current game stage
  */
 export const selectGameStage = (state) => state.game.stage;
+
+export const selectWinner = (state) => state.game.winner;
+
+export const selectEndGameStatus = (state) => state.game.endGame.status;

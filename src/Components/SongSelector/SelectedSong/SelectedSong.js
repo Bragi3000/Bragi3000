@@ -1,4 +1,5 @@
 import { connect } from "react-redux";
+import { maybeStartGame } from "Store/slices/game";
 import {
   cancelSelectedSong,
   confirmSelectedSong,
@@ -20,7 +21,10 @@ const SelectedSong = connect(
     isAlreadyChosen: selectSongIsAlreadyChosen(state, player),
   }),
   (dispatch, { player }) => ({
-    onConfirm: () => dispatch(confirmSelectedSong({ player })),
+    onConfirm: () =>  {
+      dispatch(confirmSelectedSong({ player }));
+      dispatch(maybeStartGame());
+    },
     onCancel: () => dispatch(cancelSelectedSong({ player })),
   })
 )(SelectedSongView);

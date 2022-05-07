@@ -35,26 +35,19 @@ const SpotifyControlView = function ({
         <span className="block"> {name} </span>
         <span className="block text-gray-400"> {artists} </span>
       </div>
-
-      <IconContext.Provider
-        value={{
-          color: "currentColor",
-        }}
-      >
-        <PopoverIcon icon={<DevicesIcon className="w-auto h-8" />}>
-          <DeviceSelector />
-        </PopoverIcon>
-        <PopoverIcon icon={<QueueIcon className="w-auto h-8" />}>
-          <Playlist />
-        </PopoverIcon>
-        <button className="block flex-none hover:text-gray-400">
-          <PlayPauseIcon
-            weight="fill"
-            className="w-auto h-20"
-            onClick={() => onModifyPlayback()}
-          />
-        </button>
-      </IconContext.Provider>
+      <PopoverIcon icon={<DevicesIcon className="w-auto h-8" />}>
+        <DeviceSelector />
+      </PopoverIcon>
+      <PopoverIcon icon={<QueueIcon className="w-auto h-8" />}>
+        <Playlist />
+      </PopoverIcon>
+      <button className="block flex-none hover:text-gray-400">
+        <PlayPauseIcon
+          weight="fill"
+          className="w-auto h-20"
+          onClick={() => onModifyPlayback()}
+        />
+      </button>
     </div>
   );
 };
