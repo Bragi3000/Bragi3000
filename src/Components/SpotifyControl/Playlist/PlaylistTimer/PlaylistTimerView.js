@@ -1,9 +1,10 @@
-import styles from "./PlaylistTimer.module.css"
-
-
-const PlaylistTimerView = function ( {remainingTime} ) {
+/**
+ *  View to render the remaining playtime in the playlist
+ * @param remainingTime - time until the end of the playlist
+ */
+const PlaylistTimerView = function ({remainingTime}) {
   return (
-    <div className={styles.Timer}>
+    <div className={"flex justify-center text-xl mb-2"}>
       Remaining Playtime: {remainingTime}
     </div>
   );
