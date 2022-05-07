@@ -1,13 +1,12 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setActiveDevice } from "Services/Spotify/spotifyAPI";
 import useSpotifyAuthData from "Store/selectors/useSpotifyAuthData";
 import {
   fetchDevices,
-  selectActiveDevice,
   selectDevices,
-  setActiveDeviceState,
-} from "Store/slices/playback";
+  setActiveDevice,
+  selectActiveDevice,
+} from "Store/slices/devices";
 import DeviceSelectorView from "./DeviceSelectorView";
 
 /**
@@ -32,13 +31,8 @@ const DeviceSelector = function () {
   const activeDeviceId = useSelector((state) => selectActiveDevice(state));
 
   const handleSelectDeviceId = async (deviceId) => {
-    await setActiveDevice(accessToken, deviceId);
-    dispatch(
-      setActiveDeviceState({
-        device: devices.find((device) => device.id === deviceId),
-      })
-    );
-    dispatch(fetchDevices({ accessToken }));
+    await dispatch(setActiveDevice({ accessToken, deviceId })).unwrap();
+    await dispatch(fetchDevices({ accessToken })).unwrap();
   };
 
   return (

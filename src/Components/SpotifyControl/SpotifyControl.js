@@ -5,11 +5,13 @@ import SpotifyControlView from "./SpotifyControlView";
 import {useDispatch, useSelector} from "react-redux";
 import {
   fetchPlaybackState,
-  selectActiveDevice,
   selectPlayback,
   setStartedPlaylist,
   togglePlayPause
 } from "Store/slices/playback";
+import {
+  selectActiveDevice
+} from "Store/slices/devices";
 import {selectPlaylistId} from "../../Store/slices/playlist";
 
 /**

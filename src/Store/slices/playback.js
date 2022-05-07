@@ -1,6 +1,6 @@
 import bragiIcon from "Assets/images/bragi-icon.png"
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import {getAvailableDevices, getPlaybackState} from "Services/Spotify/spotifyAPI";
+import {getPlaybackState} from "Services/Spotify/spotifyAPI";
 import { FULFILLED, IDLE, PENDING, REJECTED} from "Constants/promiseStatus";
 
 /**
@@ -11,16 +11,6 @@ export const fetchPlaybackState = createAsyncThunk(
   "playback/fetchPlaybackState",
   ({ accessToken }, {getState}) =>
     getPlaybackState(accessToken)
-);
-
-/**
- * Action to fetch the available devices
- * @param obj.accessToken Spotify access token
- */
-export const fetchDevices = createAsyncThunk(
-  "playback/fetchDevices",
-  ({ accessToken }, {getState}) =>
-    getAvailableDevices(accessToken)
 );
 
 /**
@@ -38,11 +28,6 @@ const initialState = {
   requestId: null,
   error: "",
   started_playlist: false,
-  devices: [],
-  active_device: null,
-  deviceRequestId: null,
-  deviceError: "",
-  deviceStatus: IDLE,
   playedSongs: [],
 };
 
@@ -68,18 +53,6 @@ const playback = createSlice({
      */
     setStartedPlaylist: (state, action) => {
       state.started_playlist = action.payload;
-    },
-    /**
-     * Action & reducer to set the available devices
-     */
-    setDevices: (state, action) => {
-      state.devices = action.payload;
-    },
-    /**
-     * Action & reducer to set active device
-     */
-    setActiveDeviceState: (state, action) => {
-      state.active_device = action.payload;
     },
   },
   extraReducers: {
@@ -117,50 +90,14 @@ const playback = createSlice({
         state.error = error.message;
       }
     },
-    /**
-     * Reducer for a newly pending device request
-     */
-    [fetchDevices.pending]: (state, { meta }) => {
-      state.deviceRequestId = meta.requestId;
-    },
-    /**
-     * Reducer for a newly fulfilled device request
-     */
-    [fetchDevices.fulfilled]: (state, { payload, meta }) => {
-      if (state.deviceRequestId=== meta.requestId) {
-        state.deviceStatus= FULFILLED;
-        state.devices = payload;
-        const activeDevice = state.devices.find((device) => device.is_active);
-        state.active_device = activeDevice ? activeDevice.id : null;
-      }
-    },
-    /**
-     * Reducer for a newly rejected device request
-     */
-    [fetchDevices.rejected]: (state, { error, meta }) => {
-      if (state.deviceRequestId=== meta.requestId) {
-        state.deviceStatus= REJECTED;
-        state.deviceError= error.message;
-      }
-    },
   },
 });
 
-export const { togglePlayPause, setStartedPlaylist, setActiveDeviceState } = playback.actions;
+export const { togglePlayPause, setStartedPlaylist } = playback.actions;
 export default playback.reducer;
 
 /**
  * Selector for the playback state
  */
 export const selectPlayback = state => state.playback;
-
-/**
- * Selector for devices in the playback state
- */
-export const selectDevices = state => state.playback.devices;
-
-/**
- * Selector for active device
- */
-export const selectActiveDevice = state => state.playback.active_device;
 

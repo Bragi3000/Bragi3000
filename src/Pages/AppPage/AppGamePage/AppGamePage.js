@@ -1,5 +1,5 @@
+import GameController from "Components/GameController/GameController";
 import SongSelector from "Components/SongSelector/SongSelector";
-import TicTacToe from "Components/TicTacToe/TicTacToe";
 import { LEFT_PLAYER, RIGHT_PLAYER } from "Constants/players";
 import { Link } from "react-router-dom";
 
@@ -13,10 +13,10 @@ const AppGamePage = function () {
           </Link>
         </div>
       </div>
-      <div className="flex justify-center px-5 space-x-3">
+      <div className="flex justify-center px-5">
         <SongSelector player={LEFT_PLAYER} />
 
-        <TicTacToe size={3} />
+        <GameController />
 
         <SongSelector player={RIGHT_PLAYER} />
       </div>
