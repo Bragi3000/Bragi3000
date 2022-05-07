@@ -1,5 +1,4 @@
 import { LEFT_PLAYER, RIGHT_PLAYER } from "Constants/players";
-import styles from "./TicTacToe.module.css";
 
 /**
  * Subcomponent representing one square of the TicTacToe board.
@@ -8,20 +7,16 @@ import styles from "./TicTacToe.module.css";
  * @param {String} icon - The icon to be displayed in the square
  */
 function Square({value, onClick, icon}) {
-  let squareStyle;
   let square;
   if (value === LEFT_PLAYER) {
-    squareStyle = styles.squareCross;
-    square = <img src={icon} alt={"_"}/>;
+    square = <img src={icon} alt={"_"} className="border-solid border-4 border-[#818cf8] w-24 hover:scale-110"/>;
   } else if (value === RIGHT_PLAYER) {
-    squareStyle = styles.squareCircle;
-    square = <img src={icon} alt={"_"}/>;
+    square = <img src={icon} alt={"_"} className="border-solid border-4 border-green-400 w-24 hover:scale-110 rounded-full"/>;
   } else {
-    squareStyle = styles.squareEmpty;
     square = <></>;
   }
   return (
-    <button className={squareStyle} onClick={onClick}>
+    <button className={`bg-gray-700 border-solid border-2 border-gray-900 flex justify-center items-center`} onClick={onClick}>
       {square}
     </button>
   )
@@ -36,15 +31,10 @@ function Square({value, onClick, icon}) {
  * @param {Function} rightIcon - Icon of the right player
  */
 export default function TicTacToeView({squares, size, onSetSquare, leftIcon, rightIcon}) {
-  const dynamicStyle = {
-    gridTemplateRows: `repeat(${size}, 1fr)`,
-    gridTemplateColumns: `repeat(${size}, 1fr)`
-  }
-
   return (
-    <div style={dynamicStyle} className={styles.TicTacToe}>
+    <div className={`grid grid-cols-3 grid-rows-3 w-[500px] h-[500px] flex-none border-2 border-solid border-gray-900`}>
       {squares.map((square, i) => (
-        <Square value={square} key={i} onClick={() => onSetSquare(i)}
+        <Square value={square} key={i} onClick={() => onSetSquare(i)} className="border-solid border-2"
           icon={square === LEFT_PLAYER ? leftIcon : rightIcon}/>
       )
       )}
