@@ -1,27 +1,33 @@
 .squareEmpty {
-  background-color: #bbb;
+  background-color: #888888;
   border: 2px solid;
 }
 
 .squareCross {
-  background-color: #bbb;
+  background-color: #888888;
   border: 2px solid;
+  justify-content: center;
+  display: flex;
+  align-items: center;
 }
 
 .squareCircle {
-  background-color: #bbb;
+  background-color: #888888;
   border: 2px solid;
+  justify-content: center;
+  display: flex;
+  align-items: center;
 }
 
 .squareCross img {
   border: 3px solid red;
-  width: 80px;
+  width: 100px;
 }
 
 .squareCircle img {
   border: 3px solid blue;
   border-radius: 80px;
-  width: 80px;
+  width: 100px;
 }
 
 .TicTacToe {

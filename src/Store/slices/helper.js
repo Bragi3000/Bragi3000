@@ -36,10 +36,11 @@ const helperSlice = createSlice({
      * Action & reducer to show help for certain component position
      */
     changePosition: (state, action) => {
-      state.position = Math.min(Math.max(state.position + action.payload, 0), 10);
+      state.position = Math.min(Math.max(state.position + action.payload, 0), 8);
+      if (state.position === 8) {
+        state.helpActive = false;
+      }
     },
-
-
   }
 })
 

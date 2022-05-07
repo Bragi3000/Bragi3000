@@ -2,6 +2,7 @@ import React from "react"
 import styles from "./TicTacToe.module.css";
 import {LEFT_PLAYER} from "../../Constants/players";
 import PopoverHelp from "../PopoverHelp/PopoverHelp";
+import tictactoedemo from "Assets/images/tictactoedemo.gif"
 
 /**
  * Subcomponent representing one square of the TicTacToe board.
@@ -44,7 +45,9 @@ export default function TicTacToeView({squares, size, onSetSquare, circleIcon, c
   }
 
   return (
-    <PopoverHelp number={7} helperText={"This is the album cover"} horizontal={"center"} vertical={"center"}>
+    <PopoverHelp number={7} helperText={"After both players selected their song, the game is taking place here"}
+      horizontal={"center"} vertical={"center"}
+      helperImg={tictactoedemo}>
       <div style={dynamicStyle} className={styles.TicTacToe}>
         {squares.map((square, i) => (
           <Square value={square} key={i} onClick={() => onSetSquare(i)}

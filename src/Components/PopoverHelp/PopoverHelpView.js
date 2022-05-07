@@ -12,7 +12,7 @@ const PopoverHelpView = function ({helperText, vertical, horizontal, helperImg, 
     verticalPos = 'translate-y-full';
     break;
   default:
-    verticalPos = '';
+    verticalPos = 'top-1/2 -translate-y-1/2';
   }
 
   switch (horizontal) {
@@ -23,7 +23,7 @@ const PopoverHelpView = function ({helperText, vertical, horizontal, helperImg, 
     horizontalPos = '';
     break;
   default:
-    horizontalPos = '';
+    horizontalPos = 'left-[50%] -translate-x-1/2';
   }
 
   return (

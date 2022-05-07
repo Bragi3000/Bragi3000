@@ -5,7 +5,8 @@ import SearchResults from "./SearchResults/SearchResults";
 import SelectedSong from "./SelectedSong/SelectedSong";
 import cx from "Utils/classNames";
 import PopoverHelp from "../PopoverHelp/PopoverHelp";
-import songsearch from "Assets/images/songsearch.gif";
+import songSearchPlayer1 from "Assets/images/songsearchPlayer1.gif";
+import songSearchPlayer2 from "Assets/images/songsearchPlayer2.gif";
 
 /**
  * View that allows the user to search for and select songs.
@@ -17,7 +18,9 @@ const SongSelectorView = function ({player, selectedSong}) {
   const {access_token} = useSpotifyAuthData();
 
   return (
-    <PopoverHelp number={player === LEFT_PLAYER ? 5 : 6} helperText={"This is the album cover"} helperImg={songsearch} horizontal={"right"} vertical={"bottom"}>
+    <PopoverHelp number={player === LEFT_PLAYER ? 5 : 6} helperText={"This is the album cover"}
+      helperImg={player === LEFT_PLAYER ? songSearchPlayer1 : songSearchPlayer2}
+      horizontal={"center"} vertical={"center"}>
       <div className="bg-gray-900 w-80 flex-none h-128 flex flex-col">
         <h1
           className={cx([
