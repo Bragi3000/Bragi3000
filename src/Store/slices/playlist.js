@@ -127,6 +127,7 @@ const playlist = createSlice({
         state.idError = error.message;
       }
     },
+    RESET: () => initialState,
   },
 });
 

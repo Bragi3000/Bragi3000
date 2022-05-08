@@ -59,6 +59,9 @@ const selectedSongsSlice = createSlice({
      */
     resetSelectedSongs: () => initialState,
   },
+  extraReducers: {
+    RESET: () => initialState,
+  },
 });
 
 export const {

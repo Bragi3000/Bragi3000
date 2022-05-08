@@ -84,6 +84,7 @@ const songSearchSlice = createSlice({
         state[meta.arg.player].error = error.message;
       }
     },
+    RESET: () => initialState,
   },
 });
 

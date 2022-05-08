@@ -30,7 +30,9 @@ const spotifyAuthSlice = createSlice({
       state.hasExpired = true;
     },
   },
-  extraReducers: {},
+  extraReducers: {
+    RESET: () => initialState,
+  },
 });
 
 /**

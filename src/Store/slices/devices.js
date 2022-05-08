@@ -106,6 +106,7 @@ const devices = createSlice({
         state.active.error = error.message;
       }
     },
+    RESET: () => initialState,
   },
 });
 

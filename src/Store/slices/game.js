@@ -121,6 +121,7 @@ const game = createSlice({
         state.endGame.error = error.msg;
       }
     },
+    RESET: () => initialState,
   },
 });
 

@@ -90,6 +90,7 @@ const playback = createSlice({
         state.error = error.message;
       }
     },
+    RESET: () => initialState,
   },
 });
 

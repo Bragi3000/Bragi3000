@@ -86,6 +86,7 @@ const authSlice = createSlice({
       state.user.uid = payload.uid;
       state.user.email = payload.email;
     },
+    RESET: () => initialState,
   },
 });
 
@@ -108,7 +109,8 @@ export const listenToAuthenticationChanges =
 export const logout =
   () =>
   (dispatch, _, { firebaseApp }) => {
-    dispatch(setUser({ uid: null, email: null }));
+    dispatch({ type: "RESET" });
+    // dispatch(setUser({ uid: null, email: null }));
 
     signOut(getAuth(firebaseApp));
   };
