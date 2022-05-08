@@ -92,7 +92,7 @@ const authSlice = createSlice({
 
 export const resetAuthenticationStatus = authSlice.actions.resetStatus;
 const setUser = authSlice.actions.setUser;
-const setFirebaseReady = authSlice.actions.setFirebaseReady;
+export const setFirebaseReady = authSlice.actions.setFirebaseReady;
 
 export const listenToAuthenticationChanges =
   () =>
@@ -100,8 +100,6 @@ export const listenToAuthenticationChanges =
     const auth = getAuth(firebaseApp);
 
     onAuthStateChanged(auth, (user) => {
-      dispatch(setFirebaseReady());
-
       if (user) dispatch(setUser({ uid: user.uid, email: user.email }));
     });
   };
@@ -110,7 +108,6 @@ export const logout =
   () =>
   (dispatch, _, { firebaseApp }) => {
     dispatch({ type: "RESET" });
-    // dispatch(setUser({ uid: null, email: null }));
 
     signOut(getAuth(firebaseApp));
   };
@@ -185,7 +182,7 @@ export const selectAuthenticationError = createSelector(selectAuth, (data) =>
   data.authenticate.status === REJECTED ? data.authenticate.error : null
 );
 
-export const selectFirebaseAuthenticationReady = createSelector(
+export const selectFirebaseReady = createSelector(
   selectAuth,
   (data) => data.firebaseReady
 );

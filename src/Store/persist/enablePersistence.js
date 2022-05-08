@@ -1,5 +1,6 @@
 import persistSpotifyAuth from "./parts/spotifyAuth";
-import { getDatabase, off, onValue, ref } from "firebase/database";
+import { get, getDatabase, off, onValue, ref } from "firebase/database";
+import { setFirebaseReady } from "Store/slices/auth";
 
 const persistors = Object.entries({
   spotifyAuth: persistSpotifyAuth,
@@ -28,11 +29,19 @@ const enablePersistence = function (store, firebaseApp) {
     }
 
     if (userUid && !prevUid) {
-      for (const [part, { fromFirebase }] of persistors) {
-        onValue(ref(db, `${basePath}/${userUid}/${part}`), (snapshot) =>
-          fromFirebase(state, store.dispatch, snapshot.val())
-        );
-      }
+      Promise.all(
+        persistors.map(async ([part, { fromFirebase }]) => {
+          await get(ref(db, `${basePath}/${userUid}/${part}`)).then(
+            (snapshot) => fromFirebase(state, store.dispatch, snapshot.val())
+          );
+
+          onValue(ref(db, `${basePath}/${userUid}/${part}`), (snapshot) =>
+            fromFirebase(state, store.dispatch, snapshot.val())
+          );
+        })
+      ).then(() => {
+        store.dispatch(setFirebaseReady());
+      });
     }
 
     prevState = state;
