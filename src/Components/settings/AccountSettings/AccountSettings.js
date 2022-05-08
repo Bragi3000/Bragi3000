@@ -1,6 +1,6 @@
-import { useFirebase } from "react-redux-firebase";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import useUserData from "Services/firebase/useUserData";
+import { logout, selectUser } from "Store/slices/auth";
 import AccountSettingsView from "./AccountSettingsView";
 
 /**
@@ -8,12 +8,12 @@ import AccountSettingsView from "./AccountSettingsView";
  * @returns The presenter for the component
  */
 const AccountSettings = function () {
-  const firebase = useFirebase();
+  const user = useSelector(selectUser)
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useUserData();
 
   const handleLogout = async () => {
-    await firebase.logout();
+    dispatch(logout());
     navigate("/");
   };
 

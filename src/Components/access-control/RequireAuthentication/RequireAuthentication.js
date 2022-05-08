@@ -1,7 +1,10 @@
-import { isEmpty, isLoaded } from "react-redux-firebase";
 import { Navigate } from "react-router";
-import useUserData from "Services/firebase/useUserData";
 import WaitingView from "Components/WaitingView/WaitingView";
+import { useSelector } from "react-redux";
+import {
+  selectFirebaseAuthenticationReady,
+  selectUser,
+} from "Store/slices/auth";
 
 /**
  * Component to restrict access to authenticated users.
@@ -9,16 +12,14 @@ import WaitingView from "Components/WaitingView/WaitingView";
  * @param reverse reverse the behavior, restrict to unauthenticated users
  */
 const RequireAuthentication = function ({ children, reverse = false }) {
-  const userData = useUserData();
+  const user = useSelector(selectUser);
+  const ready = useSelector(selectFirebaseAuthenticationReady);
 
-  if (!isLoaded(userData))
-    return <WaitingView text="Waiting for Firebase" />;
+  if (!ready) return <WaitingView text="Waiting for Firebase" />;
 
-  if (!reverse && (isEmpty(userData) || !userData.uid))
-    return <Navigate replace to="/login" />;
+  if (!reverse && user.uid === null) return <Navigate replace to="/login" />;
 
-  if (reverse && !isEmpty(userData))
-    return <Navigate replace to="/app" />;
+  if (reverse && user.uid !== null) return <Navigate replace to="/app" />;
 
   return children;
 };
