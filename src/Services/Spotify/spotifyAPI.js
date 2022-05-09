@@ -203,6 +203,7 @@ function resetPlaylist(accessToken, playlistId) {
  * @returns {Promise} - A promise that resolves when the playlist has started
  */
 function startPlaylist(accessToken, playlistId) {
+  turnShuffleOff(accessToken);
   return new SpotifyWebApi({accessToken}).play({
     context_uri: `spotify:playlist:${playlistId}`,
     offset: {
@@ -242,6 +243,16 @@ function getAvailableDevices(accessToken) {
  */
 function uploadPlaylistImage(accessToken, playlistId) {
   return new SpotifyWebApi({accessToken}).uploadCustomPlaylistCoverImage(playlistId, bragi_icon_b64);
+}
+
+
+/**
+ * Turn off shuffle
+ * @param accessToken - The access token to use
+ * @returns {Promise} Promise that resolves once shuffle is turned off
+ */
+function turnShuffleOff(accessToken) {
+  return new SpotifyWebApi({accessToken}).setShuffle(false);
 }
 
 
