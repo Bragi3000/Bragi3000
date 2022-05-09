@@ -9,6 +9,7 @@ module.exports = {
       gray: colors.zinc,
       green: colors.green,
       red: colors.red,
+      blue: colors.blue,
       gold: "#ffdf00",
     },
     extend: {
