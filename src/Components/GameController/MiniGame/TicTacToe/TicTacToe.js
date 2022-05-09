@@ -101,7 +101,7 @@ export default function TicTacToe({ size, onWin }) {
     newBoard[index] = player;
 
     if (checkWin(newBoard, size)) onWin(player);
-    else if (checkTie(newBoard, size)) setBoard([...newBoard].fill(null));
+    else if (checkTie(newBoard, size)) newBoard.fill(null);
 
     setBoard(newBoard);
     setPlayer(player === LEFT_PLAYER ? RIGHT_PLAYER : LEFT_PLAYER);
@@ -110,10 +110,10 @@ export default function TicTacToe({ size, onWin }) {
   return (
     <TicTacToeView
       squares={board}
-      size={size}
-      onSetSquare={handleSetSquare}
+      currentPlayer={player}
       leftIcon={leftIcon}
       rightIcon={rightIcon}
+      onSetSquare={handleSetSquare}
     />
   );
 }

@@ -11,6 +11,7 @@ import RequireAuthentication from "Components/access-control/RequireAuthenticati
 import RequireSpotifyToken from "Components/access-control/RequireSpotifyToken/RequireSpotifyToken";
 import AppPage from "Pages/AppPage/AppPage";
 import AppGamePage from "Pages/AppPage/AppGamePage/AppGamePage";
+import NotFoundPage from "./Pages/NotFoundPage/NotFoundPage";
 
 import "./index.css";
 import { IconContext } from "phosphor-react";
@@ -72,6 +73,12 @@ root.render(
               <RequireAuthentication>
                 <SpotifyCallbackPage />
               </RequireAuthentication>
+            }
+          />
+          <Route
+            path="*"
+            element={
+              <NotFoundPage/>
             }
           />
         </Routes>
