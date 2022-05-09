@@ -3,6 +3,7 @@ import {
   PauseCircle as PauseIcon,
   Queue as QueueIcon,
   DesktopTower as DevicesIcon,
+  Trash as TrashIcon,
   IconContext,
 } from "phosphor-react";
 import DeviceSelector from "./DeviceSelector/DeviceSelector";
@@ -12,6 +13,7 @@ import PopoverHelp from "../PopoverHelp/PopoverHelp";
 import devicedemo from "Assets/images/devicedemo.png";
 import playlistdemo from "Assets/images/playlistdemo.png";
 import songdemo from "Assets/images/songdemo.png";
+import BannedSongs from "./BannedSongs/BannedSongs";
 
 /**
  * Controlbar for showing playback information and controlling it.
@@ -70,6 +72,16 @@ const SpotifyControlView = function ({
           </PopoverHelp>
         }>
           <Playlist/>
+        </PopoverIcon>
+        <PopoverIcon icon={
+          <PopoverHelp number={4}
+            helperHeading={"Banned Songs"}
+            helperText={"This section shows the songs that cannot be chosen anymore."}
+            helperImg={playlistdemo} horizontal={"middle"} vertical={"top"}>
+            <TrashIcon className="w-auto h-8"/>
+          </PopoverHelp>
+        }>
+          <BannedSongs />
         </PopoverIcon>
         <button className="block flex-none hover:text-gray-400">
           <PlayPauseIcon
