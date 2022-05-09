@@ -101,7 +101,7 @@ export default function TicTacToe({ size, onWin }) {
     newBoard[index] = player;
 
     if (checkWin(newBoard, size)) onWin(player);
-    else if (checkTie(newBoard, size)) setBoard([...newBoard].fill(null));
+    else if (checkTie(newBoard, size)) newBoard.fill(null);
 
     setBoard(newBoard);
     setPlayer(player === LEFT_PLAYER ? RIGHT_PLAYER : LEFT_PLAYER);
