@@ -2,9 +2,7 @@ import persistSpotifyAuth from "./parts/spotifyAuth";
 import { get, getDatabase, off, onValue, ref } from "firebase/database";
 import { setFirebaseReady } from "Store/slices/auth";
 
-const persistors = Object.entries({
-  spotifyAuth: persistSpotifyAuth,
-});
+const persistors = [["spotifyAuth", persistSpotifyAuth]];
 
 const enablePersistence = function (store, firebaseApp) {
   const db = getDatabase(firebaseApp);
@@ -23,7 +21,7 @@ const enablePersistence = function (store, firebaseApp) {
     }
 
     if (prevUid && !userUid) {
-      for (const [part] of Object.entries(persistors)) {
+      for (const [part] of persistors) {
         off(ref(db, `${basePath}/${prevUid}/${part}`));
       }
     }
