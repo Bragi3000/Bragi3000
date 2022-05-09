@@ -24,16 +24,16 @@ export default function TicTacToeView({
         return (
           <button
             key={i}
-            className="bg-gray-700 border-solid border-2 border-gray-900 flex justify-center items-center"
+            className="bg-gray-700 border-solid border-2 border-gray-900 flex justify-center items-center group"
             onClick={() => onSetSquare(i)}
             disabled={!!square}
           >
             <img
               className={cx([
-                "border-solid border-4 w-5/6",
+                "border-solid border-4 w-3/4",
                 player === LEFT_PLAYER && "border-blue-400 rounded-xl",
                 player === RIGHT_PLAYER && "border-green-400 rounded-full",
-                !square && "opacity-0 hover:opacity-50 transition-opacity"
+                !square && "opacity-0 group-hover:opacity-50 transition-opacity"
               ])}
               src={player === LEFT_PLAYER ? leftIcon : rightIcon}
               alt=""
