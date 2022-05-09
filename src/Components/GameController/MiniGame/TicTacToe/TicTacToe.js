@@ -110,10 +110,10 @@ export default function TicTacToe({ size, onWin }) {
   return (
     <TicTacToeView
       squares={board}
-      size={size}
-      onSetSquare={handleSetSquare}
+      currentPlayer={player}
       leftIcon={leftIcon}
       rightIcon={rightIcon}
+      onSetSquare={handleSetSquare}
     />
   );
 }
