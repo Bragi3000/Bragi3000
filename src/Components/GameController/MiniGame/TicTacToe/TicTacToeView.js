@@ -1,8 +1,5 @@
-import {LEFT_PLAYER, RIGHT_PLAYER} from "Constants/players";
+import { LEFT_PLAYER, RIGHT_PLAYER } from "Constants/players";
 import cx from "Utils/classNames";
-import PopoverHelp from "Components/PopoverHelp/PopoverHelp";
-import tictactoedemo from "Assets/images/tictactoedemo.gif"
-
 
 /**
  * View component for the TicTacToe game.
@@ -20,36 +17,31 @@ export default function TicTacToeView({
   onSetSquare,
 }) {
   return (
-    <PopoverHelp number={6} helperHeading={"Game Area"}
-      helperText={"After both players selected and confirmed their songs you can start the game. " +
-                   "The winner song will be added to the playlist to the playlist."}
-      horizontal={"center"} vertical={"center"}
-      helperImg={tictactoedemo}>
-      <div className="grid grid-cols-3 grid-rows-3 w-11/12 aspect-square mx-auto border-2 border-solid border-gray-900">
-        {squares.map((square, i) => {
-          const player = square || currentPlayer;
+    <div className="grid grid-cols-3 grid-rows-3 w-11/12 aspect-square mx-auto border-2 border-solid border-gray-900">
+      {squares.map((square, i) => {
+        const player = square || currentPlayer;
 
-          return (
-            <button
-              key={i}
-              className="bg-gray-700 border-solid border-2 border-gray-900 flex justify-center items-center group"
-              onClick={() => onSetSquare(i)}
-              disabled={!!square}
-            >
-              <img
-                className={cx([
-                  "border-solid border-4 w-3/4",
-                  player === LEFT_PLAYER && "border-blue-400 rounded-xl",
-                  player === RIGHT_PLAYER && "border-green-400 rounded-full",
-                  !square && "opacity-0 group-hover:opacity-50 transition-opacity"
-                ])}
-                src={player === LEFT_PLAYER ? leftIcon : rightIcon}
-                alt=""
-              />
-            </button>
-          );
-        })}
-      </div>
-    </PopoverHelp>
+        return (
+          <button
+            key={i}
+            className="bg-gray-700 border-solid border-2 border-gray-900 flex justify-center items-center group"
+            onClick={() => onSetSquare(i)}
+            disabled={!!square}
+          >
+            <img
+              className={cx([
+                "border-solid border-4 w-3/4",
+                player === LEFT_PLAYER && "border-blue-400 rounded-xl",
+                player === RIGHT_PLAYER && "border-green-400 rounded-full",
+                !square &&
+                  "opacity-0 group-hover:opacity-50 transition-opacity",
+              ])}
+              src={player === LEFT_PLAYER ? leftIcon : rightIcon}
+              alt=""
+            />
+          </button>
+        );
+      })}
+    </div>
   );
 }

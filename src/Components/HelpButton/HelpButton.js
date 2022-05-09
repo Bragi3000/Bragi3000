@@ -1,10 +1,10 @@
 import HelpButtonView from "./HelpButtonView"
 import {useDispatch, useSelector} from "react-redux";
-import { changePosition, toggleHelpActivity, selectHelpActive} from "Store/slices/helper";
+import { changePosition, toggleHelpActivity, selectCurrentHelpPopover} from "Store/slices/helper";
 import {useEffect} from "react";
 
 const HelpButton = function () {
-  const helpActive = useSelector(state => selectHelpActive(state));
+  const helpActive = useSelector(selectCurrentHelpPopover) !== null;
   const dispatch = useDispatch();
 
   /* eslint-disable */
