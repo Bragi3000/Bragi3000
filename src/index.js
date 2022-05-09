@@ -1,10 +1,10 @@
-import { createRoot } from "react-dom/client";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {createRoot} from "react-dom/client";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/database";
-import { Provider } from "react-redux";
-import { ReactReduxFirebaseProvider } from "react-redux-firebase";
+import {Provider} from "react-redux";
+import {ReactReduxFirebaseProvider} from "react-redux-firebase";
 
 import firebaseConfig from "Config/firebase";
 import store from "Store/store";
@@ -18,6 +18,7 @@ import AppPage from "Pages/AppPage/AppPage";
 import AppGamePage from "Pages/AppPage/AppGamePage/AppGamePage";
 
 import "./index.css";
+import NotFoundPage from "./Pages/NotFoundPage/NotFoundPage";
 import { IconContext } from "phosphor-react";
 
 firebase.initializeApp(firebaseConfig);
@@ -84,6 +85,12 @@ root.render(
                 <RequireAuthentication>
                   <SpotifyCallbackPage />
                 </RequireAuthentication>
+              }
+            />
+            <Route
+              path="*"
+              element={
+                <NotFoundPage/>
               }
             />
           </Routes>
