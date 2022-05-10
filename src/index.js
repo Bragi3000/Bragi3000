@@ -75,12 +75,7 @@ root.render(
               </RequireAuthentication>
             }
           />
-          <Route
-            path="*"
-            element={
-              <NotFoundPage/>
-            }
-          />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
     </IconContext.Provider>
