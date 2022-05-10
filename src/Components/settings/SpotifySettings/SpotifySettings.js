@@ -9,6 +9,7 @@ import {
 import SpotifySettingsView from "./SpotifySettingsView";
 import {selectPlaylistId} from "Store/slices/playlist";
 import {resetPlaylist} from "Services/Spotify/spotifyAPI";
+import {useState} from "react";
 
 /**
  * Settings section showing configuration for Spotify.
@@ -20,6 +21,7 @@ const SpotifySettings = function () {
   const expiryDate = useSelector(selectSpotifyTokenExpiryDate);
   const hasValidToken = useSelector(selectHasValidSpotifyToken);
   const playlistId = useSelector(selectPlaylistId);
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
   const handleLink = () => {
     const urlParams = new URLSearchParams({
@@ -49,6 +51,8 @@ const SpotifySettings = function () {
       onLink={handleLink}
       onUnlink={handleUnlink}
       onReset={resetSpotifyPlaylist}
+      showConfirmation={showConfirmation}
+      setShowConfirmation={setShowConfirmation}
     />
   );
 };
