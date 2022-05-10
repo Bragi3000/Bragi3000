@@ -8,12 +8,14 @@
  * @param onUnlink Event fired when the 'unlink Spotify account' button is pressed
  * @returns The view for the component
  */
+
 const SpotifySettingsView = function ({
   accessToken,
   expiryDate,
   hasValidToken,
   onLink,
   onUnlink,
+  onReset,
 }) {
   return (
     <div className="my-10">
@@ -61,6 +63,23 @@ const SpotifySettingsView = function ({
               onClick={() => onUnlink()}
             >
               {`Un-link your Spotify account`}
+            </button>
+          </>
+        )}
+      </p>
+      <br/>
+      <p className={"mt-3"}>
+        {accessToken && hasValidToken && (
+          <>
+            <span className="font-bold">
+              Time for a new party?
+            </span>
+            <br/>
+            <button
+              className="text-green-400 hover:underline mt-3"
+              onClick={onReset}
+            >
+              Reset playlist
             </button>
           </>
         )}
