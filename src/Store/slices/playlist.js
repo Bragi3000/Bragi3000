@@ -73,6 +73,14 @@ const playlist = createSlice({
      */
     appendBannedSongs: (state, {payload}) => {
       state.bannedSongs = [...state.bannedSongs, payload];
+    },
+    /**
+     * Action & reducer to set the banned songs
+     * @param state - The current state of the store
+     * @param payload - The banned songs to set
+     */
+    setBannedSongs: (state, {payload}) => {
+      state.bannedSongs = payload;
     }
 
   },
@@ -131,7 +139,7 @@ const playlist = createSlice({
   },
 });
 
-export const {setPlaylistId, setPlaylistSongs, appendBannedSongs} = playlist.actions;
+export const {setPlaylistId, setPlaylistSongs, appendBannedSongs, setBannedSongs} = playlist.actions;
 export default playlist.reducer;
 
 /**

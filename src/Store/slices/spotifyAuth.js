@@ -1,5 +1,6 @@
 /* eslint-disable indent */
 import { createSlice, createSelector } from "@reduxjs/toolkit";
+import {fetchPlaylistId, fetchPlaylistSongs, setPlaylistId} from "./playlist";
 
 /**
  * Initial state for {@link spotifyAuthSlice}
@@ -85,7 +86,13 @@ export const setSpotifyAuthData =
             : null,
       })
     );
-  };
+
+    dispatch(fetchPlaylistId({ accessToken })).unwrap().then(
+      (playlistId)=> {
+        dispatch(setPlaylistId(playlistId));
+        dispatch(fetchPlaylistSongs({ accessToken }))
+      });
+};
 
 /**
  * Base selector for this slice
