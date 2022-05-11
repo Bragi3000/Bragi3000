@@ -23,7 +23,7 @@ const initialState = {
   uri: null,
   is_playing: false,
   progress_ms: 0,
-  duration_ms: 42069,
+  duration_ms: 0,
   status: IDLE,
   requestId: null,
   error: "",
@@ -54,6 +54,12 @@ const playback = createSlice({
     setStartedPlaylist: (state, action) => {
       state.started_playlist = action.payload;
     },
+    /**
+     * Action & reducer to set the played songs.
+     */
+    setPlayedSongs: (state, action) => {
+      state.playedSongs = action.payload;
+    },
   },
   extraReducers: {
     /**
@@ -77,7 +83,9 @@ const playback = createSlice({
           state.progress_ms=payload.body.progress_ms;
           state.duration_ms=payload.body.item.duration_ms;
           state.uri=payload.body.item.uri;
-          state.playedSongs = [...state.playedSongs, payload.body.item.uri];
+          if (!state.playedSongs.includes(payload.body.item.uri)) {
+            state.playedSongs = [...state.playedSongs, payload.body.item.uri];
+          }
         }
       }
     },
@@ -94,7 +102,7 @@ const playback = createSlice({
   },
 });
 
-export const { togglePlayPause, setStartedPlaylist } = playback.actions;
+export const { togglePlayPause, setStartedPlaylist, setPlayedSongs } = playback.actions;
 export default playback.reducer;
 
 /**
