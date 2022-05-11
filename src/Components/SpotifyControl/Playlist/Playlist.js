@@ -6,7 +6,6 @@ import {
 import { useEffect } from "react";
 import { useDispatch, useSelector} from "react-redux";
 import { selectSpotifyAccessToken } from "Store/slices/spotifyAuth";
-import {contextSourcesMap} from "tailwindcss/lib/lib/sharedState";
 
 /**
  * Component that displays the playlist of the game.

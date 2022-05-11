@@ -1,8 +1,9 @@
 import persistSpotifyAuth from "./parts/spotifyAuth";
+import persistPlaylist from "./parts/playlist";
 import { get, getDatabase, off, onValue, ref } from "firebase/database";
 import { setFirebaseReady } from "Store/slices/auth";
 
-const persistors = [["spotifyAuth", persistSpotifyAuth]];
+const persistors = [["spotifyAuth", persistSpotifyAuth], ["playlist", persistPlaylist]];
 
 const enablePersistence = function (store, firebaseApp) {
   const db = getDatabase(firebaseApp);

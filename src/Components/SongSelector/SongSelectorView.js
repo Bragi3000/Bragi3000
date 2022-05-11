@@ -6,6 +6,10 @@ import cx from "Utils/classNames";
 import PopoverHelp from "../PopoverHelp/PopoverHelp";
 import songSearchPlayer1 from "Assets/images/songsearchPlayer1.gif";
 import songSearchPlayer2 from "Assets/images/songsearchPlayer2.gif";
+import {
+  HELP_SONG_SELECT_LEFT,
+  HELP_SONG_SELECT_RIGHT,
+} from "Constants/helpPopovers";
 
 /**
  * View that allows the user to search for and select songs.
@@ -16,7 +20,9 @@ import songSearchPlayer2 from "Assets/images/songsearchPlayer2.gif";
 const SongSelectorView = function ({ player, selectedSong, accessToken }) {
   return (
     <PopoverHelp
-      number={player === LEFT_PLAYER ? 4 : 5}
+      name={
+        player === LEFT_PLAYER ? HELP_SONG_SELECT_LEFT : HELP_SONG_SELECT_RIGHT
+      }
       helperHeading={"Song Selector"}
       helperText={
         "Search your song by entering the title or artist and remember to confirm your song."

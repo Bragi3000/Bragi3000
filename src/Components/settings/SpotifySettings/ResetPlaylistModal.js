@@ -1,4 +1,5 @@
 import ResetPlaylistModalView from "./ResetPlaylistModalView";
+import {infoToast} from "../../Toast/Toast";
 
 /**
  * Pop-up modal to confirm playlist reset
@@ -10,6 +11,7 @@ const ResetPlaylistModal = ({setShowConfirmation, onReset}) => {
   const onConfirm = () => {
     onReset();
     setShowConfirmation(false);
+    infoToast("Playlist has been reset");
   }
 
   const onCancel = () => {

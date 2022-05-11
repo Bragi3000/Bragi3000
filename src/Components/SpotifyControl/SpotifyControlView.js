@@ -13,7 +13,14 @@ import PopoverHelp from "../PopoverHelp/PopoverHelp";
 import devicedemo from "Assets/images/devicedemo.png";
 import playlistdemo from "Assets/images/playlistdemo.png";
 import songdemo from "Assets/images/songdemo.png";
+import banneddemo from "Assets/images/banneddemo.png";
 import BannedSongs from "./BannedSongs/BannedSongs";
+import {
+  HELP_BANNED_SONGS,
+  HELP_DEVICE_SELECTOR,
+  HELP_PLAYING_SONG,
+  HELP_PLAYLIST,
+} from "Constants/helpPopovers";
 
 /**
  * Controlbar for showing playback information and controlling it.
@@ -36,11 +43,17 @@ const SpotifyControlView = function ({
 
   return (
     <div className="h-28 px-5 py-3 bg-gray-900 flex space-x-3 items-center">
-      <PopoverHelp number={1}
-        helperText={"This section displays the cover, the title, and the artist of the currently played song."}
+      <PopoverHelp
+        name={HELP_PLAYING_SONG}
+        helperText={
+          "This section displays the cover, the title, and the artist of the currently played song."
+        }
         helperHeading={"Song and Cover"}
-        horizontal={"right"} vertical={"top"} helperImg={songdemo}>
-        <img className="h-full flex-none" src={imageSrc} alt="Album cover"/>
+        horizontal={"right"}
+        vertical={"top"}
+        helperImg={songdemo}
+      >
+        <img className="h-full flex-none" src={imageSrc} alt="Album cover" />
       </PopoverHelp>
       <div className="flex-auto flex flex-col">
         <span className="block"> {name} </span>
@@ -52,35 +65,60 @@ const SpotifyControlView = function ({
           color: "currentColor",
         }}
       >
-        <PopoverIcon icon={
-          <PopoverHelp number={2} helperHeading={"Device Selection"}
-            helperText={"This section allows you to select the device the music should be played on. " +
-              "Make sure a device is selected and shows the green play icon to start playing the game."}
-            helperImg={devicedemo} horizontal={"middle"} vertical={"top"}>
-            <DevicesIcon className="w-auto h-8"/>
-          </PopoverHelp>
-        }>
-          <DeviceSelector/>
+        <PopoverIcon
+          icon={
+            <PopoverHelp
+              name={HELP_DEVICE_SELECTOR}
+              helperHeading={"Device Selection"}
+              helperText={
+                "This section allows you to select the device the music should be played on. " +
+                "Make sure a device is selected and shows the green play icon to start playing the game."
+              }
+              helperImg={devicedemo}
+              horizontal={"middle"}
+              vertical={"top"}
+            >
+              <DevicesIcon className="w-auto h-8" />
+            </PopoverHelp>
+          }
+        >
+          <DeviceSelector />
         </PopoverIcon>
-        <PopoverIcon icon={
-          <PopoverHelp number={3}
-            helperHeading={"Playlist"}
-            helperText={"This section shows the upcoming songs in the playlist and the remaining playlist. " +
-              "You can also hover over a song to see when it will be played."}
-            helperImg={playlistdemo} horizontal={"middle"} vertical={"top"}>
-            <QueueIcon className="w-auto h-8"/>
-          </PopoverHelp>
-        }>
-          <Playlist/>
+        <PopoverIcon
+          icon={
+            <PopoverHelp
+              name={HELP_PLAYLIST}
+              helperHeading={"Playlist"}
+              helperText={
+                "This section shows the upcoming songs in the playlist and the remaining playlist. " +
+                "You can also hover over a song to see when it will be played."
+              }
+              helperImg={playlistdemo}
+              horizontal={"middle"}
+              vertical={"top"}
+            >
+              <QueueIcon className="w-auto h-8" />
+            </PopoverHelp>
+          }
+        >
+          <Playlist />
         </PopoverIcon>
-        <PopoverIcon icon={
-          <PopoverHelp number={4}
-            helperHeading={"Banned Songs"}
-            helperText={"This section shows the songs that cannot be chosen anymore."}
-            helperImg={playlistdemo} horizontal={"middle"} vertical={"top"}>
-            <TrashIcon className="w-auto h-8"/>
-          </PopoverHelp>
-        }>
+        <PopoverIcon
+          icon={
+            <PopoverHelp
+              name={HELP_BANNED_SONGS}
+              helperHeading={"Banned Songs"}
+              helperText={
+                "This section shows the songs that cannot be chosen anymore."
+              }
+              helperImg={banneddemo}
+              horizontal={"middle"}
+              vertical={"top"}
+            >
+              <TrashIcon className="w-auto h-8" />
+            </PopoverHelp>
+          }
+        >
           <BannedSongs />
         </PopoverIcon>
         <button className="block flex-none hover:text-gray-400">

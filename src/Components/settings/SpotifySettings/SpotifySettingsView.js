@@ -12,15 +12,15 @@
 import ResetPlaylistModal from "./ResetPlaylistModal";
 
 const SpotifySettingsView = function ({
-                                        accessToken,
-                                        expiryDate,
-                                        hasValidToken,
-                                        onLink,
-                                        onUnlink,
-                                        onReset,
-                                        showConfirmation,
-                                        setShowConfirmation
-                                      }) {
+  accessToken,
+  expiryDate,
+  hasValidToken,
+  onLink,
+  onUnlink,
+  onReset,
+  showConfirmation,
+  setShowConfirmation
+}) {
   return (
     <div className="my-10">
       <h1 className="text-3xl mb-3">Spotify</h1>

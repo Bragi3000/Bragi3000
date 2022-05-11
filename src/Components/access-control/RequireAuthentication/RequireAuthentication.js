@@ -2,6 +2,7 @@ import { Navigate } from "react-router";
 import WaitingView from "Components/WaitingView/WaitingView";
 import { useSelector } from "react-redux";
 import {
+  selectFirebaseAuthReady,
   selectFirebaseReady,
   selectUser,
 } from "Store/slices/auth";
@@ -13,13 +14,16 @@ import {
  */
 const RequireAuthentication = function ({ children, reverse = false }) {
   const user = useSelector(selectUser);
+  const authReady = useSelector(selectFirebaseAuthReady);
   const ready = useSelector(selectFirebaseReady);
 
-  if (!ready) return <WaitingView text="Waiting for Firebase" />;
+  if (!authReady) return <WaitingView text="Waiting for Firebase" />;
 
   if (!reverse && user.uid === null) return <Navigate replace to="/login" />;
 
   if (reverse && user.uid !== null) return <Navigate replace to="/app" />;
+
+  if (!reverse && !ready) return <WaitingView text="Waiting for Firebase" />;
 
   return children;
 };

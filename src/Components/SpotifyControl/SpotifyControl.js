@@ -13,6 +13,7 @@ import {
 } from "Store/slices/devices";
 import {selectPlaylistId} from "../../Store/slices/playlist";
 import { selectSpotifyAccessToken } from "Store/slices/spotifyAuth";
+import {infoToast} from "Components/Toast/Toast";
 
 /**
  * Controlbar for showing playback information and controlling it.
@@ -49,8 +50,7 @@ const SpotifyControl = function () {
         await startPlaylist(accessToken, playlistId);
         dispatch(setStartedPlaylist(true));
       } else {
-        // TODO
-        console.log("Please select a device to play music");
+        infoToast("Please select a a device first");
         return;
       }
     } else {

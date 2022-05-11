@@ -9,6 +9,7 @@ import LoginPage from "Pages/LoginPage/LoginPage";
 import SettingsPage from "Pages/SettingsPage/SettingsPage";
 import RequireAuthentication from "Components/access-control/RequireAuthentication/RequireAuthentication";
 import RequireSpotifyToken from "Components/access-control/RequireSpotifyToken/RequireSpotifyToken";
+import Toast from "./Components/Toast/Toast";
 import AppPage from "Pages/AppPage/AppPage";
 import AppGamePage from "Pages/AppPage/AppGamePage/AppGamePage";
 import NotFoundPage from "./Pages/NotFoundPage/NotFoundPage";
@@ -75,14 +76,10 @@ root.render(
               </RequireAuthentication>
             }
           />
-          <Route
-            path="*"
-            element={
-              <NotFoundPage/>
-            }
-          />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
+      <Toast/>
     </IconContext.Provider>
   </ReduxProvider>
 );
