@@ -1,4 +1,6 @@
+import About from "Components/settings/About/About";
 import AccountSettings from "Components/settings/AccountSettings/AccountSettings";
+import PlaylistSettings from "Components/settings/PlaylistSettings/PlaylistSettings";
 import SpotifySettings from "Components/settings/SpotifySettings/SpotifySettings";
 import { Link } from "react-router-dom";
 import useTitle from "Utils/useTitle";
@@ -17,8 +19,10 @@ const SettingsPage = function () {
           Close settings
         </Link>
       </div>
+      <PlaylistSettings />
       <AccountSettings />
       <SpotifySettings />
+      <About />
     </div>
   );
 };

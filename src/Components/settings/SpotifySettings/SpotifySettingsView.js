@@ -8,18 +8,12 @@
  * @param onUnlink Event fired when the 'unlink Spotify account' button is pressed
  * @returns The view for the component
  */
-
-import ResetPlaylistModal from "./ResetPlaylistModal";
-
 const SpotifySettingsView = function ({
   accessToken,
   expiryDate,
   hasValidToken,
   onLink,
   onUnlink,
-  onReset,
-  showConfirmation,
-  setShowConfirmation
 }) {
   return (
     <div className="my-10">
@@ -61,7 +55,7 @@ const SpotifySettingsView = function ({
         </button>
         {accessToken && (
           <>
-            <br/>
+            <br />
             <button
               className="text-green-400 hover:underline"
               onClick={() => onUnlink()}
@@ -71,25 +65,6 @@ const SpotifySettingsView = function ({
           </>
         )}
       </p>
-      <br/>
-      <p className={"mt-3"}>
-        {accessToken && hasValidToken && (
-          <>
-            <span className="font-bold">
-              Time for a new party?
-            </span>
-            <br/>
-            <button
-              className="text-green-400 hover:underline mt-3"
-              onClick={() => setShowConfirmation(true)}
-            >
-              Reset playlist
-            </button>
-
-          </>
-        )}
-      </p>
-      {showConfirmation && (<ResetPlaylistModal onReset={onReset} setShowConfirmation={setShowConfirmation}/>)}
     </div>
   );
 };
