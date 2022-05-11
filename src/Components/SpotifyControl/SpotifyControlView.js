@@ -13,6 +13,7 @@ import PopoverHelp from "../PopoverHelp/PopoverHelp";
 import devicedemo from "Assets/images/devicedemo.png";
 import playlistdemo from "Assets/images/playlistdemo.png";
 import songdemo from "Assets/images/songdemo.png";
+import banneddemo from "Assets/images/banneddemo.png";
 import BannedSongs from "./BannedSongs/BannedSongs";
 import {
   HELP_BANNED_SONGS,
@@ -110,7 +111,7 @@ const SpotifyControlView = function ({
               helperText={
                 "This section shows the songs that cannot be chosen anymore."
               }
-              helperImg={playlistdemo}
+              helperImg={banneddemo}
               horizontal={"middle"}
               vertical={"top"}
             >
