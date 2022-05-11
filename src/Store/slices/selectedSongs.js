@@ -1,6 +1,7 @@
 import { createSelector, createSlice } from "@reduxjs/toolkit";
 
 import { LEFT_PLAYER, RIGHT_PLAYER } from "Constants/players";
+import { selectBannedSongs } from "./playlist";
 
 /**
  * Initial state for {@link selectedSongsSlice}
@@ -107,4 +108,16 @@ export const selectSongIsAlreadyChosen = createSelector(
   selectOtherPlayer,
   (player, otherPlayer) =>
     otherPlayer.confirmed && player?.song?.id === otherPlayer?.song?.id
+);
+
+/**
+ * Selector for whether the song of a player has been banned before
+ * @param state The state of the complete store
+ * @param player The player to check the song for
+ */
+export const selectSongIsBanned = createSelector(
+  selectPlayer,
+  selectBannedSongs,
+  (player, bannedSongs) =>
+    bannedSongs.some((song) => song.id === player?.song?.id)
 );
