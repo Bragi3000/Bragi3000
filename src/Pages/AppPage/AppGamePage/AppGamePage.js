@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import HelpButton from "Components/HelpButton/HelpButton";
 import HelpModal from "../../../Components/PopoverHelp/HelpModal";
 import { LEFT_PLAYER, RIGHT_PLAYER } from "Constants/players";
+import Toast from "Components/Toast/Toast";
 
 const AppGamePage = function () {
   return (
@@ -24,6 +25,7 @@ const AppGamePage = function () {
         <SongSelector player={RIGHT_PLAYER}/>
       </div>
       <HelpModal/>
+      <Toast/>
     </>
   );
 };
