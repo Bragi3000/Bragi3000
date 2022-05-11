@@ -49,15 +49,14 @@ const SpotifyControl = function () {
       infoToast("Your playlist is still empty");
       return;
     }
+    if (!activeDevice) {
+      infoToast("Please select a a device first");
+      return;
+    }
     if (!playbackState.started_playlist && !playbackState.is_playing) {
-      if (activeDevice) {
-        // start playing bragi3000 playlist
-        await startPlaylist(accessToken, playlistId);
-        dispatch(setStartedPlaylist(true));
-      } else {
-        infoToast("Please select a a device first");
-        return;
-      }
+      // start playing bragi3000 playlist
+      await startPlaylist(accessToken, playlistId);
+      dispatch(setStartedPlaylist(true));
     } else {
       const togglePlayPauseFunc = playbackState.is_playing ? pauseSong : playSong;
       await togglePlayPauseFunc(accessToken);

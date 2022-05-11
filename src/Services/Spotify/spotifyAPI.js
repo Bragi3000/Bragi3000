@@ -1,6 +1,6 @@
 import SpotifyWebApi from "spotify-web-api-node";
 import bragi_icon_b64 from "Assets/images/bragi-icon-b64";
-import {errorToast} from "Components/Toast/Toast";
+import {errorToast, infoToast} from "Components/Toast/Toast";
 
 /**
  * Method which calls the spotify API to get information about the playback state of the authenticated user
@@ -230,8 +230,14 @@ function startPlaylist(accessToken, playlistId) {
  * @returns {Promise} - A promise that resolves when the device has been set
  */
 function setActiveDevice(accessToken, deviceId) {
-  return new SpotifyWebApi({accessToken}).transferMyPlayback([deviceId])
-    .catch(() => errorToast("Error while setting active device"));
+  new SpotifyWebApi({accessToken}).getMyCurrentPlaybackState().then(data => {
+    if (!(data.body && data.body.is_playing)) {
+      infoToast("No active playback, please start a random song on one device");
+    } else {
+      return new SpotifyWebApi({accessToken}).transferMyPlayback([deviceId])
+        .catch(() => errorToast("Error while setting active device"));
+    }
+  })
 }
 
 /**
