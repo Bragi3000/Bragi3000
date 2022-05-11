@@ -5,6 +5,7 @@ import {
   confirmSelectedSong,
   selectSelectedSong,
   selectSongIsAlreadyChosen,
+  selectSongIsBanned,
   selectSongIsConfirmed,
 } from "Store/slices/selectedSongs";
 import SelectedSongView from "./SelectedSongView";
@@ -19,9 +20,10 @@ const SelectedSong = connect(
     song: selectSelectedSong(state, player),
     isConfirmed: selectSongIsConfirmed(state, player),
     isAlreadyChosen: selectSongIsAlreadyChosen(state, player),
+    isBanned: selectSongIsBanned(state, player),
   }),
   (dispatch, { player }) => ({
-    onConfirm: () =>  {
+    onConfirm: () => {
       dispatch(confirmSelectedSong({ player }));
       dispatch(maybeStartGame());
     },
