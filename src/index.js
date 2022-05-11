@@ -11,7 +11,6 @@ import RequireAuthentication from "Components/access-control/RequireAuthenticati
 import RequireSpotifyToken from "Components/access-control/RequireSpotifyToken/RequireSpotifyToken";
 import Toast from "./Components/Toast/Toast";
 import AppPage from "Pages/AppPage/AppPage";
-import AppGamePage from "Pages/AppPage/AppGamePage/AppGamePage";
 import NotFoundPage from "./Pages/NotFoundPage/NotFoundPage";
 
 import "./index.css";
@@ -41,9 +40,7 @@ root.render(
                 </RequireSpotifyToken>
               </RequireAuthentication>
             }
-          >
-            <Route index element={<AppGamePage />} />
-          </Route>
+          />
           <Route
             path="/settings"
             element={
@@ -79,7 +76,7 @@ root.render(
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
-      <Toast/>
+      <Toast />
     </IconContext.Provider>
   </ReduxProvider>
 );
