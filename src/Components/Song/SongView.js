@@ -6,10 +6,11 @@ import cx from "Utils/classNames";
  * @param title Title of the song to display
  * @param artists List of artists of the song to display
  * @param image Source of the album cover to display
+ * @param extraInfo Extra info to show with the song
  * @param onClick (Optional) event fired when the song is clicked
  * @returns The view for the component
  */
-const SongView = function ({ title, artists, image, onClick }) {
+const SongView = function ({ title, artists, image, extraInfo, onClick }) {
   return (
     <div
       className={cx([
@@ -21,11 +22,13 @@ const SongView = function ({ title, artists, image, onClick }) {
       <img className="flex-none w-16 h-16" src={image} alt="" />
 
       <div className="flex-auto flex flex-col place-start overflow-hidden">
-        <span className="block nowrap-ellipsis">
-          {title}
-        </span>
-        <span className="block nowrap-ellipsis text-gray-400">{artists.join(", ")}</span>
+        <div className="nowrap-ellipsis">{title}</div>
+        <div className="nowrap-ellipsis text-gray-400">
+          {artists.join(", ")}
+        </div>
       </div>
+
+      {extraInfo && <div className="flex-none">{extraInfo}</div>}
     </div>
   );
 };

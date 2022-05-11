@@ -1,13 +1,12 @@
 import BannedSongsView from "./BannedSongsView";
-import {selectBannedSongs} from "Store/slices/playlist";
-import {useSelector} from "react-redux";
+import { selectBannedSongs } from "Store/slices/playlist";
+import { connect } from "react-redux";
 
 /**
- * Component that displays the playlist of the game.
+ * Component that displays the banned songs.
  */
-const BannedSongs = function () {
-  const bannedSongs = useSelector(state => selectBannedSongs(state));
-  return <BannedSongsView songs={bannedSongs}/>
-}
+const BannedSongs = connect((state) => ({
+  songs: selectBannedSongs(state),
+}))(BannedSongsView);
 
 export default BannedSongs;
