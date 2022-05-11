@@ -62,6 +62,7 @@ const setExpired = spotifyAuthSlice.actions.setExpired;
  */
 export default spotifyAuthSlice.reducer;
 
+let triggerFetchPlaylistId = false;
 /**
  * Action to set the Spotify authentication data
  * @param accessToken Spotify access token
@@ -86,12 +87,14 @@ export const setSpotifyAuthData =
             : null,
       })
     );
-
-    dispatch(fetchPlaylistId({ accessToken })).unwrap().then(
-      (playlistId)=> {
-        dispatch(setPlaylistId(playlistId));
-        dispatch(fetchPlaylistSongs({ accessToken }))
-      });
+    if (!triggerFetchPlaylistId) {
+      triggerFetchPlaylistId = true;
+      dispatch(fetchPlaylistId({ accessToken })).unwrap().then(
+        (playlistId)=> {
+          dispatch(setPlaylistId(playlistId));
+          dispatch(fetchPlaylistSongs({ accessToken }))
+        });
+    }
 };
 
 /**
