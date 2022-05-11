@@ -1,4 +1,4 @@
-import Song from "../Song/Song";
+import Song from "Components/Song/Song";
 
 /**
  * View showing a currently selected song.
