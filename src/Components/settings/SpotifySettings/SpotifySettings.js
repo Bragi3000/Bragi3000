@@ -7,7 +7,7 @@ import {
   selectSpotifyTokenExpiryDate,
 } from "Store/slices/spotifyAuth";
 import SpotifySettingsView from "./SpotifySettingsView";
-import {selectPlaylistId} from "Store/slices/playlist";
+import {selectPlaylistId, setBannedSongs} from "Store/slices/playlist";
 import {resetPlaylist} from "Services/Spotify/spotifyAPI";
 import {useState} from "react";
 
@@ -43,6 +43,7 @@ const SpotifySettings = function () {
 
   const resetSpotifyPlaylist = () => {
     resetPlaylist(accessToken, playlistId);
+    dispatch(setBannedSongs([]));
   }
 
   return (
