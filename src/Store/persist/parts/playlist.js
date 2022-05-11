@@ -1,5 +1,5 @@
 import { set } from "firebase/database";
-import {setBannedSongs, setPlaylistId} from "Store/slices/playlist";
+import {setBannedSongs} from "Store/slices/playlist";
 
 function arrayEquals(a, b) {
   return Array.isArray(a) &&
@@ -9,13 +9,10 @@ function arrayEquals(a, b) {
 }
 
 const toFirebase = function (state, prevState, dbRef) {
-  const playlistId = state.playlist.playlistId;
   const bannedSongs = state.playlist.bannedSongs;
 
-  if (playlistId !== prevState.playlist.playlistId ||
-    (!arrayEquals(bannedSongs, prevState.playlist.bannedSongs))) {
+  if (!arrayEquals(bannedSongs, prevState.playlist.bannedSongs)) {
     set(dbRef, {
-      playlistId,
       bannedSongs,
     });
   }
@@ -24,11 +21,8 @@ const toFirebase = function (state, prevState, dbRef) {
 const fromFirebase = function (state, dispatch, data) {
   if (
     data &&
-    data.playlistId &&
     data.bannedSongs &&
-    state.playlist.playlistId !== data.playlistId &&
     !arrayEquals(state.playlist.bannedSongs, data.bannedSongs)) {
-    dispatch(setPlaylistId(data.playlistId));
     dispatch(setBannedSongs(data.bannedSongs));
   }
 };
