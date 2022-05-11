@@ -30,6 +30,7 @@ const SpotifyControl = function () {
   const playbackState = useSelector(state => selectPlayback(state));
   const playlistId = useSelector(state => selectPlaylistId(state));
   const activeDevice = useSelector(state => selectActiveDevice(state));
+  const playlistSongs = useSelector(state => state.playlist.playlistSongs);
 
   /* eslint-disable */
   useEffect(() => {
@@ -44,6 +45,10 @@ const SpotifyControl = function () {
    * Callback function when the play/pause button is clicked
    */
   const handlePlay = async () => {
+    if (!playbackState.started_playlist && playlistSongs.length === 0) {
+      infoToast("Your playlist is still empty");
+      return;
+    }
     if (!playbackState.started_playlist && !playbackState.is_playing) {
       if (activeDevice) {
         // start playing bragi3000 playlist
