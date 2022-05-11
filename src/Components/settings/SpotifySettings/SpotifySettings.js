@@ -10,6 +10,7 @@ import SpotifySettingsView from "./SpotifySettingsView";
 import {selectPlaylistId, setBannedSongs} from "Store/slices/playlist";
 import {resetPlaylist} from "Services/Spotify/spotifyAPI";
 import {useState} from "react";
+import {setPlayedSongs} from "../../../Store/slices/playback";
 
 /**
  * Settings section showing configuration for Spotify.
@@ -44,6 +45,7 @@ const SpotifySettings = function () {
   const resetSpotifyPlaylist = () => {
     resetPlaylist(accessToken, playlistId);
     dispatch(setBannedSongs([]));
+    dispatch(setPlayedSongs([]));
   }
 
   return (
