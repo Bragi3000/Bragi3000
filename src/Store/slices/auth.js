@@ -41,6 +41,7 @@ const initialState = {
     email: null,
   },
 
+  firebaseAuthReady: false,
   firebaseReady: false,
 
   authenticate: {
@@ -63,6 +64,9 @@ const authSlice = createSlice({
     },
     resetStatus: (state) => {
       state.authenticate.status = IDLE;
+    },
+    setFirebaseAuthReady: (state) => {
+      state.firebaseAuthReady = true;
     },
     setFirebaseReady: (state) => {
       state.firebaseReady = true;
@@ -92,6 +96,7 @@ const authSlice = createSlice({
 
 export const resetAuthenticationStatus = authSlice.actions.resetStatus;
 const setUser = authSlice.actions.setUser;
+const setFirebaseAuthReady = authSlice.actions.setFirebaseAuthReady;
 export const setFirebaseReady = authSlice.actions.setFirebaseReady;
 
 export const listenToAuthenticationChanges =
@@ -101,6 +106,8 @@ export const listenToAuthenticationChanges =
 
     onAuthStateChanged(auth, (user) => {
       if (user) dispatch(setUser({ uid: user.uid, email: user.email }));
+
+      dispatch(setFirebaseAuthReady());
     });
   };
 
@@ -180,6 +187,11 @@ export const selectAuthenticationIsWaiting = createSelector(
 
 export const selectAuthenticationError = createSelector(selectAuth, (data) =>
   data.authenticate.status === REJECTED ? data.authenticate.error : null
+);
+
+export const selectFirebaseAuthReady = createSelector(
+  selectAuth,
+  (data) => data.firebaseAuthReady
 );
 
 export const selectFirebaseReady = createSelector(
