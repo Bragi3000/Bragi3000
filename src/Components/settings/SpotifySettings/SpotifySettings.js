@@ -1,5 +1,5 @@
 import spotifyConfig from "Config/spotify";
-import { useDispatch, useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {
   resetSpotifyAuthData,
   selectHasValidSpotifyToken,
@@ -7,6 +7,9 @@ import {
   selectSpotifyTokenExpiryDate,
 } from "Store/slices/spotifyAuth";
 import SpotifySettingsView from "./SpotifySettingsView";
+import {selectPlaylistId} from "Store/slices/playlist";
+import {resetPlaylist} from "Services/Spotify/spotifyAPI";
+import {useState} from "react";
 
 /**
  * Settings section showing configuration for Spotify.
@@ -17,6 +20,8 @@ const SpotifySettings = function () {
   const accessToken = useSelector(selectSpotifyAccessToken);
   const expiryDate = useSelector(selectSpotifyTokenExpiryDate);
   const hasValidToken = useSelector(selectHasValidSpotifyToken);
+  const playlistId = useSelector(selectPlaylistId);
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
   const handleLink = () => {
     const urlParams = new URLSearchParams({
@@ -36,11 +41,18 @@ const SpotifySettings = function () {
     dispatch(resetSpotifyAuthData());
   };
 
+  const resetSpotifyPlaylist = () => {
+    resetPlaylist(accessToken, playlistId);
+  }
+
   return (
     <SpotifySettingsView
-      {...{ accessToken, expiryDate, hasValidToken }}
+      {...{accessToken, expiryDate, hasValidToken}}
       onLink={handleLink}
       onUnlink={handleUnlink}
+      onReset={resetSpotifyPlaylist}
+      showConfirmation={showConfirmation}
+      setShowConfirmation={setShowConfirmation}
     />
   );
 };
