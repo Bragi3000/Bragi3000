@@ -1,5 +1,6 @@
 import SpotifyWebApi from "spotify-web-api-node";
 import bragi_icon_b64 from "Assets/images/bragi-icon-b64";
+import {errorToast} from "Components/Toast/Toast";
 
 /**
  * Method which calls the spotify API to get information about the playback state of the authenticated user
@@ -8,7 +9,8 @@ import bragi_icon_b64 from "Assets/images/bragi-icon-b64";
  * @returns {Promise} API response; example can be found in the link
  */
 function getPlaybackState(accessToken) {
-  return new SpotifyWebApi({accessToken}).getMyCurrentPlaybackState();
+  return new SpotifyWebApi({accessToken}).getMyCurrentPlaybackState()
+    .catch(() => errorToast("Error while fetching to playback-state"));
 }
 
 /**
@@ -19,7 +21,8 @@ function getPlaybackState(accessToken) {
  * @returns {Promise} API response; example can be found in the link
  */
 function addSongToQueue(accessToken, songUri) {
-  return new SpotifyWebApi({accessToken}).addToQueue(songUri);
+  return new SpotifyWebApi({accessToken}).addToQueue(songUri)
+    .catch(() => errorToast("Error while adding song to the queue"));
 }
 
 /**
@@ -29,7 +32,8 @@ function addSongToQueue(accessToken, songUri) {
  * @returns {Promise} API response; example can be found in the link
  */
 function pauseSong(accessToken) {
-  return new SpotifyWebApi({accessToken}).pause();
+  return new SpotifyWebApi({accessToken}).pause()
+    .catch(() => errorToast("Error while stopping the song"));
 }
 
 /**
@@ -39,7 +43,8 @@ function pauseSong(accessToken) {
  * @returns {Promise} API response; example can be found in the link
  */
 function playSong(accessToken) {
-  return new SpotifyWebApi({accessToken}).play();
+  return new SpotifyWebApi({accessToken}).play()
+    .catch(() => errorToast("Error while starting the song"));
 }
 
 /** A nice default in case the given query is empty */
@@ -59,7 +64,7 @@ const defaultSearchQuery = window.atob(
 async function searchSong(accessToken, searchQuery) {
   const response = await new SpotifyWebApi({accessToken}).searchTracks(
     searchQuery || defaultSearchQuery
-  );
+  ).catch(() => errorToast("Error while searching for songs"));
 
   return response.body.tracks?.items ?? [];
 }
@@ -75,7 +80,8 @@ const playlistName = "bragi3000"
  * @throws Will reject if the response status code is not 201
  */
 function getSpotifyUser(accessToken) {
-  return new SpotifyWebApi({accessToken}).getMe();
+  return new SpotifyWebApi({accessToken}).getMe()
+    .catch(() => errorToast("Error while getting the Spotify user"));
 }
 
 
@@ -87,7 +93,8 @@ function getSpotifyUser(accessToken) {
  * @returns {Promise} Promise for the list of playlists returned by the API
  */
 function getUserPlaylists(accessToken, userId) {
-  return new SpotifyWebApi({accessToken}).getUserPlaylists(userId);
+  return new SpotifyWebApi({accessToken}).getUserPlaylists(userId)
+    .catch(() => errorToast("Error while getting the user playlists"));
 }
 
 
@@ -98,7 +105,8 @@ function getUserPlaylists(accessToken, userId) {
  * @returns {Promise} Promise for the newly created playlist object returned by the API
  */
 function createPlaylist(accessToken) {
-  return new SpotifyWebApi({accessToken}).createPlaylist(playlistName, {'public': false});
+  return new SpotifyWebApi({accessToken}).createPlaylist(playlistName, {'public': false})
+    .catch(() => errorToast("Error while creating a playlist"));
 }
 
 /**
@@ -109,7 +117,8 @@ function createPlaylist(accessToken) {
  * @returns {Promise} Promise for the playlist object returned by the API
  */
 function getPlaylist(accessToken, playlistId) {
-  return new SpotifyWebApi({accessToken}).getPlaylist(playlistId);
+  return new SpotifyWebApi({accessToken}).getPlaylist(playlistId)
+    .catch(() => errorToast("Error while getting the playlists"));
 }
 
 /**
@@ -120,7 +129,8 @@ function getPlaylist(accessToken, playlistId) {
  * @returns {Promise} Promise for the songs added to the playlist
  */
 function addSongToPlaylist(accessToken, playlistId, trackUri) {
-  return new SpotifyWebApi({accessToken}).addTracksToPlaylist(playlistId, [trackUri]);
+  return new SpotifyWebApi({accessToken}).addTracksToPlaylist(playlistId, [trackUri])
+    .catch(() => errorToast("Error while adding songs to the playlists"));
 }
 
 /**
@@ -132,7 +142,8 @@ function addSongToPlaylist(accessToken, playlistId, trackUri) {
  * @returns {Promise} Promise for the songs deleted from the playlist
  */
 function removeSongsFromPlaylist(accessToken, playlistId, trackUris, snapshotId) {
-  return new SpotifyWebApi({accessToken}).removeTracksFromPlaylist(playlistId, trackUris, {snapshot_id: snapshotId});
+  return new SpotifyWebApi({accessToken}).removeTracksFromPlaylist(playlistId, trackUris, {snapshot_id: snapshotId})
+    .catch(() => errorToast("Error while removing songs to the playlists"));
 }
 
 /**
@@ -175,7 +186,7 @@ function getPlaylistSongs(accessToken, playlistId) {
   return getPlaylist(accessToken, playlistId).then(
     (resp) => {
       return resp.body.tracks.items.map(song => song.track);
-    })
+    }).catch(() => errorToast("Error while fetching playlist songs"));
 }
 
 /**
@@ -209,7 +220,7 @@ function startPlaylist(accessToken, playlistId) {
     offset: {
       position: 0
     }
-  });
+  }).catch(() => errorToast("Error while starting Bragi3000 playlist"));
 }
 
 /**
@@ -219,7 +230,8 @@ function startPlaylist(accessToken, playlistId) {
  * @returns {Promise} - A promise that resolves when the device has been set
  */
 function setActiveDevice(accessToken, deviceId) {
-  return new SpotifyWebApi({accessToken}).transferMyPlayback([deviceId]);
+  return new SpotifyWebApi({accessToken}).transferMyPlayback([deviceId])
+    .catch(() => errorToast("Error while setting active device"));
 }
 
 /**
@@ -232,7 +244,7 @@ function getAvailableDevices(accessToken) {
     (resp) => {
       return resp.body.devices;
     }
-  );
+  ).catch(() => errorToast("Error while getting available devices"));
 }
 
 /**
@@ -242,7 +254,8 @@ function getAvailableDevices(accessToken) {
  * @returns {Promise} Promise that resolves once picture is uploaded
  */
 function uploadPlaylistImage(accessToken, playlistId) {
-  return new SpotifyWebApi({accessToken}).uploadCustomPlaylistCoverImage(playlistId, bragi_icon_b64);
+  return new SpotifyWebApi({accessToken}).uploadCustomPlaylistCoverImage(playlistId, bragi_icon_b64)
+    .catch(() => errorToast("Error while uploading playlist image"));
 }
 
 
@@ -252,7 +265,8 @@ function uploadPlaylistImage(accessToken, playlistId) {
  * @returns {Promise} Promise that resolves once shuffle is turned off
  */
 function turnShuffleOff(accessToken) {
-  return new SpotifyWebApi({accessToken}).setShuffle(false);
+  return new SpotifyWebApi({accessToken}).setShuffle(false)
+    .catch(() => errorToast("Error while turning shuffle off"));
 }
 
 
