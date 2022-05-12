@@ -28,12 +28,6 @@ be banned from being added to the playlist/queue.
 - Better API error handling
 - Styling
 
-### Possible Improvements
-
-- Firebase reset user password
-- Current song progress bar (in Song controller)
-- Different spotify authentication mechanism (currently *Implicit Grant Flow* , alternative is *Authorization Code Flow
-  with PKCE extension*)
 
 ## Folder Structure
 
