@@ -1,49 +1,60 @@
 import persistSpotifyAuth from "./parts/spotifyAuth";
 import persistPlaylist from "./parts/playlist";
-import { get, getDatabase, off, onValue, ref } from "firebase/database";
+import { getDatabase, ref } from "firebase/database";
 import { setFirebaseReady } from "Store/slices/auth";
 
-const persistors = [["spotifyAuth", persistSpotifyAuth], ["playlist", persistPlaylist]];
+const persistors = [
+  ["spotifyAuth", persistSpotifyAuth],
+  ["playlist", persistPlaylist],
+];
 
 const enablePersistence = function (store, firebaseApp) {
   const db = getDatabase(firebaseApp);
   let prevState = store.getState();
+  let unsubs = [];
 
   store.subscribe(() => {
-    const state = store.getState();
-    const userUid = state.auth.user.uid;
+    const userUid = store.getState().auth.user.uid;
     const prevUid = prevState.auth.user.uid;
     const basePath = `users`;
 
     if (userUid && userUid === prevUid) {
       for (const [part, { toFirebase }] of persistors) {
-        toFirebase(state, prevState, ref(db, `${basePath}/${userUid}/${part}`));
+        toFirebase(
+          store.getState(),
+          prevState,
+          ref(db, `${basePath}/${userUid}/${part}`)
+        );
       }
     }
 
     if (prevUid && !userUid) {
-      for (const [part] of persistors) {
-        off(ref(db, `${basePath}/${prevUid}/${part}`));
-      }
+      unsubs.forEach((unsub) => unsub());
     }
 
     if (userUid && !prevUid) {
-      Promise.all(
-        persistors.map(async ([part, { fromFirebase }]) => {
-          await get(ref(db, `${basePath}/${userUid}/${part}`)).then(
-            (snapshot) => fromFirebase(state, store.dispatch, snapshot.val())
+      (async function () {
+        for (const [part, { fromFirebaseOnce }] of persistors) {
+          await fromFirebaseOnce(
+            store.getState(),
+            store.dispatch,
+            ref(db, `${basePath}/${userUid}/${part}`)
           );
+        }
 
-          onValue(ref(db, `${basePath}/${userUid}/${part}`), (snapshot) =>
-            fromFirebase(state, store.dispatch, snapshot.val())
-          );
-        })
-      ).then(() => {
         store.dispatch(setFirebaseReady());
-      });
+
+        unsubs = persistors.flatMap(([part, { fromFirebaseSub }]) =>
+          fromFirebaseSub(
+            store.getState(),
+            store.dispatch,
+            ref(db, `${basePath}/${userUid}/${part}`)
+          )
+        );
+      })();
     }
 
-    prevState = state;
+    prevState = store.getState();
   });
 };
 
