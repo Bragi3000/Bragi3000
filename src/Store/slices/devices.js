@@ -49,7 +49,16 @@ const initialState = {
 const devices = createSlice({
   name: "devices",
   initialState,
-  reducers: {},
+  reducers: {
+    /**
+     *  Action & reducer to set the active device
+     * @param state - The current state of the store
+     * @param payload - The active device to bet set
+     */
+    setActiveDeviceState: (state, {payload}) => {
+      state.active.data = payload
+    }
+  },
   extraReducers: {
     /**
      * Reducer for a pending fetchDevices request
@@ -111,7 +120,7 @@ const devices = createSlice({
 });
 
 export default devices.reducer;
-
+export const {setActiveDeviceState} = devices.actions;
 /**
  * Selector for devices in the playback state
  */

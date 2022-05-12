@@ -4,10 +4,12 @@ import {
   fetchDevices,
   selectDevices,
   setActiveDevice,
-  selectActiveDevice,
+  selectActiveDevice, setActiveDeviceState,
 } from "Store/slices/devices";
 import { selectSpotifyAccessToken } from "Store/slices/spotifyAuth";
 import DeviceSelectorView from "./DeviceSelectorView";
+import {selectPlaylistId} from "Store/slices/playlist";
+
 
 /**
  * A list of Spotify devices from which the active device can be chosen.
@@ -29,10 +31,11 @@ const DeviceSelector = function () {
 
   const devices = useSelector((state) => selectDevices(state));
   const activeDeviceId = useSelector((state) => selectActiveDevice(state));
+  const playlistId = useSelector((state) => selectPlaylistId(state));
 
   const handleSelectDeviceId = async (deviceId) => {
-    await dispatch(setActiveDevice({ accessToken, deviceId })).unwrap();
-    await dispatch(fetchDevices({ accessToken })).unwrap();
+    await dispatch(setActiveDevice({ accessToken, deviceId, playlistId })).unwrap();
+    await dispatch(setActiveDeviceState(deviceId));
   };
 
   return (
