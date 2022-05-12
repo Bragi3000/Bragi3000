@@ -34,8 +34,9 @@ const DeviceSelector = function () {
   const playlistId = useSelector((state) => selectPlaylistId(state));
 
   const handleSelectDeviceId = async (deviceId) => {
-    await dispatch(setActiveDevice({ accessToken, deviceId, playlistId })).unwrap();
-    await dispatch(setActiveDeviceState(deviceId));
+    const success = await dispatch(setActiveDevice({ accessToken, deviceId, playlistId })).unwrap();
+    if (success) await dispatch(setActiveDeviceState(deviceId));
+    await dispatch(fetchDevices({accessToken}));
   };
 
   return (

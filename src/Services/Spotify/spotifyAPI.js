@@ -236,9 +236,9 @@ function setActiveDevice(accessToken, deviceId, playlistId) {
   new SpotifyWebApi({accessToken}).getMyCurrentPlaybackState().then(data => {
     if (!(data.body && data.body.is_playing) && playlistId) {
       // if no active playback, start bragi playlist on selected device
-      return startPlaylist(accessToken, playlistId, deviceId);
+      return startPlaylist(accessToken, playlistId, deviceId).then(()=>true);
     } else {
-      return new SpotifyWebApi({accessToken}).transferMyPlayback([deviceId])
+      return new SpotifyWebApi({accessToken}).transferMyPlayback([deviceId]).then(()=>true)
         .catch(() => errorToast("Error while setting active device"));
     }
   })
