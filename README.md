@@ -12,18 +12,15 @@ be banned from being added to the playlist/queue.
 
 ## Finished Features
 
+- Visually appealing landing Page
 - Firebase and Spotify authentication
 - Song controller ( shows current playing song on spotify and can pause/resume it )
 - Song selector ( allows users to search and select a song they want to battle for )
 - MiniGame ( tic tac toe as a way to battle for which song gets added )
-
-## Planned Features
-
-- Visually appealing landing Page
 - Spotify playlist/queue Component
 - MiniGame song handling
   - Adding winning song to playlist/queue
-  - Banning lost song from being added again for *x* seconds
+  - Banning lost song from being added until *party reset*
   - Save winning and losing song to state
 - Components for winner and loser song from state
 - Wiring component functionality (e.g. song selector reset when a game is won)
@@ -31,12 +28,6 @@ be banned from being added to the playlist/queue.
 - Better API error handling
 - Styling
 
-### Low Priority Features
-
-- Firebase reset user password
-- Current song progress bar (in Song controller)
-- Different spotify authentication mechanism (currently *Implicit Grant Flow* , alternative is *Authorization Code Flow
-  with PKCE extension*)
 
 ## Folder Structure
 
@@ -44,13 +35,14 @@ This project uses a specific structure to everything has a (semi-)logical place 
 following folders:
 
 | Folder            | Description                                                          |
-| ----------------- | -------------------------------------------------------------------- |
+|-------------------|----------------------------------------------------------------------|
 | `/build`          | Will contain the build output of Bragi 3000 after a production build |
 | `/public`         | Contains the base HTML and general assets                            |
 | `/src`            | Scripts and required imports, sub-divided into categories            |
 | `/src/Assets`     | Assets used by the scripts, such as images, audio, etc.              |
 | `/src/Components` | Components with presenter and views grouped together in folders      |
 | `/src/Config`     | Configuration files (example files should be copied and filled in)   |
+| `/src/Constants`  | Constants for different components                                   |
 | `/src/Pages`      | Components for each of the pages of the application                  |
 | `/src/Services`   | Functions for communicating with services through their API          |
 | `/src/Store`      | Scripts relating to the application state (and its persistence)      |
