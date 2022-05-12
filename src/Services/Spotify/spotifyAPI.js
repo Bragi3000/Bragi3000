@@ -1,6 +1,6 @@
 import SpotifyWebApi from "spotify-web-api-node";
 import bragi_icon_b64 from "Assets/images/bragi-icon-b64";
-import {errorToast, infoToast} from "Components/Toast/Toast";
+import {errorToast} from "Components/Toast/Toast";
 
 /**
  * Method which calls the spotify API to get information about the playback state of the authenticated user
@@ -211,12 +211,14 @@ function resetPlaylist(accessToken, playlistId) {
  * Function to start the bragi3000 playlist.
  * @param accessToken {string} - The access token to use
  * @param playlistId - The id of the playlist to start
+ * @param deviceId - Device to start the playlist on
  * @returns {Promise} - A promise that resolves when the playlist has started
  */
-function startPlaylist(accessToken, playlistId) {
-  turnShuffleOff(accessToken);
+function startPlaylist(accessToken, playlistId, deviceId) {
+  turnShuffleOff(accessToken, deviceId);
   return new SpotifyWebApi({accessToken}).play({
     context_uri: `spotify:playlist:${playlistId}`,
+    device_id: deviceId,
     offset: {
       position: 0
     }
@@ -227,12 +229,14 @@ function startPlaylist(accessToken, playlistId) {
  * Function to set the current playback device.
  * @param accessToken - The access token to use
  * @param deviceId - The id of the device to set as the current playback device
+ * @param playlistId - Playlist where the playback will be started on
  * @returns {Promise} - A promise that resolves when the device has been set
  */
-function setActiveDevice(accessToken, deviceId) {
+function setActiveDevice(accessToken, deviceId, playlistId) {
   new SpotifyWebApi({accessToken}).getMyCurrentPlaybackState().then(data => {
-    if (!(data.body && data.body.is_playing)) {
-      infoToast("No active playback, please start a random song on one device");
+    if (!(data.body && data.body.is_playing) && playlistId) {
+      // if no active playback, start bragi playlist on selected device
+      return startPlaylist(accessToken, playlistId, deviceId);
     } else {
       return new SpotifyWebApi({accessToken}).transferMyPlayback([deviceId])
         .catch(() => errorToast("Error while setting active device"));
@@ -268,11 +272,12 @@ function uploadPlaylistImage(accessToken, playlistId) {
 /**
  * Turn off shuffle
  * @param accessToken - The access token to use
+ * @param deviceId - Device to turn shuffle off
  * @returns {Promise} Promise that resolves once shuffle is turned off
  */
-function turnShuffleOff(accessToken) {
-  return new SpotifyWebApi({accessToken}).setShuffle(false)
-    .catch(() => errorToast("Error while turning shuffle off"));
+function turnShuffleOff(accessToken, deviceId) {
+  return new SpotifyWebApi({accessToken}).setShuffle(false, {device_id: deviceId})
+    .catch(() => null);
 }
 
 

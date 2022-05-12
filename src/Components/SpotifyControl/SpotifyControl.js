@@ -9,7 +9,7 @@ import {
   togglePlayPause
 } from "Store/slices/playback";
 import {
-  selectActiveDevice
+  selectActiveDevice, setActiveDeviceState
 } from "Store/slices/devices";
 import {selectPlaylistId} from "../../Store/slices/playlist";
 import { selectSpotifyAccessToken } from "Store/slices/spotifyAuth";
@@ -45,7 +45,7 @@ const SpotifyControl = function () {
    * Callback function when the play/pause button is clicked
    */
   const handlePlay = async () => {
-    if (!playbackState.started_playlist && playlistSongs.length === 0) {
+    if (!playbackState.is_playing && !playbackState.started_playlist && playlistSongs.length === 0) {
       infoToast("Your playlist is still empty");
       return;
     }
@@ -55,7 +55,8 @@ const SpotifyControl = function () {
     }
     if (!playbackState.started_playlist && !playbackState.is_playing) {
       // start playing bragi3000 playlist
-      await startPlaylist(accessToken, playlistId);
+      await startPlaylist(accessToken, playlistId, activeDevice);
+      await dispatch(setActiveDeviceState(activeDevice));
       dispatch(setStartedPlaylist(true));
     } else {
       const togglePlayPauseFunc = playbackState.is_playing ? pauseSong : playSong;
